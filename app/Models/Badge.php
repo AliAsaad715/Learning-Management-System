@@ -12,4 +12,9 @@ class Badge extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

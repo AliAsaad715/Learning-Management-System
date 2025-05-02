@@ -46,6 +46,11 @@ class Course extends Model
         return $this->belongsToMany(Topic::class);
     }
 
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
+    
     protected static function boot()
     {
         parent::boot();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\LevelEnum;
+use App\Models\Admin;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->timestamp('publishing_request_date')->useCurrent();
             $table->datetime('publishing_date')->nullable();
             $table->boolean('published')->default(false);
+            $table->foreignIdFor(Admin::class)->constrained()->nullOnDelete();
             $table->boolean('has_certificate')->default(false);
             $table->unsignedSmallInteger('total_quizes')->default(0);
         });

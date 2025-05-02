@@ -5,7 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\EducationEnum;
-use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -17,24 +16,10 @@ class User extends Authenticatable
     public $timestamps = false;
     
     protected $casts = [
-        'role' => RoleEnum::class,
         'education' => EducationEnum::class
     ];
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'job_title_id',
-        'email',
-        'password',
-        'profile_image_url',
-        'country_id',
-        'education',
-        'university',
-        'speciality',
-        'work_experience',
-        'linked_in_url',
-        'role'  
     ];
 
     /**
@@ -60,6 +45,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
 
     public function languages()
     {
