@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignIdFor(Course::class)->constrained()->cascadeOnDelete();
-            $table->unique(['course_id', 'user_id']);
+            $table->unique(['course_id', 'student_id']);
             $table->unsignedSmallInteger('progress')->default(0);
             $table->double('perc_progress')->default(0);
             $table->unsignedSmallInteger('num_of_completed_quizes')->default(0);

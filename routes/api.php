@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\QuestionController;
@@ -18,9 +19,11 @@ Route::get('/user', function (Request $request) {
 Route::controller(AuthController::class)->prefix('users')->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
-    Route::get('logout', 'logout');
-    Route::post('reset-password', 'resetPassword');
-    Route::delete('delete/{id}', 'deleteUser');
+    Route::middleware('auth:api')->group(function () {
+        Route::post('logout', 'logout');
+        Route::post('reset-password', 'resetPassword');
+        Route::delete('delete/{id}', 'deleteUser');
+    });
 });
 
 Route::controller(UserController::class)->group(function () {
@@ -34,3 +37,4 @@ Route::apiResource('comments', CommentController::class);
 Route::apiResource('replies', ReplyController::class);
 Route::apiResource('quizzes', QuizController::class);
 Route::apiResource('questions', QuestionController::class);
+Route::get('countries', [CountryController::class, 'index']);

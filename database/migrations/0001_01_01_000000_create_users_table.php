@@ -19,7 +19,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Person::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(JobTitle::class)->constrained()->nullOnDelete()->nullable();
+            $table->foreignIdFor(JobTitle::class)->nullable()->constrained()->nullOnDelete();
             $table->foreignIdFor(Country::class)->constrained();
             $table->string('linked_in_url', )->nullable();
             $table->enum('education',EducationEnum::values())->default(EducationEnum::NONE);
