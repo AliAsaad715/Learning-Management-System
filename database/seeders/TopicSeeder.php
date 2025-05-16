@@ -16,6 +16,10 @@ class TopicSeeder extends Seeder
         $topics = [
             // Category 1: Mathematics and Sciences
             ['title' => 'Mathematics', 'category_id' => 1],
+            ['title' => 'Science', 'category_id' => 1],
+            ['title' => 'History', 'category_id' => 1],
+            ['title' => 'Literature','category_id' => 1],
+            ['title' => 'Engineering', 'category_id' => 1],
             ['title' => 'Algebra', 'category_id' => 1],
             ['title' => 'Geometry', 'category_id' => 1],
             ['title' => 'Calculus', 'category_id' => 1],
@@ -27,9 +31,11 @@ class TopicSeeder extends Seeder
             ['title' => 'Astronomy', 'category_id' => 1],
         
             // Category 2: Computer Science and Technology
+            ['title' => 'Computer Sience', 'category_id' => 2],
             ['title' => 'Programming Fundamentals', 'category_id' => 2],
             ['title' => 'Web Development', 'category_id' => 2],
             ['title' => 'Mobile App Development', 'category_id' => 2],
+            ['title' => 'Problem Solving', 'category_id' => 2],
             ['title' => 'Data Science', 'category_id' => 2],
             ['title' => 'Machine Learning', 'category_id' => 2],
             ['title' => 'Artificial Intelligence', 'category_id' => 2],
@@ -37,6 +43,8 @@ class TopicSeeder extends Seeder
             ['title' => 'Cloud Computing', 'category_id' => 2],
             ['title' => 'Blockchain', 'category_id' => 2],
             ['title' => 'Game Development', 'category_id' => 2],
+            ['title' => 'UI/UX Design', 'category_id' => 2],
+            ['title' => 'DevOps', 'category_id' => 2],
         
             // Category 3: Humanities and Social Sciences
             ['title' => 'World History', 'category_id' => 3],
@@ -52,11 +60,10 @@ class TopicSeeder extends Seeder
         
             // Category 4: Business and Professional Development
             ['title' => 'Entrepreneurship', 'category_id' => 4],
+            ['title' => 'Marketing', 'category_id' => 4],
             ['title' => 'Digital Marketing', 'category_id' => 4],
             ['title' => 'Financial Literacy', 'category_id' => 4],
-            ['title' => 'Leadership', 'category_id' => 4],
             ['title' => 'Project Management', 'category_id' => 4],
-            ['title' => 'Public Speaking', 'category_id' => 4],
             ['title' => 'Business Communication', 'category_id' => 4],
             ['title' => 'Human Resources', 'category_id' => 4],
             ['title' => 'Accounting', 'category_id' => 4],
@@ -73,6 +80,8 @@ class TopicSeeder extends Seeder
             ['title' => 'Interior Design', 'category_id' => 5],
             ['title' => 'Fashion Design', 'category_id' => 5],
             ['title' => 'Architecture', 'category_id' => 5],
+            ['title' => '3D Modeling', 'category_id' => 5],
+            ['title' => 'Game Design', 'category_id' => 5],
         
             // Category 6: Languages and Linguistics
             ['title' => 'English Language', 'category_id' => 6],
@@ -100,6 +109,13 @@ class TopicSeeder extends Seeder
         
             // Category 8: Life Skills and Personal Development
             ['title' => 'Time Management', 'category_id' => 8],
+            ['title' => 'Public Speaking', 'category_id' => 8],
+            ['title' => 'Research Methods', 'category_id' => 8],
+            ['title' => 'Data Analysis', 'category_id' => 8],
+            ['title' => 'Design Thinking', 'category_id' => 8],
+            ['title' => 'Leadership', 'category_id' => 8],
+            ['title' => 'Collaboration', 'category_id' => 8],
+            ['title' => 'Writing', 'category_id' => 8],
             ['title' => 'Mindfulness', 'category_id' => 8],
             ['title' => 'Nutrition', 'category_id' => 8],
             ['title' => 'Fitness', 'category_id' => 8],

@@ -112,4 +112,6 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+
+    'admin_secret' => env('ADMIN_SECRET', 'Learn Man Sys ADMINS'),  
 ];

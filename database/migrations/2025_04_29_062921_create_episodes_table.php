@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Course::class)->constrained()->cascadeOnDelete();
             $table->string('title', 100);
+            $table->string('video_url');
             $table->unsignedInteger('views')->default(0);
             $table->unsignedInteger('likes')->default(0);
             $table->double('rate')->nullable();

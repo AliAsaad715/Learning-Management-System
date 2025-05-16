@@ -2,6 +2,7 @@
 
 use App\Enums\LevelEnum;
 use App\Models\Language;
+use App\Models\MoreDetail;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,9 +18,9 @@ return new class extends Migration
         Schema::create('language_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Language::class)->constrained();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->unique(['language_id', 'user_id']);
-            $table->enum('level', LevelEnum::values()); 
+            $table->foreignIdFor(MoreDetail::class)->constrained();
+            $table->unique(['language_id', 'more_detail_id']);
+            $table->enum('level', LevelEnum::values());
         });
     }
 

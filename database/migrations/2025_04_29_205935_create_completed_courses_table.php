@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MoreDetail;
 use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -16,7 +17,7 @@ return new class extends Migration
         Schema::create('completed_courses', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Topic::class)->constrained();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained();
             $table->unique('topic_id', 'user_id');
             $table->unsignedSmallInteger('progress')->default(0);
         });

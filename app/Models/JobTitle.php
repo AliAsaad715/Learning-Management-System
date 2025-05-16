@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class JobTitle extends Model
 {
     public $timestamps = false;
-    
-    public function users()
+
+    public function moreDetails()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(MoreDetail::class);
     }
 }

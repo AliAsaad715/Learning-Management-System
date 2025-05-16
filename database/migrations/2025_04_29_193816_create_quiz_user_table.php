@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MoreDetail;
 use App\Models\Quiz;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -16,7 +17,7 @@ return new class extends Migration
         Schema::create('quiz_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Quiz::class)->constrained();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained();
             $table->unsignedTinyInteger('mark');
             $table->boolean('success');
             $table->timestamp('quiz_submission_date')->useCurrent();

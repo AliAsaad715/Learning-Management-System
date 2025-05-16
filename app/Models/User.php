@@ -4,39 +4,39 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Enums\EducationEnum;
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
- 
+    use HasFactory, Notifiable, SoftDeletes;
+
     public $timestamps = false;
-    
-    protected $casts = [
-        'education' => EducationEnum::class
-    ];
+
+
 
     protected $fillable = [
+        'first_name',
+        'last_name',
+        'profile_image_url',
+        'email',
+        'password',
+        'role',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    protected $casts = [
+        'role' => RoleEnum::class,  
+    ];
+
+
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -45,44 +45,34 @@ class User extends Authenticatable
         ];
     }
 
-    public function person()
+    public function moreDetail()
     {
-        return $this->belongsTo(Person::class);
+        return $this->hasOne(MoreDetail::class);
     }
 
-    public function languages()
+    public function adminBadges()
     {
-        return $this->belongsToMany(Language::class);
+        return $this->hasMany(Badge::class);
     }
 
-    public function skills()
+    public function adminCourses()
     {
-        return $this->belongsToMany(Skill::class);
+        return $this->hasMany(Course::class);
     }
 
-    public function job_title()
-    {
-        return $this->belongsTo(JobTitle::class);
-    }
-
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
-    public function published_courses()
+      public function published_courses()
     {
         return $this->hasMany(Course::class, 'teacher_id');
     }
 
     public function followed_courses()
     {
-        return $this->belongsToMany(Course::class, 'student_id');
+        return $this->belongsToMany(Course::class, 'course_user', 'student_id');
     }
 
     public function statistics()
     {
-        return $this->belongsToMany(Statistic::class);
+        return $this->belongsToMany(Statistic::class)->withPivot('progress');
     }
 
     public function badges()
@@ -104,7 +94,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class);
     }
-
 
     public function topics()
     {

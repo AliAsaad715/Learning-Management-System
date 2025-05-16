@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Language extends Model
 {
     public $timestamps = false;
-    
-    public function users()
+
+    public function moreDetails()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(MoreDetail::class, 'language_user');
     }
 }

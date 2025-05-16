@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MoreDetail;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -16,8 +17,8 @@ return new class extends Migration
         Schema::create('skill_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Skill::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
-            $table->unique(['skill_id', 'user_id']);
+            $table->foreignIdFor(MoreDetail::class)->constrained();
+            $table->unique(['skill_id', 'more_detail_id']);
         });
     }
 

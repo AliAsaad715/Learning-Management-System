@@ -15,13 +15,14 @@ return new class extends Migration
         Schema::create('course_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('student_id')->references('id')->on('MoreDetail');
             $table->foreignIdFor(Course::class)->constrained()->cascadeOnDelete();
             $table->unique(['course_id', 'user_id']);
             $table->unsignedSmallInteger('progress')->default(0);
             $table->double('perc_progress')->default(0);
             $table->unsignedSmallInteger('num_of_completed_quizes')->default(0);
             $table->timestamp('purchase_date')->useCurrent();
+            $table->tinyInteger('rate')->nullable();
         });
     }
 

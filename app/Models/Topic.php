@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     public $timestamps = false;
-    
+
     public function courses()
     {
         return $this->hasMany(Course::class);
@@ -22,5 +22,4 @@ class Topic extends Model
     {
         return $this->belongsToMany(User::class, 'completed_courses');
     }
-
 }

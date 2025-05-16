@@ -8,7 +8,7 @@ class Category extends Model
 {
     public $timestamps = false;
     
-    public function categories()
+    public function topics()
     {
         return $this->hasMany(Topic::class);
     }

@@ -8,6 +8,7 @@ enum LevelEnum : string
     case INTERMEDIATE = 'intermediate';
     case ADVANCED = 'advanced';
     case EXPERT = 'expert'; 
+    case MOTHER_TONGUE = 'mother_tongue';
 
     public static function values(): array
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\MoreDetail;
 use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -15,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('statistic_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Statistic::class)->constrained();
             $table->unique(['statistic_id', 'user_id']);
             $table->unsignedSmallInteger('progress')->default(0);

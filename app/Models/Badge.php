@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Badge extends Model
 {
     public $timestamps = false;
-    
+
+    protected $fillable = [
+        'group',
+        'level',
+        'description',
+        'goal',
+        'image_url',
+        'admin_id'
+    ];
+
     public function users()
     {
         return $this->belongsToMany(User::class);
@@ -15,6 +24,6 @@ class Badge extends Model
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(User::class);
     }
 }

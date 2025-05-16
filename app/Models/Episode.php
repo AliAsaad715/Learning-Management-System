@@ -20,6 +20,6 @@ class Episode extends Model
 
     public function quiz()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->hasOne(Quiz::class);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Badge;
+use App\Models\MoreDetail;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +17,7 @@ return new class extends Migration
         Schema::create('badge_user', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Badge::class)->constrained();
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained();
             $table->unique(['badge_id', 'user_id']);
             $table->timestamp('grant_date')->useCurrent();
         });
