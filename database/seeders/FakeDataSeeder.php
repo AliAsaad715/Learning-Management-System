@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
-use App\Models\Course;
+
 use App\Models\MoreDetail;
-use App\Models\Person;
-use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
