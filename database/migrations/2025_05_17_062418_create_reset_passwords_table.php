@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\MoreDetail;
-use App\Models\Skill;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('skill_user', function (Blueprint $table) {
+        Schema::create('reset_passwords', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Skill::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(MoreDetail::class)->constrained();
-            $table->unique(['skill_id', 'more_detail_id']);
+            $table->string('email')->index();
+            $table->string('code');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('skill_user');
+        Schema::dropIfExists('reset_passwords');
     }
 };

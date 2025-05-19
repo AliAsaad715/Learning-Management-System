@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('profile_image_url')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('otp_code')->nullable();
+            $table->dateTime('expire_at')->nullable();
             $table->enum('role', RoleEnum::values());
             $table->timestamp('join_date')->useCurrent();
             $table->timestamp('email_verified_at')->nullable();

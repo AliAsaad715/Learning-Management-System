@@ -26,7 +26,6 @@ return new class extends Migration
             $table->string('speciality')->nullable();
             $table->text('work_experience', 1000)->nullable();
             $table->boolean('is_banned')->default(false);
-
         });
     }
 

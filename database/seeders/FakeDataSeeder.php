@@ -55,16 +55,16 @@ class FakeDataSeeder extends Seeder
             'education' => 'none',
         ]);
 
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizes') VALUES
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizzes') VALUES
         ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', '2', '1', 'beginner', '23', '0', '20', '2004-08-23', '2005-08-23', 'true', '1', 'false', '0');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizes') VALUES
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizzes') VALUES
         ('2', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', '2', '1', 'intermediate', '19', '0', '10', '2004-08-23', '2005-08-23', 'true', '1', 'false', '2');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizes') VALUES
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizzes') VALUES
         ('3', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', '2', '1', 'advanced', '40', '0', '34', '2004-08-23', '2005-08-23', 'true', '1', 'false', '5');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizes') VALUES
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizzes') VALUES
         ('4', 'Laravel for experts', 'Laravel course that explains experts concepts of back-end', '2', '1', 'expert', '33', '0', '53', '2004-08-23', '2005-08-23', 'true', '1', 'false', '8');
         ");
     }

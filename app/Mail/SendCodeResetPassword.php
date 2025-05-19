@@ -3,22 +3,23 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class WelcomeUser extends Mailable
+class SendCodeResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $code;
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct($code)
     {
-        $this->user = $user;
+        $this->code = $code;
     }
 
     /**
@@ -27,7 +28,7 @@ class WelcomeUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome to ' . config('app.name') . '!',
+            subject: 'Your Password Reset Code',
         );
     }
 
@@ -37,7 +38,7 @@ class WelcomeUser extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.welcome',
+            markdown: 'emails.send-code-reset-password',
         );
     }
 

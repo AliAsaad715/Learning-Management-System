@@ -1,9 +1,7 @@
 <?php
 
 use App\Enums\LevelEnum;
-use App\Models\Admin;
 use App\Models\Topic;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -33,7 +31,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('users');
             $table->boolean('has_certificate')->default(false);
-            $table->unsignedSmallInteger('total_quizes')->default(0);
+            $table->unsignedSmallInteger('total_quizzes')->default(0);
         });
     }
 
