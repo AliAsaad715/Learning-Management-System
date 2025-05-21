@@ -28,12 +28,10 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'string|max:50|regex:/^[\pL\s]+$/u',
-            'last_name' => 'string|max:50|regex:/^[\pL\s]+$/u',
-            'profile_image_url' => 'image|mimes:jpeg,png,bmp,jpg,gif,svg|max:2048',
-            'password' => ['confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
-            'country_id' =>  'exists:countries,id',
-            'languages' =>  'array',
+            'first_name' => 'required|string|max:50|regex:/^[\pL\s]+$/u',
+            'last_name' => 'required|string|max:50|regex:/^[\pL\s]+$/u',
+            'country_id' =>  'required|exists:countries,id',
+            'languages' =>  'array|required',
             'languages.*.language_id' => 'exists:languages,id|distinct',
             'languages.*.level' => Rule::in(LevelEnum::values()),
             'job_title_id' => 'exists:job_titles,id',
@@ -42,6 +40,8 @@ class ProfileRequest extends FormRequest
             'university' => 'string|max:50',
             'speciality' => 'string|max:50',
             'work_experience' => 'string|max:1000',
+            'skills' => 'array',
+            'skills.*.skill_id' => 'exists:skills,id|distinct',
         ];
     }
 }

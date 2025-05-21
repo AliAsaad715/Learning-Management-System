@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\ChangePasswordRequest;
+use App\Http\Requests\User\ProfileImageRequest;
 use App\Http\Requests\User\ProfileRequest;
 use App\Responses\Response;
 use App\Services\UserService;
@@ -29,7 +30,17 @@ class UserController extends Controller
             return Response::error($data, $message);
         }
     }
-
+    public function updateProfileImage(ProfileImageRequest $request): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->userService->updateProfileImage($request->validated());
+            return Response::success($data['user'], $data['message']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
     public function changePassword(ChangePasswordRequest $request): JsonResponse
     {
         $data = [];

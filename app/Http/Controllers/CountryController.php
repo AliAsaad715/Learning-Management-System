@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Responses\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {

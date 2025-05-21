@@ -40,16 +40,10 @@ trait manipulateImagesTrait {
 
 
 
-    public function get_image($image_name, $folder): ?string
+    public function get_image($image_name, $folder): string
     {
         // Get path of image
-        $imagePath = public_path("build/assets/img/$folder/$image_name");
-
-        // Get data of image
-        if (is_file($imagePath))
-            return $imagePath;
-        else
-            return null;
+        return url("build/assets/img/$folder/" . $image_name);
     }
 
     public function delete_image($image_name, $folder): bool

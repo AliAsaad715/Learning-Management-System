@@ -34,7 +34,7 @@ class MoreDetail extends Model
 
     public function languages(): BelongsToMany
     {
-        return $this->belongsToMany(Language::class, 'language_user');
+        return $this->belongsToMany(Language::class, 'language_user')->withPivot('level');
     }
 
     public function skills(): BelongsToMany

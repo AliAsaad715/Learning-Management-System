@@ -4,12 +4,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnumController;
 use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\OTPController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,16 +27,21 @@ Route::controller(AuthController::class)->prefix('users')->group(function () {
 
 Route::controller(UserController::class)->middleware('auth:api')->prefix('users')->group(function () {
     Route::post('update-profile', 'updateProfile');
+    Route::post('update-profile-image', 'updateProfileImage');
     Route::post('change-password','changePassword');
     Route::delete('delete', 'destroy');
 });
-Route::get('users/show-profile/{id}',[UserController::class,'showProfile']);
+Route::get('users/{id}',[UserController::class,'showProfile']);
 
 Route::controller(ResetPasswordController::class)->prefix('users/password')->group(function () {
     Route::post('email', 'forgotPassword');
-    Route::post('code/check', 'checkCode');
+    Route::post('code-check', 'checkCode');
     Route::post('reset', 'resetPassword');
+});
 
+Route::controller(OTPController::class)->middleware('auth:api')->prefix('users/otp')->group(function () {
+    Route::get('resend', 'resendOtp');
+    Route::post('verify', 'verifyOtp');
 });
 
 Route::apiResource('courses', CourseController::class);
@@ -44,4 +52,9 @@ Route::apiResource('quizzes', QuizController::class);
 Route::apiResource('questions', QuestionController::class);
 Route::get('countries', [CountryController::class, 'index']);
 Route::get('languages', [LanguageController::class, 'index']);
+Route::get('skills', [SkillController::class, 'index']);
+Route::controller(EnumController::class)->group(function () {
+    Route::get('levels', 'levels');
+    Route::get('educations', 'educations');
+});
 

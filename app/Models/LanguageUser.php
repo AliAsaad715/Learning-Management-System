@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class LanguageUser extends Model
 {
-//    protected $table = 'language_user';
     public $timestamps = false;
     protected $fillable = [
         'language_id',

@@ -5,15 +5,19 @@ namespace App\Services;
 use App\Enums\LevelEnum;
 use App\Http\Resources\UserResource;
 use App\Models\Language;
-use App\Models\LanguageUser;
 use App\Models\MoreDetail;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
+    private OTPService $otpService;
+
+    public function __construct(OTPService $otpService)
+    {
+        $this->otpService = $otpService;
+    }
     public function register($request): array
     {
         $user = User::query()->create([
@@ -27,19 +31,18 @@ class AuthService
             $message = 'User registration failed!';
             $code = 422;
         } else {
+            $this->otpService->sendOTP($user);
             $token = $user->createToken('Personal Access Token')->accessToken;
             $moreDetail = MoreDetail::query()->create([
                 'user_id' => $user->id,
                 'country_id' => $request['country_id'],
             ]);
-            $moreDetail->languages()->attach(Language::findOrfail($request['language_id']),
+            $moreDetail->languages()->attach(Language::query()->findOrfail($request['language_id']),
                 [
                     'language_id' => $request['language_id'],
                     'more_detail_id' => $moreDetail->id,
                     'level' => LevelEnum::MOTHER_TONGUE
                 ]);
-//            $user->generateCode();
-            event(new Registered($user));
             $user = (new UserResource($user))->toArray(request());
             $user['token'] = $token;
             $message = 'User registered successfully';
@@ -71,7 +74,7 @@ class AuthService
 
     public function logout(): array
     {
-        $user = Auth::user();
+        $user = User::query()->find(Auth::id());
         if(!is_null($user)) {
             $user->token()->revoke();
             $message = 'User logged out successfully';

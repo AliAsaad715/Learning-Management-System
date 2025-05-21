@@ -113,17 +113,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Topic::class, 'completed_courses');
     }
-
-    public function sendOtp($user) {
-        $user->otp_code = rand(100000, 999999);
-        $user->expire_at = now()->addMinutes(10);
-        $user->save();
-
-//        Mail::raw("Your OTP code is: $user->otp_code", function ($message) use ($user) {
-//            $message->to($user->email)
-//                ->subject('Verification Code');
-//        });
-        Mail::to($user->email)->queue(new OtpMail($user->otp_code));
-        return response()->json(['message' => 'OTP sent successfully.'], 200);
-    }
 }

@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-use App\Enums\LevelEnum;
 use App\Http\Resources\UserResource;
-use App\Models\Language;
-use App\Models\LanguageUser;
 use App\Models\User;
 use App\Traits\manipulateImagesTrait;
 use Illuminate\Support\Facades\Auth;
@@ -16,21 +13,20 @@ class UserService
     use manipulateImagesTrait;
     public function updateProfile($request): array
     {
-        $user = Auth::user();
+        $user = User::query()->find(Auth::id());
         $moreDetail = $user->moreDetail;
         $user->update([
-            'first_name' => $request['first_name'] ?? $user['first_name'],
-            'last_name' => $request['last_name'] ?? $user['last_name'],
-            'profile_image_url' => $this->update_image($request['profile_image_url'], 'users', $user['profile_image_url']),
+            'first_name' => $request['first_name'] ?? null,
+            'last_name' => $request['last_name'] ?? null,
         ]);
         $moreDetail->update([
-            'country_id' => $request['country_id'] ?? $moreDetail['country_id'],
-            'job_title_id' => $request['job_title_id'] ?? $moreDetail['job_title_id'],
-            'linked_in_url' => $request['linked_in_url'] ?? $moreDetail['linked_in_url'],
-            'education' => $request['education'] ?? $moreDetail['education'],
-            'university' => $request['university'] ?? $moreDetail['university'],
-            'speciality' => $request['speciality'] ?? $moreDetail['speciality'],
-            'work_experience' => $request['work_experience'] ?? $moreDetail['work_experience'],
+            'country_id' => $request['country_id'] ?? null,
+            'job_title_id' => $request['job_title_id'] ?? null,
+            'linked_in_url' => $request['linked_in_url'] ?? null,
+            'education' => $request['education'] ?? null,
+            'university' => $request['university'] ?? null,
+            'speciality' => $request['speciality'] ?? null,
+            'work_experience' => $request['work_experience'] ?? null,
         ]);
         $syncData = [];
         foreach ($request['languages'] as $languageInfo) {
@@ -41,12 +37,38 @@ class UserService
             }
         }
         $moreDetail->languages()->sync($syncData);
+
+        $syncSkillData = [];
+        if (isset($request['skills']) && is_array($request['skills'])) {
+            foreach ($request['skills'] as $skillInfo) {
+                $skillId = $skillInfo['skill_id'] ?? null;
+                if ($skillId !== null) {
+                    $syncSkillData[$skillId] = [];
+                }
+            }
+        }
+        $moreDetail->skills()->sync($syncSkillData);
         return ['user' => new UserResource($user), 'message' => 'Profile updated successfully'];
     }
 
+    public function updateProfileImage($request): array
+    {
+        $user = User::query()->find(Auth::id());
+        if(!empty($request['profile_image_url'])) {
+            $user->update([
+                'profile_image_url' => $this->update_image($request['profile_image_url'], 'users', $user['profile_image_url']),
+            ]);
+        } else {
+            $this->delete_image($user['profile_image_url'], 'users');
+            $user->update([
+                'profile_image_url' => null,
+            ]);
+        }
+        return ['user' => new UserResource($user), 'message' => 'Profile image updated successfully'];
+    }
     public function changePassword($request): array
     {
-        $user = Auth::user();
+        $user = User::query()->find(Auth::id());
         if(!Hash::check($request['old_password'], $user['password'])) {
             $message = 'Your old password is incorrect, please try again!';
             $code = 401;
@@ -75,7 +97,7 @@ class UserService
 
     public function delete(): array
     {
-        $user = Auth::user();
+        $user = User::query()->find(Auth::id());
         $user->delete();
         return ['user' => $user, 'message' => 'User deleted successfully'];
     }
