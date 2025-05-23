@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OTP\VerifyOTPRequest;
 use App\Responses\Response;
-use App\Services\OTPService;
+use App\Services\User\OTPService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Responses\Response;
-use App\Services\AuthService;
+use App\Services\User\AuthService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 

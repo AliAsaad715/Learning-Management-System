@@ -11,6 +11,11 @@ class Quiz extends Model
 {
     public $timestamps = false;
 
+    public $fillable = [
+        'episode_id',
+        'num_of_questions'
+    ];
+
     public function episode(): BelongsTo
     {
         return $this->belongsTo(Episode::class);

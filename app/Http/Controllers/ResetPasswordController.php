@@ -6,9 +6,8 @@ use App\Http\Requests\ResetPassword\CheckCodeRequest;
 use App\Http\Requests\ResetPassword\ForgotPasswordRequest;
 use App\Http\Requests\ResetPassword\ResetPasswordRequest;
 use App\Responses\Response;
-use App\Services\ResetPasswordService;
+use App\Services\User\ResetPasswordService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
 class ResetPasswordController extends Controller

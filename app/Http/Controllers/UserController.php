@@ -6,7 +6,7 @@ use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ProfileImageRequest;
 use App\Http\Requests\User\ProfileRequest;
 use App\Responses\Response;
-use App\Services\UserService;
+use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
