@@ -28,7 +28,9 @@ class User extends Authenticatable
         'password',
         'role',
         'otp_code',
-        'expire_at'
+        'expire_at',
+        'otp_attempts_count',
+        'otp_locked_until',
     ];
 
     protected $casts = [
@@ -46,6 +48,9 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'otp_locked_until' => 'datetime',
+            'expire_at' => 'datetime',
+            'otp_sent_at' => 'datetime'
         ];
     }
 

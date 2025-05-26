@@ -39,8 +39,8 @@ Route::controller(ResetPasswordController::class)->prefix('users/password')->gro
     Route::post('reset', 'resetPassword');
 });
 
-Route::controller(OTPController::class)->middleware('auth:api')->prefix('users/otp')->group(function () {
-    Route::get('resend', 'resendOtp');
+Route::controller(OTPController::class)->prefix('users/otp')->group(function () {
+    Route::post('resend', 'resendOtp')->middleware('throttle:resend-otp');
     Route::post('verify', 'verifyOtp');
 });
 

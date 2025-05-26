@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPassword\CheckCodeRequest;
-use App\Http\Requests\ResetPassword\ForgotPasswordRequest;
 use App\Http\Requests\ResetPassword\ResetPasswordRequest;
+use App\Http\Requests\User\EmailRequest;
 use App\Responses\Response;
 use App\Services\User\ResetPasswordService;
 use Illuminate\Http\JsonResponse;
@@ -19,7 +19,7 @@ class ResetPasswordController extends Controller
         $this->resetPasswordService = $userService;
     }
 
-    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
+    public function forgotPassword(EmailRequest $request): JsonResponse
     {
         $data = [];
         try {

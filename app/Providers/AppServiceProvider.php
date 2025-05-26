@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Observers\UserObserver;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class);
-        // Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
+
+        RateLimiter::for('resend-otp', function (Request $request) {
+            if ($request->has('email')) {
+                return Limit::perMinute(1)->by($request->input('email'));
+            }
+            return Limit::perMinute(2)->by($request->ip());
+        });
     }
 }

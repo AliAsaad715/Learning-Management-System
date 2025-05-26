@@ -24,6 +24,8 @@ return new class extends Migration
             $table->enum('role', RoleEnum::values());
             $table->timestamp('join_date')->useCurrent();
             $table->timestamp('email_verified_at')->nullable();
+            $table->integer('otp_attempts_count')->default(0);
+            $table->timestamp('otp_locked_until')->nullable();
             $table->softDeletes();
             $table->rememberToken();
         });

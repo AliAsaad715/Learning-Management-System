@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\ResetPassword;
+namespace App\Http\Requests\User;
 
 use App\Traits\HandlesFailedValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ForgotPasswordRequest extends FormRequest
+class EmailRequest extends FormRequest
 {
     use HandlesFailedValidationTrait;
 

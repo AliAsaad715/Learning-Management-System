@@ -24,7 +24,8 @@ class VerifyOTPRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'otp_code' => 'required|numeric|digits:6',
+            'email' => 'required|email|exists:users,email',
+            'otp_code' => 'required|numeric|digits:6'
         ];
     }
 }

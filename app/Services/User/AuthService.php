@@ -32,7 +32,6 @@ class AuthService
             $code = 422;
         } else {
             $this->otpService->sendOTP($user);
-            $token = $user->createToken('Personal Access Token')->accessToken;
             $moreDetail = MoreDetail::query()->create([
                 'user_id' => $user->id,
                 'country_id' => $request['country_id'],
@@ -43,12 +42,11 @@ class AuthService
                     'more_detail_id' => $moreDetail->id,
                     'level' => LevelEnum::MOTHER_TONGUE
                 ]);
-            $user = (new UserResource($user))->toArray(request());
-            $user['token'] = $token;
-            $message = 'User registered successfully';
-            $code = 201;
+
+            $message = "Registration successful! An OTP has been sent to your email. Please check your inbox to verify your account.";
+            $code = 202;
         }
-        return ['user' => $user, 'message' => $message, 'code' => $code];
+        return ['user' => new UserResource($user), 'message' => $message, 'code' => $code];
     }
 
     public function login($request): array
@@ -74,7 +72,7 @@ class AuthService
 
     public function logout(): array
     {
-        $user = User::query()->find(Auth::id());
+        $user = Auth::user();
         if(!is_null($user)) {
             $user->token()->revoke();
             $message = 'User logged out successfully';
