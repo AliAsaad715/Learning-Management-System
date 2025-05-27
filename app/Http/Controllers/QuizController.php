@@ -46,7 +46,22 @@ class QuizController extends Controller
         $data = [];
         try {
             $data = $this->quizService->update($request->validated(), $id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
             return Response::success($data['data'], $data['message']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function show($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->quizService->show($id);
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
             return Response::error($data, $message);
@@ -58,7 +73,10 @@ class QuizController extends Controller
         $data = [];
         try {
             $data = $this->quizService->destroy($id);
-            return Response::success($data['data'], $data['message'], $data['code']);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success([], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
             return Response::error($data, $message);

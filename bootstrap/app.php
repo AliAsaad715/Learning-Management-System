@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Middleware\CheckTeacher;
 use App\Responses\Response;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo('dashboard/login');
         $middleware->redirectUsersTo('dashboard/home');
         $middleware->alias([
-            'throttle:resend-otp' => \Illuminate\Routing\Middleware\ThrottleRequests::class . ':resend-otp',
+            'throttle:resend-otp' => ThrottleRequests::class . ':resend-otp',
+            'isTeacher' => CheckTeacher::class,
             ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnumController;
 use App\Http\Controllers\EpisodeController;
+use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OTPController;
 use App\Http\Controllers\QuestionController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->prefix('users')->group(function () {
@@ -44,15 +44,28 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
     Route::post('verify', 'verifyOtp');
 });
 
+Route::controller(QuizController::class)->prefix('quizzes')->group(function () {
+    Route::middleware('auth:api')->group(function () {
+        Route::middleware('isTeacher')->group(function () {
+            Route::post('', 'store');
+            Route::put('/{id}', 'update');
+            Route::delete('/{id}', 'destroy');
+        });
+        Route::get('/{episode-id}', 'show');
+    });
+
+});
+
 Route::apiResource('courses', CourseController::class);
 Route::apiResource('episodes', EpisodeController::class);
 Route::apiResource('comments', CommentController::class);
 Route::apiResource('replies', ReplyController::class);
-Route::apiResource('quizzes', QuizController::class);
+Route::apiResource('quizzes', QuizController::class)->middleware(['auth:api', 'isTeacher']);
 Route::apiResource('questions', QuestionController::class);
 Route::get('countries', [CountryController::class, 'index']);
 Route::get('languages', [LanguageController::class, 'index']);
 Route::get('skills', [SkillController::class, 'index']);
+Route::get('job_titles', [JobTitleController::class, 'index']);
 Route::controller(EnumController::class)->group(function () {
     Route::get('levels', 'levels');
     Route::get('educations', 'educations');

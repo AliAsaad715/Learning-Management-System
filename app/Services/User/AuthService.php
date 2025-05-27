@@ -72,7 +72,7 @@ class AuthService
 
     public function logout(): array
     {
-        $user = Auth::user();
+        $user = auth('api')->user();
         if(!is_null($user)) {
             $user->token()->revoke();
             $message = 'User logged out successfully';
