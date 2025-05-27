@@ -13,6 +13,6 @@ class JobTitleController extends Controller
     public function index(): JsonResponse
     {
         $job_titles = JobTitle::all();
-        return Response::success($job_titles, 'Countries retrieved successfully');
+        return Response::success($job_titles, 'Job titles retrieved successfully');
     }
 }
