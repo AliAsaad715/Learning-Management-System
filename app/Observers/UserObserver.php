@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Mail\ChangePassword;
+use App\Mail\SendOTP;
 use App\Mail\WelcomeUser;
 use App\Models\Statistic;
 use App\Models\User;
@@ -16,7 +18,7 @@ class UserObserver
     {
         foreach(Statistic::all() as $statistic)
             $user->statistics()->attach($statistic, ['progress' => 0]);
-            Mail::to($user)->send(new WelcomeUser($user));
+        Mail::to($user)->send(new WelcomeUser($user));
     }
 
     /**
@@ -24,7 +26,9 @@ class UserObserver
      */
     public function updated(User $user): void
     {
-        //
+        if ($user->isDirty('password')) {
+            Mail::to($user)->send(new ChangePassword($user));
+        }
     }
 
     /**

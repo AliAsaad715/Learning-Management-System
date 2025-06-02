@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ResetPassword;
 
+use App\Traits\HandlesFailedValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
-class RegisterRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
+    use HandlesFailedValidationTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -23,11 +26,8 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string|max:50|regex:/^[\pL\s]+$/u',
-            'last_name' => 'required|string|max:50|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255|unique:people',
-            'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()->symbols()],
-            'country_id' =>  'required'
+            'code' => 'required|string|min:6|max:6|exists:reset_passwords',
+            'password' => ['required', 'confirmed', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
         ];
     }
 }

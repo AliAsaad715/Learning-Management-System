@@ -3,7 +3,7 @@
 namespace App\Traits;
 
 trait manipulateImagesTrait {
-    
+
     public  function store_image($image, $folder)
     {
         // Get extension of image
@@ -13,14 +13,14 @@ trait manipulateImagesTrait {
         $name = time() . '.' . $extension;
 
         // Store image
-        $image->move("build/assets/img/$folder", $name);
+        $image->move(public_path() . '/uploads/', $name);
 
         return $name;
     }
 
 
 
-    public function update_image($newImage, $folder, $lastImage)
+    public function update_image($newImage, $folder, $lastImage): string
     {
         // Get extension of image
         $extension = $newImage->getClientOriginalExtension();
@@ -34,25 +34,19 @@ trait manipulateImagesTrait {
         // Delete old image
         if(is_file(public_path("build/assets/img/$folder/$lastImage")))
             unlink(public_path("build/assets/img/$folder/$lastImage"));
-        
+
         return $name;
     }
 
 
 
-    public function get_image($image_name, $folder)
+    public function get_image($image_name, $folder): string
     {
         // Get path of image
-        $imagePath = public_path("build/assets/img/$folder/$image_name");
-
-        // Get data of image
-        if (is_file($imagePath))
-            return $imagePath;
-        else
-            return null;
+        return url("build/assets/img/$folder/" . $image_name);
     }
 
-    public function delete_image($image_name, $folder)
+    public function delete_image($image_name, $folder): bool
     {
         // Get path of image
         $image_path = public_path("build/assets/img/$folder/$image_name");

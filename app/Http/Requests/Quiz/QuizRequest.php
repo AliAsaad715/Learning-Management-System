@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Http\Requests\Quiz;
+
+use App\Traits\HandlesFailedValidationTrait;
+use Illuminate\Foundation\Http\FormRequest;
+
+class QuizRequest extends FormRequest
+{
+    use HandlesFailedValidationTrait;
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'episode_id' => 'required|integer|exists:episodes,id',
+            'num_of_questions' => 'required|integer|min:1',
+        ];
+    }
+}

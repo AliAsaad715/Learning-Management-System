@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
-use Illuminate\Http\Request;
+use App\Responses\Response;
+use Illuminate\Http\JsonResponse;
 
 class CountryController extends Controller
 {
-    public function index()
+    public function index(): JsonResponse
     {
         $countries = Country::all();
-        return response()->json(['success' => true, 'data' => $countries], 200);
+        return Response::success($countries, 'Countries retrieved successfully');
     }
 }

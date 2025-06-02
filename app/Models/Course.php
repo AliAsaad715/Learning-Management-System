@@ -7,6 +7,9 @@ use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use function PHPUnit\Framework\isEmpty;
 
 class Course extends Model
@@ -19,27 +22,32 @@ class Course extends Model
         'difficulty_level' => LevelEnum::class
     ];
 
-    public function teacher()
+    public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
-    public function students()
+    public function students(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'course_user', 'student_id');
     }
 
-    public function episodes()
+    public function episodes(): HasMany
     {
         return $this->hasMany(Episode::class);
     }
 
-    public function topic()
+    public function topic(): BelongsTo
     {
         return $this->belongsTo(Topic::class);
     }
 
-    protected static function boot()
+    public function admin(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    protected static function boot(): void
     {
         parent::boot();
 
