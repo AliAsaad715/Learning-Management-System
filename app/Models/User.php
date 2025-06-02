@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function adminCourses()
     {
-        return $this->hasMany(Course::class);
+        return $this->hasMany(Episode::class);
     }
 
       public function published_courses()
@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function followed_courses()
     {
-        return $this->belongsToMany(Course::class, 'course_user', 'student_id');
+        return $this->belongsToMany(Course::class, 'course_user', 'student_id')->withPivot(['perc_progress', 'progress', 'num_of_completed_quizzes', 'purchase_date','rate']);
     }
 
     public function statistics()
@@ -98,5 +98,20 @@ class User extends Authenticatable
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'completed_courses');
+    }
+
+    public function likeEpisode()
+    {
+        return $this->belongsToMany(Episode::class, 'episodelikes');
+    }
+
+    public function likeComment()
+    {
+        return $this->belongsToMany(Comment::class, 'commentlikes');
+    }
+
+    public function likeReply()
+    {
+        return $this->belongsToMany(Reply::class, 'replylikes');
     }
 }

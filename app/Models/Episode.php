@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Episode extends Model
 {
+    use SoftDeletes;
+    
     public $timestamps = false;
     
     public function course()
@@ -21,5 +24,15 @@ class Episode extends Model
     public function quiz()
     {
         return $this->hasOne(Quiz::class);
+    }
+    
+    public function admin()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function userlikes()
+    {
+        return $this->belongsToMany(User::class, 'episodelikes');
     }
 }

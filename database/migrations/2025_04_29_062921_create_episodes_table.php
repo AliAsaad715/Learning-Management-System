@@ -17,12 +17,16 @@ return new class extends Migration
             $table->foreignIdFor(Course::class)->constrained()->cascadeOnDelete();
             $table->string('title', 100);
             $table->string('video_url');
+            $table->unsignedMediumInteger('duration')->nullable();
+            $table->string('image_url')->nullable();
             $table->unsignedInteger('views')->default(0);
             $table->unsignedInteger('likes')->default(0);
-            $table->double('rate')->nullable();
             $table->timestamp('publishing_request_date')->useCurrent();
             $table->dateTime('publishing_date')->nullable();
             $table->boolean('published')->default(false);
+            $table->unsignedBigInteger('admin_id');
+            $table->foreign('admin_id')->references('id')->on('users');
+            $table->softDeletes();
         });
     }
 

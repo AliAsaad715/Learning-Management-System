@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CourseController;
@@ -16,25 +17,3 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::controller(AuthController::class)->prefix('users')->group(function () {
-    Route::post('register', 'register');
-    Route::post('login', 'login');
-    Route::middleware('auth:api')->group(function () {
-        Route::post('logout', 'logout');
-        Route::post('reset-password', 'resetPassword');
-        Route::delete('delete/{id}', 'deleteUser');
-    });
-});
-
-Route::controller(UserController::class)->group(function () {
-    Route::put('update-profile', 'update');
-    Route::post('code','check');
-});
-
-Route::apiResource('courses', CourseController::class);
-Route::apiResource('episodes', EpisodeController::class);
-Route::apiResource('comments', CommentController::class);
-Route::apiResource('replies', ReplyController::class);
-Route::apiResource('quizzes', QuizController::class);
-Route::apiResource('questions', QuestionController::class);
-Route::get('countries', [CountryController::class, 'index']);

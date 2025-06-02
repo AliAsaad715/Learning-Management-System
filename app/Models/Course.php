@@ -5,11 +5,14 @@ namespace App\Models;
 use App\Enums\LevelEnum;
 use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use function PHPUnit\Framework\isEmpty;
 
 class Course extends Model
 {
+    use SoftDeletes;
+    
     public $timestamps = false;
 
     protected $casts = [
@@ -34,11 +37,6 @@ class Course extends Model
     public function topic()
     {
         return $this->belongsTo(Topic::class);
-    }
-
-    public function admin()
-    {
-        return $this->belongsTo(User::class);
     }
 
     protected static function boot()
