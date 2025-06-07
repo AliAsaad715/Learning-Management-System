@@ -71,6 +71,20 @@ class UserController extends Controller
         }
     }
 
+    public function promoteStudentToTeacher(): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->userService->promoteStudentToTeacher();
+            if($data['code'] == 409)
+                return Response::error([], $data['message'], $data['code']);
+            return Response::success([], $data['message']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
     public function destroy(): JsonResponse
     {
         $data = [];

@@ -57,6 +57,6 @@ class JobTitleSeeder extends Seeder
         ];
 
         foreach($jobTitles as $jobTitle)
-        JobTitle::create($jobTitle);
+            JobTitle::create($jobTitle);
     }
 }

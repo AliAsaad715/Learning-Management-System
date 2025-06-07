@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Quiz::class)->constrained();
             $table->foreignIdFor(User::class)->constrained();
-            $table->unsignedTinyInteger('mark');
-            $table->boolean('success');
+            $table->unsignedTinyInteger('mark')->default(0);
+            $table->boolean('success')->nullable();
+            $table->decimal('percentage_mark', 5, 2)->nullable();
             $table->timestamp('quiz_submission_date')->useCurrent();
         });
     }

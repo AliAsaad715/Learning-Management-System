@@ -209,6 +209,6 @@ class CountriesSeeder extends Seeder
         ];
 
     foreach($countries as $country)
-    Country::create($country);
+        Country::create($country);
     }
 }

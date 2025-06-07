@@ -17,18 +17,6 @@ class QuizController extends Controller
         $this->quizService = $quizService;
     }
 
-    public function index(): JsonResponse
-    {
-        $data = [];
-        try {
-            $data = $this->quizService->index();
-            return Response::success($data['data'], $data['message']);
-        } catch (Throwable $th) {
-            $message = $th->getMessage();
-            return Response::error($data, $message);
-        }
-    }
-
     public function store(QuizRequest $request): JsonResponse
     {
         $data = [];
@@ -41,26 +29,14 @@ class QuizController extends Controller
         }
     }
 
-    public function update(QuizRequest $request, $id): JsonResponse
+    public function startQuiz($episode_id): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->quizService->update($request->validated(), $id);
-            if($data['code'] == 404) {
+            $data = $this->quizService->startQuiz($episode_id);
+            if($data['code'] == 404 || $data['code'] == 409) {
                 return Response::error([], $data['message'], $data['code']);
             }
-            return Response::success($data['data'], $data['message']);
-        } catch (Throwable $th) {
-            $message = $th->getMessage();
-            return Response::error($data, $message);
-        }
-    }
-
-    public function show($id): JsonResponse
-    {
-        $data = [];
-        try {
-            $data = $this->quizService->show($id);
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
@@ -68,15 +44,30 @@ class QuizController extends Controller
         }
     }
 
-    public function destroy($id): JsonResponse
+    public function show($episode_id): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->quizService->destroy($id);
+            $data = $this->quizService->show($episode_id);
             if($data['code'] == 404) {
                 return Response::error([], $data['message'], $data['code']);
             }
-            return Response::success([], $data['message'], $data['code']);
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function getQuizResult($quiz_id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->quizService->getQuizResult($quiz_id);
+            if($data['code'] == 404 || $data['code'] == 403) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
             return Response::error($data, $message);

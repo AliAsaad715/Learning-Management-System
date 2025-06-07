@@ -9,7 +9,7 @@ use App\Http\Controllers\EpisodeController;
 use App\Http\Controllers\JobTitleController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OTPController;
-use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ResetPasswordController;
@@ -29,6 +29,7 @@ Route::controller(UserController::class)->middleware('auth:api')->prefix('users'
     Route::post('update-profile', 'updateProfile');
     Route::post('update-profile-image', 'updateProfileImage');
     Route::post('change-password','changePassword');
+    Route::post('promote-student-to-teacher','promoteStudentToTeacher');
     Route::delete('delete', 'destroy');
 });
 Route::get('users/{id}',[UserController::class,'showProfile']);
@@ -44,28 +45,33 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
     Route::post('verify', 'verifyOtp');
 });
 
-Route::controller(QuizController::class)->prefix('quizzes')->group(function () {
-    Route::middleware('auth:api')->group(function () {
+Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizzes')->group(function () {
         Route::middleware('isTeacher')->group(function () {
             Route::post('', 'store');
-            Route::put('/{id}', 'update');
-            Route::delete('/{id}', 'destroy');
+            Route::get('{episode_id}', 'show');
         });
-        Route::get('/{episode-id}', 'show');
-    });
-
+        Route::post('start-quiz/{episode_id}', 'startQuiz');
+        Route::put('quiz-result/{quiz_id}', 'getQuizResult');
 });
 
+Route::post('quizzes/answer', [AnswerController::class, 'store'])->middleware('auth:api');
+
 Route::apiResource('courses', CourseController::class);
+
 Route::apiResource('episodes', EpisodeController::class);
+
 Route::apiResource('comments', CommentController::class);
+
 Route::apiResource('replies', ReplyController::class);
-Route::apiResource('quizzes', QuizController::class)->middleware(['auth:api', 'isTeacher']);
-Route::apiResource('questions', QuestionController::class);
+
 Route::get('countries', [CountryController::class, 'index']);
+
 Route::get('languages', [LanguageController::class, 'index']);
+
 Route::get('skills', [SkillController::class, 'index']);
+
 Route::get('job_titles', [JobTitleController::class, 'index']);
+
 Route::controller(EnumController::class)->group(function () {
     Route::get('levels', 'levels');
     Route::get('educations', 'educations');

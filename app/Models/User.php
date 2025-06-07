@@ -101,7 +101,7 @@ class User extends Authenticatable
 
     public function quizzes(): BelongsToMany
     {
-        return $this->belongsToMany(Quiz::class);
+        return $this->belongsToMany(Quiz::class)->withPivot(['id', 'mark', 'success']);
     }
 
     public function comments(): HasMany

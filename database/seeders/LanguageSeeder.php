@@ -57,6 +57,6 @@ class LanguageSeeder extends Seeder
         ];
 
         foreach ($languages as $language)
-        Language::create($language);
+            Language::create($language);
     }
 }

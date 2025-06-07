@@ -55,6 +55,7 @@ class FakeDataSeeder extends Seeder
             'education' => 'none',
         ]);
 
+        //courses
         DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizzes') VALUES
         ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', '2', '1', 'beginner', '23', '0', '20', '2004-08-23', '2005-08-23', 'true', '1', 'false', '0');
         ");
@@ -66,6 +67,23 @@ class FakeDataSeeder extends Seeder
         ");
         DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'admin_id', 'has_certificate', 'total_quizzes') VALUES
         ('4', 'Laravel for experts', 'Laravel course that explains experts concepts of back-end', '2', '1', 'expert', '33', '0', '53', '2004-08-23', '2005-08-23', 'true', '1', 'false', '8');
+        ");
+
+        //episodes for course 1
+        DB::insert("INSERT INTO 'episodes' ('id', 'course_id', 'title', 'video_url', 'published') VALUES
+        ('1', '1', 'Ep 01 - Hello, Laravel', 'https://youtu.be/1NjOWtQ7S2o?si=hvMiLuAF7eBDTosJ', 'false');
+        ");
+
+        DB::insert("INSERT INTO 'episodes' ('id', 'course_id', 'title', 'video_url', 'published') VALUES
+        ('2', '1', 'Ep 02 - Your First Route and View', 'https://youtu.be/KHxGAOv2Emc?si=9xcl9gHgt2nEI76J', 'false');
+        ");
+
+        DB::insert("INSERT INTO 'episodes' ('id', 'course_id', 'title', 'video_url', 'published') VALUES
+        ('3', '1', 'Ep 03 - Create a Layout File Using Blade Components', 'https://youtu.be/H5R3vV38QiM?si=9UXDpmGJtwXczTcN', 'false');
+        ");
+
+        DB::insert("INSERT INTO 'episodes' ('id', 'course_id', 'title', 'video_url', 'published') VALUES
+        ('4', '1', '30 Days to Learn Laravel, Ep 04 - Make a Pretty Layout Using Tailwind CSS', 'https://youtu.be/37QPJZ1la2g?si=GF5o9Kas2rElYRSA', 'false');
         ");
     }
 }
