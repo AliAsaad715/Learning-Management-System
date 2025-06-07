@@ -24,14 +24,14 @@ return new class extends Migration
             $table->enum('difficulty_level', LevelEnum::values());
             $table->unsignedSmallInteger('num_of_hours');
             $table->double('price')->nullable();
+            $table->tinyInteger('rate')->default(0);
             $table->unsignedSmallInteger('num_of_episodes');
             $table->timestamp('publishing_request_date')->useCurrent();
             $table->datetime('publishing_date')->nullable();
             $table->boolean('published')->default(false);
-            $table->unsignedBigInteger('admin_id');
-            $table->foreign('admin_id')->references('id')->on('users');
             $table->boolean('has_certificate')->default(false);
-            $table->unsignedSmallInteger('total_quizzes')->default(0);
+            $table->unsignedSmallInteger('total_quizes')->default(0);
+            $table->softDeletes();
         });
     }
 

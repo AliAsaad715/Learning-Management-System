@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\LevelEnum;
 use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,8 @@ use function PHPUnit\Framework\isEmpty;
 
 class Course extends Model
 {
+    use SoftDeletes;
+    
     public $timestamps = false;
 
     protected $casts = [
