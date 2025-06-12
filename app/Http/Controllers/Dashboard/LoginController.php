@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\App\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -34,7 +34,7 @@ class LoginController extends Controller
         ]);
     }
 
-    
+
     public function logout(Request $request)
     {
         Auth::logout();

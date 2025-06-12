@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Http\Requests\OTP\VerifyOTPRequest;
 use App\Http\Requests\User\EmailRequest;

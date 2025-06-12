@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Enums\EducationEnum;
 use App\Enums\LevelEnum;

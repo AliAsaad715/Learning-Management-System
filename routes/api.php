@@ -1,21 +1,19 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BadgeController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\CourseController;
-use App\Http\Controllers\EnumController;
-use App\Http\Controllers\EpisodeController;
-use App\Http\Controllers\JobTitleController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\OTPController;
-use App\Http\Controllers\AnswerController;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\ReplyController;
-use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\SkillController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\App\AuthController;
+use App\Http\Controllers\App\CommentController;
+use App\Http\Controllers\App\CountryController;
+use App\Http\Controllers\App\CourseController;
+use App\Http\Controllers\App\EnumController;
+use App\Http\Controllers\App\EpisodeController;
+use App\Http\Controllers\App\JobTitleController;
+use App\Http\Controllers\App\LanguageController;
+use App\Http\Controllers\App\OTPController;
+use App\Http\Controllers\App\QuizController;
+use App\Http\Controllers\App\ReplyController;
+use App\Http\Controllers\App\ResetPasswordController;
+use App\Http\Controllers\App\SkillController;
+use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->prefix('users')->group(function () {
@@ -52,10 +50,9 @@ Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizze
             Route::get('{episode_id}', 'show');
         });
         Route::post('start-quiz/{episode_id}', 'startQuiz');
+        Route::post('process-answer', 'processAnswer');
         Route::put('quiz-result/{quiz_id}', 'getQuizResult');
 });
-
-Route::post('quizzes/answer', [AnswerController::class, 'store'])->middleware('auth:api');
 
 Route::apiResource('courses', CourseController::class);
 

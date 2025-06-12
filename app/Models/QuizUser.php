@@ -22,12 +22,5 @@ class QuizUser extends Model
         return $this->belongsToMany(Question::class, 'answers')->withPivot('is_correct');
     }
 
-    public function calculateQuizResult(): array
-    {
-        $correctAnswers = $this->questions()->where('is_correct', 1)->count();
-        $data['mark'] = $correctAnswers;
-        $data['percentage_mark'] = round($correctAnswers / $this->questions()->count() * 100, 2);
-        $data['success'] = $data['percentage_mark'] >= 60 ? 1 : 0;
-        return $data;
-    }
+
 }

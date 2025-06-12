@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\App\Controller;
 use App\Models\Badge;
 use App\Traits\manipulateImagesTrait;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class BadgeController extends Controller
     {
         // Pre-select level if coming from level-specific button
         $preselected_level = $request->has('level') ? $request->level : null;
-        
+
         return view('badges.create', compact('preselected_level'));
     }
 
@@ -97,7 +97,7 @@ class BadgeController extends Controller
                     'image_url' => $image_name
                 ]);
             }
-            
+
             return to_route('badges.show', $badge->id)
                 ->with('success', 'Badge updated successfully!');
 

@@ -18,8 +18,6 @@ trait manipulateImagesTrait {
         return $name;
     }
 
-
-
     public function update_image($newImage, $folder, $lastImage): string
     {
         // Get extension of image
@@ -37,8 +35,6 @@ trait manipulateImagesTrait {
 
         return $name;
     }
-
-
 
     public function get_image($image_name, $folder): string
     {

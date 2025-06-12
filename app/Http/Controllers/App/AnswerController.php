@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
-use App\Http\Requests\Answer\AnswerRequest;
+use App\Http\Requests\Quiz\AnswerRequest;
 use App\Responses\Response;
 use App\Services\Answer\AnswerService;
 use Illuminate\Http\JsonResponse;
