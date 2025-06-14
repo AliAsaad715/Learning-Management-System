@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ProfileImageRequest;
@@ -65,6 +65,20 @@ class UserController extends Controller
                 return Response::error([], $data['message'], $data['code']);
             }
             return Response::success($data['user'], $data['message']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function promoteStudentToTeacher(): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->userService->promoteStudentToTeacher();
+            if($data['code'] == 409)
+                return Response::error([], $data['message'], $data['code']);
+            return Response::success([], $data['message']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
             return Response::error($data, $message);

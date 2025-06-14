@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
-use App\Models\Language;
+use App\Models\Country;
 use App\Responses\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
-class LanguageController extends Controller
+class CountryController extends Controller
 {
     public function index(): JsonResponse
     {
-        $countries = Language::all();
+        $countries = Country::all();
         return Response::success($countries, 'Countries retrieved successfully');
     }
 }

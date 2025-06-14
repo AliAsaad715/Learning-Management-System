@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Http\Requests\ResetPassword\CheckCodeRequest;
 use App\Http\Requests\ResetPassword\ResetPasswordRequest;

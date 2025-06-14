@@ -2,7 +2,8 @@
 
 namespace App\Services\User;
 
-use App\Http\Resources\UserResource;
+use App\Enums\RoleEnum;
+use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use App\Traits\manipulateImagesTrait;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,7 @@ class UserService
         }
         return ['user' => new UserResource($user), 'message' => 'Profile image updated successfully'];
     }
+
     public function changePassword($request): array
     {
         $user = User::query()->find(Auth::id());
@@ -93,6 +95,18 @@ class UserService
             $code = 200;
         }
         return ['user' => new UserResource($user), 'message' => $message, 'code' => $code];
+    }
+
+    public function promoteStudentToTeacher(): array
+    {
+        $user = auth('api')->user();
+        if($user['role'] === RoleEnum::TEACHER) {
+            return ['message' => 'You are already a Teacher!', 'code' => 409];
+        }
+        $user->update([
+            'role' => 'teacher'
+        ]);
+        return ['message' => 'Successfully promoted to Teacher. You can now access all teacher features.', 'code' => 200];
     }
 
     public function delete(): array

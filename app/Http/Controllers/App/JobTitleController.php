@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Models\JobTitle;
-use App\Models\Language;
 use App\Responses\Response;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class JobTitleController extends Controller
 {

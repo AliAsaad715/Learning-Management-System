@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Enums\RoleEnum;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\App\Controller;
 use App\Models\Country;
 use App\Models\Course;
 use App\Models\Topic;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

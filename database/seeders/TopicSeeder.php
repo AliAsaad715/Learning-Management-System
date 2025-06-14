@@ -29,7 +29,7 @@ class TopicSeeder extends Seeder
             ['title' => 'Physics', 'category_id' => 1],
             ['title' => 'Earth Science', 'category_id' => 1],
             ['title' => 'Astronomy', 'category_id' => 1],
-        
+
             // Category 2: Computer Science and Technology
             ['title' => 'Computer Sience', 'category_id' => 2],
             ['title' => 'Programming Fundamentals', 'category_id' => 2],
@@ -45,7 +45,7 @@ class TopicSeeder extends Seeder
             ['title' => 'Game Development', 'category_id' => 2],
             ['title' => 'UI/UX Design', 'category_id' => 2],
             ['title' => 'DevOps', 'category_id' => 2],
-        
+
             // Category 3: Humanities and Social Sciences
             ['title' => 'World History', 'category_id' => 3],
             ['title' => 'U.S. History', 'category_id' => 3],
@@ -57,7 +57,7 @@ class TopicSeeder extends Seeder
             ['title' => 'Anthropology', 'category_id' => 3],
             ['title' => 'Economics', 'category_id' => 3],
             ['title' => 'Geography', 'category_id' => 3],
-        
+
             // Category 4: Business and Professional Development
             ['title' => 'Entrepreneurship', 'category_id' => 4],
             ['title' => 'Marketing', 'category_id' => 4],
@@ -68,7 +68,7 @@ class TopicSeeder extends Seeder
             ['title' => 'Human Resources', 'category_id' => 4],
             ['title' => 'Accounting', 'category_id' => 4],
             ['title' => 'E-commerce', 'category_id' => 4],
-        
+
             // Category 5: Creative Arts and Design
             ['title' => 'Graphic Design', 'category_id' => 5],
             ['title' => 'Digital Art', 'category_id' => 5],
@@ -82,7 +82,7 @@ class TopicSeeder extends Seeder
             ['title' => 'Architecture', 'category_id' => 5],
             ['title' => '3D Modeling', 'category_id' => 5],
             ['title' => 'Game Design', 'category_id' => 5],
-        
+
             // Category 6: Languages and Linguistics
             ['title' => 'English Language', 'category_id' => 6],
             ['title' => 'Spanish Language', 'category_id' => 6],
@@ -94,7 +94,7 @@ class TopicSeeder extends Seeder
             ['title' => 'Sign Language', 'category_id' => 6],
             ['title' => 'Linguistics', 'category_id' => 6],
             ['title' => 'Translation Studies', 'category_id' => 6],
-        
+
             // Category 7: Test Preparation and Academic Skills
             ['title' => 'SAT Preparation', 'category_id' => 7],
             ['title' => 'ACT Preparation', 'category_id' => 7],
@@ -106,7 +106,7 @@ class TopicSeeder extends Seeder
             ['title' => 'LSAT Preparation', 'category_id' => 7],
             ['title' => 'Certification Exams', 'category_id' => 7],
             ['title' => 'College Admissions', 'category_id' => 7],
-        
+
             // Category 8: Life Skills and Personal Development
             ['title' => 'Time Management', 'category_id' => 8],
             ['title' => 'Public Speaking', 'category_id' => 8],
@@ -128,6 +128,6 @@ class TopicSeeder extends Seeder
         ];
 
         foreach($topics as $topic)
-        Topic::create($topic);
+            Topic::create($topic);
     }
 }

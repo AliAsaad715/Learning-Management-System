@@ -16,11 +16,13 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Quiz::class)->constrained()->cascadeOnDelete();
             $table->unsignedSmallInteger('question_number');
+            $table->unique(['quiz_id', 'question_number']);
             $table->text('content');
             $table->string('answer_a');
             $table->string('answer_b');
             $table->string('answer_c');
             $table->string('answer_d');
+            $table->text('explanation')->nullable();
             $table->enum('right_answer', ['a', 'b', 'c', 'd']);
         });
     }

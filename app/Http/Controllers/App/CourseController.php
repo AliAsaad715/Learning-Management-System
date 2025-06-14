@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Models\Category;
 use App\Models\Course;
@@ -28,7 +28,7 @@ class CourseController extends Controller
         ]);
     }
 
-    public function search(Request $request) 
+    public function search(Request $request)
     {
         $courses = Course::where('title','like', "%{$request->name}%")->get();
 

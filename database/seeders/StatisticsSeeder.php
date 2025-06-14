@@ -29,6 +29,6 @@ class StatisticsSeeder extends Seeder
         ];
 
         foreach($statistics as $statistic)
-        Statistic::create($statistic);
+            Statistic::create($statistic);
     }
 }

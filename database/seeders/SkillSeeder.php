@@ -29,27 +29,27 @@ class SkillSeeder extends Seeder
             ['title' => 'Kotlin'],
             ['title' => 'Go'],
             ['title' => 'Rust'],
-        
+
             // ----- Databases -----
             ['title' => 'SQL'],
             ['title' => 'NoSQL'],
             ['title' => 'MySQL'],
             ['title' => 'PostgreSQL'],
             ['title' => 'MongoDB'],
-        
+
             // ----- Frontend Frameworks/Libraries -----
             ['title' => 'React'],
             ['title' => 'Angular'],
             ['title' => 'Vue.js'],
             ['title' => 'Svelte'],
-        
+
             // ----- Backend Frameworks -----
             ['title' => 'Node.js'],
             ['title' => 'Django'],
             ['title' => 'Flask'],
             ['title' => 'Laravel'],
             ['title' => 'Spring Boot'],
-        
+
             // ----- DevOps & Cloud -----
             ['title' => 'Git'],
             ['title' => 'Docker'],
@@ -57,11 +57,11 @@ class SkillSeeder extends Seeder
             ['title' => 'AWS'],
             ['title' => 'Azure'],
             ['title' => 'Google Cloud'],
-        
+
             // ----- APIs & Web Services -----
             ['title' => 'RESTful APIs'],
             ['title' => 'GraphQL'],
-        
+
             // ----- Data Science & AI/ML -----
             ['title' => 'Machine Learning'],
             ['title' => 'Data Science'],
@@ -69,17 +69,17 @@ class SkillSeeder extends Seeder
             ['title' => 'PyTorch'],
             ['title' => 'Pandas'],
             ['title' => 'NumPy'],
-        
+
             // ----- Cybersecurity & Blockchain -----
             ['title' => 'Cybersecurity'],
             ['title' => 'Ethical Hacking'],
             ['title' => 'Blockchain'],
             ['title' => 'Solidity'],
-        
+
             // ----- Game Development -----
             ['title' => 'Unity'],
             ['title' => 'Unreal Engine'],
-        
+
             // ----- Soft Skills -----
             ['title' => 'Communication'],
             ['title' => 'Teamwork'],
@@ -99,7 +99,7 @@ class SkillSeeder extends Seeder
             ['title' => 'Analytical Skills'],
             ['title' => 'Attention to Detail'],
             ['title' => 'Collaboration'],
-        
+
             // ----- Education & E-Learning -----
             ['title' => 'Curriculum Development'],
             ['title' => 'E-Learning'],
@@ -120,6 +120,6 @@ class SkillSeeder extends Seeder
         ];
 
         foreach($skills as $skill)
-        Skill::create($skill);
+            Skill::create($skill);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserResource;
 use App\Mail\SendCodeResetPassword;
 use App\Models\ResetPassword;
 use App\Models\User;

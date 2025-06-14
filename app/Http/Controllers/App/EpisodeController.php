@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\App;
 
 use App\Models\Episode;
-use Illuminate\Http\Request;
 
 class EpisodeController extends Controller
 {
@@ -24,6 +23,6 @@ class EpisodeController extends Controller
             $episode->save();
         }
 
-        return back();  
+        return back();
     }
 }

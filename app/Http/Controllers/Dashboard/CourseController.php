@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\App\Controller;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Episode;
 use App\Models\Quiz;
 use App\Models\Topic;
-use Illuminate\Http\Request;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class CourseController extends Controller
@@ -40,12 +39,12 @@ class CourseController extends Controller
         $course->load(['episodes', 'teacher' => function($q) {
             $q->withTrashed();
         }])->get();
-        
+
 
         $course->loadCount(['episodes' => function($query) {
             $query->whereHas('quiz');
         }]);
-        
+
         return view('courses.show_course', compact('course'));
     }
 
@@ -92,12 +91,12 @@ class CourseController extends Controller
     {
         $episode->published = true;
         $episode->admin_id = auth()->user()->id;
-        $episode->publishing_date = now()->format('Y-m-d H:i:s');   
+        $episode->publishing_date = now()->format('Y-m-d H:i:s');
         $episode->save();
-        
+
         return back();
     }
-    
+
     public function reject(Episode $episode)
     {
         $episode->admin_id = auth()->user()->id;

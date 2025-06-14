@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Enums\RoleEnum;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\App\Controller;
 use App\Models\User;
 use App\Traits\manipulateImagesTrait;
 use Illuminate\Http\Request;

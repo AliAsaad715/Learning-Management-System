@@ -9,13 +9,9 @@ use App\Models\MoreDetail;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\Reply;
-use App\Models\Skill;
 use App\Models\User;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class FakeDataSeeder extends Seeder
 {
@@ -42,12 +38,12 @@ class FakeDataSeeder extends Seeder
             'country_id' => 3,
             'education' => 'none',
         ]);
-        
+
         $user1->badges()->attach([1,2,5]);
         $MoreDetail1->skills()->attach([2,3,4]);
         $MoreDetail1->languages()->attach(2, ['level' => 'mother_tongue']);
         $MoreDetail1->languages()->attach(5, ['level' => 'beginner']);
-        
+
         //student
         $user2 = User::create([
             'id' => 3,
@@ -58,7 +54,7 @@ class FakeDataSeeder extends Seeder
             'password' => '147258369',
             'role' => 'student',
         ]);
-        
+
         $MoreDetail2 = MoreDetail::create([
             'id' => 2,
             'user_id' =>  3,
@@ -66,13 +62,13 @@ class FakeDataSeeder extends Seeder
             'country_id' => 10,
             'education' => 'none',
         ]);
-        
-        
+
+
         $user2->badges()->attach([1,2,5]);
         $MoreDetail2->skills()->attach([2,3,4]);
         $MoreDetail2->languages()->attach(3, ['level' => 'mother_tongue']);
         $MoreDetail2->languages()->attach(2, ['level' => 'beginner']);
-        
+
         DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizes') VALUES
         ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '23', '0', '4', '20', '2004-08-23', '2005-08-23', 'true', 'true', '0');
         ");
@@ -91,7 +87,7 @@ class FakeDataSeeder extends Seeder
             $user->followed_courses()->attach($course, ['progress' => 2, 'perc_progress' => 66.6, 'num_of_completed_quizzes' => 1, 'rate' => 3]);
 
         // $duration = FFMpeg::fromDisk('public')->open('build/assets/videos/test.mp4')->getDurationInSeconds();
-        
+
         // episode 1
         Episode::create([
             'course_id' => 1,
@@ -127,15 +123,15 @@ class FakeDataSeeder extends Seeder
             'published' => false
         ]);
 
-        // comment 1 
+        // comment 1
         Comment::create([
             'episode_id' => 1,
             'user_id' => 2,
             'content' => 'this is the first comment, hello world',
             'likes' => 203,
         ]);
-        
-        // comment 2 
+
+        // comment 2
         Comment::create([
             'episode_id' => 1,
             'user_id' => 2,
@@ -158,25 +154,25 @@ class FakeDataSeeder extends Seeder
             'content' => 'this is the second reply, hello world',
             'likes' => 84
         ]);
-        
-        // quiz 1 
+
+        // quiz 1
         $quiz = Quiz:: create([
             'episode_id' => 1,
             'num_of_questions' => 3,
         ]);
 
-        // quiz 2 
+        // quiz 2
         Quiz::create([
             'episode_id' => 2,
             'num_of_questions' => 2,
         ]);
-        
+
         // quiz 3
         Quiz::create([
             'episode_id' => 3,
             'num_of_questions' => 2,
         ]);
-         
+
 
         // questions in quiz 1
         Question::create([
@@ -255,8 +251,7 @@ class FakeDataSeeder extends Seeder
             'answer_d' => 'Ali',
             'right_answer' => 'a'
         ]);
-
-        $user->quizzes()->attach($quiz, ['success' => false, 'mark' => 33]);
-        $user->quizzes()->attach($quiz, ['success' => true, 'mark' => 66]);
+        $user->quizzes()->attach($quiz, ['success' => false, 'mark' => 33, 'percentage_mark' => 33]);
+        $user->quizzes()->attach($quiz, ['success' => true, 'mark' => 66, 'percentage_mark' => 66]);
     }
 }

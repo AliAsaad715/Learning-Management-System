@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'id' => 1, 
+                'id' => 1,
                 'title' => 'Mathematics and Sciences',
                 'image_url' => 'sience_and_math.jpg'],
             [
@@ -54,8 +54,8 @@ class CategorySeeder extends Seeder
                 'image_url' => 'life_skills_and_personal_development.png'
             ]
         ];
-        
+
         foreach ($categories as $category)
-        Category::create($category);
+            Category::create($category);
     }
 }

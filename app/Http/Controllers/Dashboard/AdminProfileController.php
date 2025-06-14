@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\App\Controller;
 use App\Traits\manipulateImagesTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ use Illuminate\Validation\Rules;
 class AdminProfileController extends Controller
 {
     use manipulateImagesTrait;
-    
+
     public function show()
     {
         return view('profile.show');
@@ -42,7 +42,7 @@ class AdminProfileController extends Controller
 
         if ($request->hasFile('profile_image'))
             $user->profile_image_url = $this->update_image($request->profile_image, 'profiles', $user->profile_image_url);
-            
+
 
         if ($request->new_password) {
             $user->password = Hash::make($request->new_password);
@@ -54,7 +54,7 @@ class AdminProfileController extends Controller
     }
 
     public function destroy_profile_image()
-    {       
+    {
         $user = auth()->user();
         $this->delete_image($user->profile_image_url, 'profiles');
         $user->profile_image_url = null;
@@ -63,7 +63,7 @@ class AdminProfileController extends Controller
         return view('profile.show');
     }
 
-    
+
     public function destroy_account(Request $request)
     {
         $user = auth()->user();

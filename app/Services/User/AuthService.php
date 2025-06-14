@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Enums\LevelEnum;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserResource;
 use App\Models\Language;
 use App\Models\MoreDetail;
 use App\Models\User;

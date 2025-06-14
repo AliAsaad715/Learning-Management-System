@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
 use App\Traits\manipulateImagesTrait;
 use Illuminate\Http\Request;
@@ -17,12 +17,24 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         $languages = [];
-        if($this->moreDetail)
-        foreach ($this->moreDetail->languages as $language) {
-            $languages[] = [
-                'name' => $language->name,
-                'level' => $language->pivot->level,
-            ];
+        if($this->moreDetail) {
+            foreach ($this->moreDetail->languages as $language) {
+                $languages[] = [
+                    'id' => $language->id,
+                    'name' => $language->name,
+                    'level' => $language->pivot->level,
+                ];
+            }
+        }
+
+        $skills = [];
+        if($this->moreDetail) {
+            foreach ($this->moreDetail->skills as $skill) {
+                $skills[] = [
+                    'id' => $skill->id,
+                    'title' => $skill->title,
+                ];
+            }
         }
 
         return [
@@ -40,7 +52,7 @@ class UserResource extends JsonResource
             'university' =>  $this->moreDetail ? $this->moreDetail->university: null,
             'speciality' =>  $this->moreDetail ? $this->moreDetail->speciality: null,
             'work_experience' =>  $this->moreDetail ? $this->moreDetail->work_experience : null,
-            'skills' =>  $this->moreDetail ? $this->moreDetail->skills->pluck('title') : []
+            'skills' =>  $skills,
         ];
     }
 }
