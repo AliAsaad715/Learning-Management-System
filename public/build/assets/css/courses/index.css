@@ -1,0 +1,304 @@
+/* Courses Page Styles */
+.courses-container {
+    padding: 2rem 5%;
+    max-width: 1400px;
+    margin: 1rem auto;
+}
+
+.courses-title {
+    background: var(--font-gradient);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+    margin: 0 auto 4rem;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    color: var(--neutral);
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    color: var(--primary);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+}
+
+.category-card {
+    background: var(--grid-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.category-title {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.7rem;
+    display: block;
+}
+
+.category-container {
+    display: flex;      
+}
+
+.category-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.category-img img {
+    max-width: 450px;
+    height: 300px;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+
+.topic-title {
+    color: transparent; 
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    background: linear-gradient(-45deg, var(--primary) 55%, var(--secondary) 90%);
+    -webkit-background-clip: text;
+}
+
+.arrow {
+    font-weight: 900;
+}
+.topics-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.topic-tag {
+    display: flex;
+    align-items: center;
+    background: rgba(210, 125, 244, 0.1);
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.topic-tag:hover {
+    background: var(--secondary);
+    color: var(--neutral);
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.course-card {
+    background: var(--bg-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, shadow 0.1s ease;
+    border: 1px solid rgba(41, 195, 205, 0.1);
+    -webkit-transition: transform 0.3s ease, shadow 0.1s ease;
+    -moz-transition: transform 0.3s ease, shadow 0.1s ease;
+    -ms-transition: transform 0.3s ease, shadow 0.1s ease;
+    -o-transition: transform 0.3s ease, shadow 0.1s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 12px 24px rgba(34, 211, 238, 0.25),
+        0 8px 16px rgba(168, 85, 247, 0.2);
+}
+
+.course-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: fill;
+}
+
+.course-details {
+    padding: 1.5rem;
+}
+
+.course-title {
+    color: var(--neutral);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.course-teacher {
+    display: block;
+    color: var(--neutral);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.teacher-name {
+    color: var(--secondary);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.course-card:hover .teacher-name {
+    color: var(--primary);
+}
+    
+.course-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.meta-item {
+    color: var(--primary);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price {    
+    color: var(--dollar);
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-size: large;
+}
+
+.price i {
+    font-size: large;
+}
+
+.course-date {
+    color: var(--secondary);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.course-date .date {
+    color: var(--neutral);
+}
+
+/* Tab System - CSS Only */
+.courses-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-bottom: 2px solid var(--grid-bg);
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.tab-labels {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid var(--grid-bg);
+}
+
+.tab-labels .tab {
+    padding: 1rem 2rem;
+    color: var(--neutral);
+    font-size: 1.1rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background: none;
+    border: none;
+}
+
+.tab-content-wrapper {
+    position: relative;
+}
+
+/* Tab Activation via CSS */
+.tab-content {
+    display: none;
+}
+
+#active-tab:checked ~ .tab-labels .tab[for="active-tab"],
+#rejected-tab:checked ~ .tab-labels .tab[for="rejected-tab"],
+#pending-tab:checked ~ .tab-labels .tab[for="pending-tab"] {
+    color: var(--primary);
+}
+
+#active-tab:checked ~ .tab-labels .tab[for="active-tab"]::after,
+#rejected-tab:checked ~ .tab-labels .tab[for="rejected-tab"]::after,
+#pending-tab:checked ~ .tab-labels .tab[for="pending-tab"]::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+}
+
+#active-tab:checked ~ .tab-content-wrapper .tab-content:nth-child(1),
+#rejected-tab:checked ~ .tab-content-wrapper .tab-content:nth-child(2),
+#pending-tab:checked ~ .tab-content-wrapper .tab-content:nth-child(3) {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Icons */
+.fas {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .courses-container {
+        padding: 1rem;
+    }
+    
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-image img {
+        height: 150px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .category-container {
+        flex-direction: column-reverse;
+    }
+    
+    .category-img {
+        padding-bottom: 40px;
+    }
+}

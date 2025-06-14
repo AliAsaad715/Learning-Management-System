@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@use('Carbon\Carbon')
+
 @section('title', 'Course Management')
 
 @section('content')
@@ -38,7 +40,7 @@
                     </div>
                     <div class="episode-reject-meta-item">
                         <span class="episode-reject-meta-label">Request Date:</span>
-                        <span class="episode-reject-meta-value">{{ \Carbon\Carbon::parse($episode->publishing_request_date)->format('M d, Y') }}</span>
+                        <span class="episode-reject-meta-value">{{ Carbon::parse($episode->publishing_request_date)->format('M d, Y') }}</span>
                     </div>
                     <div class="episode-reject-meta-item">
                         <span class="episode-reject-meta-label">Rejected By:</span>
@@ -49,7 +51,7 @@
             
             <div class="episode-reject-actions">
                 <a href="{{route('courses.video', ['episode_id' => $episode->id])}}" class="episode-reject-action-btn episode-reject-appeal-btn">More Detais</a>
-                <form action="{{route('courses.republish', ['episode_id' => $episode->id])}}" method="POST">
+                <form action="{{route('courses.republish', ['episode' => $episode->id])}}" method="POST">
                     @csrf
                     <button class="episode-reject-action-btn episode-reject-restore-btn">Republish</button>
                 </form>

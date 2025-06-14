@@ -64,10 +64,8 @@ class CourseController extends Controller
         return view('courses.video', compact('episode'));
     }
 
-    public function quiz($episode_id)
+    public function quiz(Episode $episode)
     {
-        // Get the episode (even if trashed)
-        $episode = Episode::withTrashed()->find($episode_id);
 
         // Now get its quiz
         $quiz = Quiz::where('episode_id', $episode->id)
@@ -108,9 +106,8 @@ class CourseController extends Controller
         return back();
     }
 
-    public function republish($episode_id)
+    public function republish(Episode $episode)
     {
-        $episode = Episode::onlyTrashed()->find($episode_id);
         $episode->restore();
         $episode->published = true;
         $episode->publishing_date = now()->format('Y-m-d H:i:s');

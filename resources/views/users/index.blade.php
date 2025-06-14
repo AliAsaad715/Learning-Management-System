@@ -1,24 +1,26 @@
 @extends('layouts.header')
 
-@section('title', ucfirst($type) . ' Managemant')
+@use('Carbon\Carbon')
+@use('App\Enums\TypeEnum')
+@section('title', ucfirst($type->value) . ' Managemant')
 
 @section('content')
 <div class="users-container">
     <div class="users-header">
-        <h1 class="users-title">{{ucfirst($type)}}s</h1>
+        <h1 class="users-title">{{ucfirst($type->value)}}s</h1>
     </div>
 
     <div class="user-filter-tabs">
-        <a href="{{ route('users.index', ['filter' => 'all', 'type' => $type]) }}" class="filter-tab {{ request('filter', 'all') == 'all' ? 'active' : '' }}">
+        <a href="{{ route('users.index', ['filter' => 'all', 'type' => $type->value]) }}" class="filter-tab {{ request('filter', 'all') == 'all' ? 'active' : '' }}">
             All Users ({{ $counts['all'] ?? 0 }})
         </a>
-        <a href="{{ route('users.index', ['filter' => 'active', 'type' => $type]) }}" class="filter-tab {{ request('filter') == 'active' ? 'active' : '' }}">
+        <a href="{{ route('users.index', ['filter' => 'active', 'type' => $type->value]) }}" class="filter-tab {{ request('filter') == 'active' ? 'active' : '' }}">
             Active ({{ $counts['active'] ?? 0 }})
         </a>
-        <a href="{{ route('users.index', ['filter' => 'banned', 'type' => $type]) }}" class="filter-tab {{ request('filter') == 'banned' ? 'active' : '' }}">
+        <a href="{{ route('users.index', ['filter' => 'banned', 'type' => $type->value]) }}" class="filter-tab {{ request('filter') == 'banned' ? 'active' : '' }}">
             Banned ({{ $counts['banned'] ?? 0 }})
         </a>
-        <a href="{{ route('users.index', ['filter' => 'deleted', 'type' => $type]) }}" class="filter-tab {{ request('filter') == 'deleted' ? 'active' : '' }}">
+        <a href="{{ route('users.index', ['filter' => 'deleted', 'type' => $type->value]) }}" class="filter-tab {{ request('filter') == 'deleted' ? 'active' : '' }}">
             Deleted ({{ $counts['deleted'] ?? 0 }})
         </a>
     </div>
@@ -36,7 +38,7 @@
         </thead>
         <tbody>
             @foreach($users as $user)
-                @if($type == 'user')
+                @if($type == TypeEnum::USER)
                     <tr onclick="window.location='{{ route('users.show_user', ['user_id' => $user->id]) }}'">
                 @else
                     <tr onclick="window.location='{{ route('users.show_teacher', ['teacher_id' => $user->id]) }}'">
@@ -58,7 +60,7 @@
                 </td>
                 <td>{{ $user->moreDetail->jobTitle->title ?? 'N/A' }}</td>
                 <td>{{ $user->moreDetail->country->name }}</td>
-                <td>{{\Carbon\Carbon::parse($user->join_date)->format('M d, Y')}}</td>
+                <td>{{Carbon::parse($user->join_date)->format('M d, Y')}}</td>
                 <td>
                 <img 
                     @if($user->deleted_at != null && $user->moreDetail->is_banned) 

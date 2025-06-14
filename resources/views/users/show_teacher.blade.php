@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@use('Carbon\Carbon')
+
 @section('title', 'Teacher Detailed Profile')
 
 @section('content')
@@ -51,7 +53,7 @@
                     </div>
                     <div class="user-profile-info-item">
                         <span class="user-profile-info-label">Join Date:</span>
-                        <span class="user-profile-info-value">{{\Carbon\Carbon::parse($user->join_date)->format('M d, Y')}}</span>
+                        <span class="user-profile-info-value">{{Carbon::parse($user->join_date)->format('M d, Y')}}</span>
                     </div>
                 </div>
                 <div class="user-profile-languages-section">
@@ -157,7 +159,7 @@
                                             <span class="meta-item"><i class="fas fa-video"></i> {{$course->num_of_episodes}} Episodes</span>
                                             <span class="meta-item"><i class="fas fa-signal"></i> {{$course->difficulty_level}}</span>
                                             <div class="course-date">
-                                                <i class="fas fa-calendar-alt"></i> Published at : <span class="date">{{\Carbon\Carbon::parse($course->publishing_date)->format('M d, Y')}}</span>
+                                                <i class="fas fa-calendar-alt"></i> Published at : <span class="date">{{Carbon::parse($course->publishing_date)->format('M d, Y')}}</span>
                                             </div>    
                                         </div>
                                         <div class="price">
@@ -192,7 +194,7 @@
          <div class="user-profile-actions-container">
             @if($user->deleted_at != null && $user->moreDetail->is_banned)
                 <div>
-                    <a href="{{route('users.unban', ['user_id' => $user->id])}}" class="ban-button cancel"><div>UNBAN</div><img src="{{asset('build/assets/img/active_icon.png')}}" alt="ban icon"></a    >
+                    <a href="{{route('users.unban', ['user' => $user->id])}}" class="ban-button cancel"><div>UNBAN</div><img src="{{asset('build/assets/img/active_icon.png')}}" alt="ban icon"></a    >
                 </div>
             @elseif($user->deleted_at != null)
                 <p class="deleted-word">Deleted</p>

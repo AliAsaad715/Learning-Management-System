@@ -46,7 +46,7 @@ class BadgeController extends Controller
             $image_name= $this->store_image($validated['image_url'], 'badges');
 
             // Create the badge
-            $badge = Badge::create([
+            Badge::create([
                 'group' => $validated['group'],
                 'level' => $validated['level'],
                 'description' => $validated['description'],

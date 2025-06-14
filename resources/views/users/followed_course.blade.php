@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@use('Carbon\Carbon')
+
 @section('title', 'Followed Course')
 
 @section('content')
@@ -36,7 +38,7 @@
                         </div>
                         <div class="course-meta-item">
                             <span class="meta-label">Published:</span>
-                            <span class="meta-value">{{ \Carbon\Carbon::parse($course->publishing_date)->format('M d, Y') }}</span>
+                            <span class="meta-value">{{ Carbon::parse($course->publishing_date)->format('M d, Y') }}</span>
                         </div>
                         <div class="course-meta-item">
                             <span class="meta-label">Price:</span>

@@ -31,6 +31,8 @@
     
 </head>
 <body>
+    @use('App\Enums\TypeEnum')
+
     <nav class="navbar">
         <!-- Platform Name -->
         <div class="brand">
@@ -41,8 +43,8 @@
         <ul class="nav-menu">
             <li><a href="{{route('home')}}" class="nav-link">Home</a></li>
             <li><a href="{{route('courses.cates_and_topics')}}" class="nav-link">Courses</a></li>
-            <li><a href="{{route('users.index', ['type' => 'user'])}}" class="nav-link">Users</a></li>
-            <li><a href="{{route('users.index', ['type' => 'teacher'])}}" class="nav-link">Teachers</a></li>
+            <li><a href="{{route('users.index', ['type' => TypeEnum::USER])}}" class="nav-link">Users</a></li>
+            <li><a href="{{route('users.index', ['type' => TypeEnum::TEACHER])}}" class="nav-link">Teachers</a></li>
             <li><a href="{{route('badges.index')}}" class="nav-link">Badges</a></li>
         </ul>
 

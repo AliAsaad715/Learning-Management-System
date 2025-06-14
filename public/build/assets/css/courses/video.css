@@ -1,0 +1,532 @@
+
+
+.video-episode-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 35px;
+    background-color: var(--grid-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+
+/* Video Main Section */
+.video-main-section {
+    margin-bottom: 30px;
+}
+
+.video-player-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 25px;
+    background-color: #000;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.video-player-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+.video-actions-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.video-like-container {
+    display: flex;
+    align-items: center;
+}
+
+.video-like-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    backdrop-filter: blur(5px);
+    color: var(--neutral);
+    transform: translateY(-2px);
+}
+
+.video-like-btn.video-liked {
+    background-color: var(--primary);
+    color: var(--bg-color);
+    font-weight: 600;
+}
+
+.requested-word {
+    color: var(--secondary);
+}
+
+.published-word {
+    color: var(--primary);
+}
+
+.date {
+    min-width: 110px;
+}
+
+.video-stats-container {
+    display: flex;
+    gap: 25px;
+    color: var(--neutral);
+    font-size: 15px;
+    align-items: center;
+}
+
+.video-stats-container i {
+    margin-right: 6px;
+    color: var(--primary);
+}
+
+.video-title {
+    font-size: 38px;
+    margin: 0 0 105px 0;
+    background: var(--font-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.3;
+}
+
+/* Quiz Section */
+.video-quiz-container {
+    margin: 30px 0;
+    display: flex;
+    justify-content: right;
+}
+
+.video-quiz-btn {
+    background: var(--font-gradient);
+    color: var(--neutral);
+    border: none;
+    padding: 14px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+}
+
+.video-quiz-btn i {
+    margin-right: 12px;
+    font-size: 20px;
+    color: var(--neutral)
+}
+
+.video-quiz-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(168, 85, 247, 0.4);
+}
+
+/* Comments Section */
+.video-comments-section {
+    background-color: var(--grid-bg);
+    border-radius: 10px;
+    border-top: 1px solid var(--border-color);
+    padding: 25px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.video-comments-section h2 {
+    font-size: 26px;
+    margin-bottom: 45px;
+    color: var(--neutral);
+    position: relative;
+    display: inline-block;
+}
+
+.video-comment-count {
+    color: var(--text-secondary);
+    font-weight: normal;
+    font-size: 18px;
+    margin-left: 8px;
+}
+
+.video-comment-form {
+    margin-bottom: 75px;
+}
+
+.video-comment-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(15, 23, 42, 0.5);
+    color: var(--neutral);
+    min-height: 100px;
+    transition: border 0.3s ease;
+}
+
+.video-comment-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-hover);
+}
+
+.video-comment-submit {
+    background-color: var(--primary);
+    color: var(--neutral);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.video-comment-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px var(--primary-hover);
+}
+
+.video-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.video-comment-item {
+    padding: 20px;
+    background-color: rgba(15, 23, 42, 0.5);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.video-comment-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.video-user-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+}
+
+.video-username {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.video-comment-text {
+    margin: 0 0 15px 0;
+    padding-left: 40px;
+    color: var(--neutral);
+    line-height: 1.6;
+}
+
+.video-comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 14px;
+    color: var(--primary);
+}
+
+.video-comment-like, .video-comment-reply {
+    background: none;
+    border: none;
+    color: var(--primary);
+    padding: 5px 0;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.video-comment-reply {
+    cursor: pointer;
+}
+
+.video-comment-reply:hover {
+    color: var(--secondary);
+}
+
+.video-comment-like i {
+    margin-right: 6px;
+}
+
+/* Comment Header Styling */
+.video-comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.video-comment-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.video-comment-like {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.video-comment-date {
+    color: var(--secondary);
+    font-size: 14px;
+}
+
+/* Reply Section Styling */
+.video-reply-details {
+    margin-top: 10px;
+}
+
+.video-reply-details summary {
+    list-style: none;
+    cursor: pointer;
+    color: var(--primary);
+    font-weight: 500;
+    display: inline-block;
+    padding: 5px 0;
+    transition: all 0.2s ease;
+}
+
+.video-reply-details summary:hover {
+    color: var(--secondary);
+}
+
+.video-reply-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.video-replies-container {
+    margin-top: 15px;
+    padding-left: 30px;
+    transform: scale(0.9);
+    border-left: 2px solid var(--border-color);
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -o-transform: scale(0.9);
+}
+
+.video-reply-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.video-reply-item:last-child {
+    border-bottom: none;
+}
+
+.video-reply-form {
+    margin-top: 15px;
+}
+
+.video-reply-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: rgba(15, 23, 42, 0.5);
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.video-reply-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.video-reply-submit {
+    background: var(--font-gradient);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.video-reply-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+}
+
+/* Replies Toggle Styling */
+.video-replies-details {
+    margin-top: 10px;
+}
+
+.video-replies-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    color: var(--secondary);
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 10px;
+    background-color: rgba(156, 38, 150, 0.142);
+    list-style: none;
+    transition: all 0.2s ease;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.video-replies-toggle:hover {
+    background-color: rgba(156, 38, 150, 0.345);
+}
+
+.video-replies-toggle .fa-chevron-down {
+    transition: transform 0.2s ease;
+}
+
+.video-replies-details[open] .video-replies-toggle .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.video-replies-count {
+    font-weight: 600;
+}
+
+/* Hide default details marker */
+.video-replies-toggle::-webkit-details-marker {
+    display: none;
+}
+
+/* Replies container styling */
+.video-replies-container {
+    margin-top: 10px;
+    padding-left: 30px;
+    border-left: 2px solid var(--border-color);
+}
+
+.video-reply-item {
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.video-reply-item:last-child {
+    border-bottom: none;
+}
+
+/* Comments Section */
+.episode-comments-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.episode-comments-title {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Unavailable Comments State */
+.episode-comments-unavailable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.episode-comments-unavailable-icon {
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.episode-comments-unavailable-message {
+    font-size: 1.1rem;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+/* Comment Form (only for published episodes) */
+.episode-comment-form {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.video-commnts-internal-container {
+    background-color: var(--grid-bg);
+    border-radius: 8px;
+    padding: 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+    
+    .video-episode-container {
+        padding: 20px;
+    }
+    
+    .video-actions-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .video-title {
+        font-size: 26px;
+    }
+    
+    .video-comments-section h2 {
+        font-size: 22px;
+    }
+    
+    .video-quiz-btn, .video-comment-submit {
+        min-width: 120px;
+        justify-content: center;
+    }
+}

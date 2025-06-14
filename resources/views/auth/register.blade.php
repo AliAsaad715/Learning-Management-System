@@ -4,11 +4,11 @@
 @section('content')
 <div class="auth-container">
     <div class="auth-form">
-        <h2 class="@if($errors->any()) error-form-shrink @endif">Admin Registration</h2>
+        <h2 @class(['error-form-shrink' => $errors->any()])>Admin Registration</h2>
         <form method="POST" action="{{ route('dashboard.register') }}">
             @csrf
             
-            <div class="form-grid @error('first_name') error-field @enderror @error('last_name') error-field @enderror">
+            <div @class(['form-grid', 'error-field' => $errors->has('first_name') || $errors->has('last_name')])>
                 <div class="input-group">
                     <input type="text" name="first_name" id="first_name" required placeholder="First Name" value = "{{old('first_name')}}">
                 </div>
@@ -26,7 +26,7 @@
                 @enderror
             </div>
 
-            <div class="input-group @error('email') error-field @enderror">
+            <div @class(['input-group', 'error-field' => $errors->has('email')])>
                 <input type="email" name="email" id="email" required placeholder="Email Address" value = "{{old('email')}}">
             </div>
             @error('email')
@@ -35,7 +35,7 @@
                 </span>
             @enderror
 
-            <div class="input-group @error('password') error-field @enderror">
+            <div @class(['input-group', 'error-field' => $errors->has('password')])>
                 <input type="password" name="password" id="password" required placeholder="Password">
             </div>
             @error('password')
@@ -44,7 +44,7 @@
                 </span>
             @enderror
             
-            <div class="input-group @error('password_confirmation') error-field @enderror">
+            <div @class(['input-group', 'error-field' => $errors->has('password_confirmation')])>
                 <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="Confirm Password">
             </div>
             @error('password_confirmation')
@@ -53,7 +53,7 @@
                 </span>
             @enderror
 
-            <div class="input-group @error('admin_secret') error-field @enderror">
+            <div @class(['input-group', 'error-field' => $errors->has('admin_secret')])>
                 <input type="password" name="admin_secret" id="admin_secret" required placeholder="Admin Secret">
             </div>
             @error('admin_secret')
@@ -62,7 +62,7 @@
                 </span>
             @enderror
 
-            <button type="submit" class="@if($errors->any()) error-form-shrink @endif">Register</button>
+            <button type="submit">Register</button>
             <div class="link-container">
                 <a class="link" href="{{route('dashboard.login')}}">Already have an account?</a>
             </div>

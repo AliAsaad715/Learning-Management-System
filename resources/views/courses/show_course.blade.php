@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@use('Carbon\Carbon')
+
 @section('title', $course->title)
 
 @section('content')
@@ -12,7 +14,7 @@
         <div class="course-details-info">
             <div class="course-details-title-container">
                 <h1 class="course-details-title">{{ $course->title }}</h1>
-                <div class="course-status-badge @if($course->published) published @else unpublished @endif">
+                <div @class(['course-status-badge', 'published' => $course->published, 'unpublished' => !$course->published])>
                     @if($course->published)
                         <i class="fas fa-check-circle"></i> Published
                     @else
@@ -72,9 +74,9 @@
                     </span>
                     <span class="course-meta-value">
                         @if($course->published)
-                            {{ \Carbon\Carbon::parse($course->publishing_date)->format('M d, Y') }}
+                            {{ Carbon::parse($course->publishing_date)->format('M d, Y') }}
                         @else
-                            {{ \Carbon\Carbon::parse($course->publishing_request_date)->format('M d, Y') }}
+                            {{ Carbon::parse($course->publishing_request_date)->format('M d, Y') }}
                         @endif
                     </span>
                 </div>
@@ -107,27 +109,27 @@
             
             <div class="course-episodes-list">
                 @foreach($course->episodes as $episode)
-                <div class="course-episode-item {{ !$episode->published ? 'episode-pending' : '' }}">
-                    <div class="episode-number">{{ $loop->iteration }}</div>
-                    <div class="episode-info">
-                        <h3 class="episode-title">
-                            {{ $episode->title }}
-                        </h3>
-                        <div class="episode-meta">
-                            <span class="episode-duration"><i class="fas fa-clock"></i> {{ $episode->duration }} min</span>
-                            @if($episode->has_quiz)
-                                <span class="episode-quiz"><i class="fas fa-question-circle"></i> Has Quiz</span>
-                            @endif
+                    <div @class(['course-episode-item', 'episode-pending' => !$episode->published])>
+                        <div class="episode-number">{{ $loop->iteration }}</div>
+                        <div class="episode-info">
+                            <h3 class="episode-title">
+                                {{ $episode->title }}
+                            </h3>
+                            <div class="episode-meta">
+                                <span class="episode-duration"><i class="fas fa-clock"></i> {{ $episode->duration }} min</span>
+                                @if($episode->has_quiz)
+                                    <span class="episode-quiz"><i class="fas fa-question-circle"></i> Has Quiz</span>
+                                @endif
+                            </div>
                         </div>
+                        <a href="{{ route('courses.video', ['episode_id' => $episode->id]) }}" class="episode-view-btn">
+                            @if($episode->published)
+                                <i class="fas fa-play"></i> View
+                            @else
+                                <i class="fas fa-spinner"></i> Pending
+                            @endif
+                        </a>
                     </div>
-                    <a href="{{ route('courses.video', ['episode_id' => $episode->id]) }}" class="episode-view-btn">
-                        @if($episode->published)
-                            <i class="fas fa-play"></i> View
-                        @else
-                            <i class="fas fa-spinner"></i> Pending
-                        @endif
-                    </a>
-                </div>
                 @endforeach
             </div>
         </div>

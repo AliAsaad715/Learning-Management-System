@@ -13,7 +13,7 @@ trait manipulateImagesTrait {
         $name = time() . '.' . $extension;
 
         // Store image
-        $image->move(public_path() . '/uploads/', $name);
+        $image->move(public_path() . "/build/assets/img/$folder", $name);
 
         return $name;
     }

@@ -15,7 +15,7 @@
             <input type="text" 
                 id="group" 
                 name="group" 
-                class="form-input @error('group') is-invalid @enderror"
+                @class(['form-input', 'is-invalid' => $errors->has('group')])
                 value="{{ old('group') }}"
                 required>
             @error('group')
@@ -42,7 +42,7 @@
             <label for="description" class="form-label">Description</label>
             <textarea id="description" 
                     name="description" 
-                    class="form-input @error('description') is-invalid @enderror"
+                    @class(['form-input', 'is-invalid' => $errors->has('description')])
                     rows="3"
                     required>{{ old('description') }}</textarea>
             @error('description')
@@ -56,7 +56,7 @@
             <input type="number" 
                 id="goal" 
                 name="goal" 
-                class="form-input @error('goal') is-invalid @enderror"
+                @class(['form-input', 'is-invalid' => $errors->has('goal')])
                 value="{{ old('goal') }}"
                 min="1"
                 max="32767"
@@ -72,7 +72,7 @@
             <input type="file" 
                 id="image_url" 
                 name="image_url" 
-                class="form-input-file @error('image_url') is-invalid @enderror"
+                @class(['form-input-file', 'is-invalid' => $errors->has('image_url')])
                 accept="image/*"
                 required>
             @error('image_url')

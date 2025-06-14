@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\ValidationException;
 
-class RegisterController extends Controller
+class WebAuthController extends Controller
 {
     use manipulateImagesTrait;
+
+
+    // Register
 
     public function showRegistrationForm()
     {
@@ -27,7 +31,6 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => ['required', 'string', 'max:50'],
             'last_name' => ['required', 'string', 'max:50'],
-            // 'profile_image_url' => ['image', 'max: 5120', 'nullable'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)],
             'admin_secret' => ['required', 'string', 'in:'.config('auth.admin_secret')],
@@ -37,13 +40,9 @@ class RegisterController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        // if(isset($request->profile_image_url))
-        //     $profile_image_url = $this->storeImage($request->profile_image_url, 'img/people');
-
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            // 'profile_image_url' => $profile_image_url?? null,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => RoleEnum::ADMIN,
@@ -52,5 +51,44 @@ class RegisterController extends Controller
         Auth::login($user);
 
         return to_route('home');
+    }
+
+
+
+    // Login
+    
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+
+            return to_route('home');
+        }
+
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);
+    }
+
+    
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return to_route('dashboard.login');
     }
 }

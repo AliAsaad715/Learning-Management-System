@@ -1,0 +1,182 @@
+
+
+.episode-reject-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.episode-reject-page-title {
+    color: var(--error);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.episode-reject-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.episode-reject-row {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border-left: 4px solid var(--error);
+    transition: all 0.3s ease;
+}
+
+.episode-reject-row:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(248, 113, 113, 0.2);
+}
+
+.episode-reject-image {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.episode-reject-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.episode-reject-details {
+    flex: 1;
+    padding: 1.5rem;
+}
+
+.episode-reject-title {
+    color: var(--neutral);
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.episode-reject-course {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+}
+
+.episode-reject-course-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.episode-reject-course-link:hover {
+    color: #0dd6fc;
+    text-decoration: underline;
+}
+
+.episode-reject-course-rejected {
+    color: var(--error);
+}
+
+.episode-reject-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.episode-reject-meta-item {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.episode-reject-meta-label {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.episode-reject-meta-value {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.episode-reject-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.episode-reject-action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.episode-reject-appeal-btn {
+    background: transparent;
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.episode-reject-appeal-btn:hover {
+    background: rgba(248, 113, 113, 0.1);
+}
+
+.episode-reject-restore-btn {
+    padding: 1rem 2.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.episode-reject-restore-btn:hover {
+    background: rgba(10, 197, 197, 0.068);
+}
+
+.episode-reject-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.episode-reject-empty-state i {
+    font-size: 3rem;
+    color: var(--error);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .episode-reject-row {
+        flex-direction: column;
+    }
+    
+    .episode-reject-image {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .episode-reject-actions {
+        flex-direction: row;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+@media (max-width: 768px) {
+    .episode-reject-meta {
+        grid-template-columns: 1fr;
+    }
+    
+    .episode-reject-container {
+        padding: 0 1rem;
+    }
+}

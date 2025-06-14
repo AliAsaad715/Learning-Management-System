@@ -1,0 +1,78 @@
+/* Badge Edit Page Specific Styles */
+.badge-edit-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: var(--grid-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(19, 8, 48, 0.1);
+}
+
+.badge-edit-title {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+}
+
+.current-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.current-image img {
+    border-radius: 8px;
+    border: 2px solid var(--secondary);
+}
+
+.current-image span {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .form-header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn-submit,
+    .btn-cancel {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .badge-edit-container {
+        padding: 1rem;
+    }
+
+    .form-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.5rem;
+    }
+}

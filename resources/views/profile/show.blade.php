@@ -1,7 +1,8 @@
 @extends('layouts.header')
 
-@section('title', 'Admin Profile')
+@use('Carbon\Carbon')
 
+@section('title', 'Admin Profile')
 
 @section('content')
 <div class="admin-profile">
@@ -59,7 +60,7 @@
                 <div class="profile-detail">
                     <span class="profile-detail-label">Join Date:</span>
                     <span class="profile-detail-value">
-                        {{ auth()->user()->join_date ? \Carbon\Carbon::parse(auth()->user()->join_date)->format('M d, Y') : 'N/A' }}
+                        {{ auth()->user()->join_date ? Carbon::parse(auth()->user()->join_date)->format('M d, Y') : 'N/A' }}
                     </span>
                 </div>
             </div>

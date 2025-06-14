@@ -1,3 +1,5 @@
+@use('App\Enums\TypeEnum')
+
 <footer class="footer-navbar">
     <div class="footer-container">
         <ul class="footer-menu">
@@ -24,7 +26,7 @@
                 </a>
             </li>
             <li class="footer-item">
-                <a href="{{route('users.index', ['type' => 'user'])}}" class="footer-link">
+                <a href="{{route('users.index', ['type' => TypeEnum::USER])}}" class="footer-link">
                     <div class="footer-icon-container">
                         <div class="footer-icon">
                             <i class="fas fa-users"></i>
@@ -35,7 +37,7 @@
                 </a>
             </li>
             <li class="footer-item">
-                <a href="{{route('users.index', ['type' => 'teacher'])}}" class="footer-link">
+                <a href="{{route('users.index', ['type' => TypeEnum::TEACHER])}}" class="footer-link">
                     <div class="footer-icon-container">
                         <div class="footer-icon">
                             <i class="fas fa-chalkboard-teacher"></i>

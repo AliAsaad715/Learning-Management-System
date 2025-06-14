@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@use('Carbon\Carbon')
+
 @section('title', 'Course Management')
 
 @section('content')
@@ -98,7 +100,7 @@
                                 </div>
                                 <div class="pending-meta-item">
                                     <span class="pending-meta-label">Submitted:</span>
-                                    <span class="pending-meta-value">{{ \Carbon\Carbon::parse($episode->publishing_request_date)->format('M d, Y') }}</span>
+                                    <span class="pending-meta-value">{{ Carbon::parse($episode->publishing_request_date)->format('M d, Y') }}</span>
                                 </div>
                             </div>
                             

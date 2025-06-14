@@ -8,14 +8,14 @@
         <form method="POST" action="{{ route('dashboard.login') }}">
             @csrf
 
-            <div class="input-group @error('email') error-field @enderror">
+            <div @class(['input-group', 'error-field' => $errors->has('email')])>
                 <input type="email" name="email" id="email" required placeholder="Email Address" value = "{{old('email')}}">
             </div>
             @error('email')
                 <div class="error-message">{{ $message }}</div>
             @enderror   
 
-            <div class="input-group @error('password') error-field @enderror">
+            <div @class(['input-group', 'error-field' => $errors->has('password')])>
                 <input type="password" name="password" id="password" required placeholder="Password">
             </div>
             @error('password')

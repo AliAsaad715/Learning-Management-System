@@ -1,5 +1,7 @@
 @extends('layouts.header')
 
+@use('Carbon\Carbon')
+
 @section('title', 'Course Management')
 
 @section('content')
@@ -27,7 +29,7 @@
                                 <span class="meta-item"><i class="fas fa-video"></i> {{$course->num_of_episodes}} Episodes</span>
                                 <span class="meta-item"><i class="fas fa-signal"></i> {{$course->difficulty_level}}</span>
                                 <div class="course-date">
-                                    <i class="fas fa-calendar-alt"></i> Published at : <span class="date">{{\Carbon\Carbon::parse($course->publishing_date)->format('M d, Y')}}</span>
+                                    <i class="fas fa-calendar-alt"></i> Published at : <span class="date">{{Carbon::parse($course->publishing_date)->format('M d, Y')}}</span>
                                 </div>    
                             </div>
                             <div class="price">

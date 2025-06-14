@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Enums\RoleEnum;
+use App\Enums\TypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Quiz;
@@ -12,14 +13,9 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index(Request $request, string $type)
+    public function index(Request $request, TypeEnum $type)
     {
         $filter = $request->input('filter', 'all');
-
-        // Ensure $type is either 'user' or 'teacher'
-        if (!in_array($type, ['user', 'teacher'])) {
-            abort(404, 'Invalid type');
-        }
 
         $query = User::withTrashed()->with([
             'moreDetail.jobTitle',
@@ -28,8 +24,9 @@ class UserController extends Controller
             'moreDetail.skills'
         ])->whereHas('moreDetail');
 
+
         // Apply role filter ONLY if $type = 'teacher'
-        if ($type === 'teacher') {
+        if ($type === TypeEnum::TEACHER) {
             $query->where('role', 'teacher');
         }
 
@@ -54,7 +51,7 @@ class UserController extends Controller
         // Get counts (respecting $type)
         $countQuery = User::withTrashed()->whereHas('moreDetail');
 
-        if ($type === 'teacher') {
+        if ($type === TypeEnum::TEACHER) {
             $countQuery->where('role', 'teacher');
         }
 
@@ -76,7 +73,7 @@ class UserController extends Controller
 
         $users = $query->orderBy('created_at', 'desc')->get();
 
-        return view('users.index', compact('users', 'counts', 'filter', 'type'));
+        return view('users.index', array_merge(compact('users', 'counts', 'filter'), ['type' => $type]));
     }
 
     public function show_user($user_id)
@@ -171,9 +168,8 @@ class UserController extends Controller
         return back();
     }
 
-    public function unban_user($user_id)
+    public function unban_user(User $user)
     {
-        $user = User::withTrashed()->findOrFail($user_id);
         $user->restore();
         $user->moreDetail()->update(['is_banned' => false]);
 
