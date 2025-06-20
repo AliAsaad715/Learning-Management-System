@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Requests\Reply\ReplyRequest;
 use App\Responses\Response;
 use App\Services\Reply\ReplyService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
 class ReplyController extends Controller
@@ -17,75 +17,96 @@ class ReplyController extends Controller
         $this->replyService = $replyService;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index($episode_id): JsonResponse
+    // Get all replies for specific comment.
+    public function index($comment_id): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->replyService->index($episode_id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            $data = $this->replyService->index($comment_id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request, $episode_id): JsonResponse
+    // Add reply for specific comment.
+    public function store(ReplyRequest $request, $comment_id): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->replyService->store($request, $episode_id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            $data = $this->replyService->store($request->validated(), $comment_id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($episode_id): JsonResponse
+    // Update specific reply.
+    public function update(ReplyRequest $request, $id): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->replyService->show($episode_id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            $data = $this->replyService->update($request->validated(), $id);
+            if($data['code'] == 404 || $data['code'] == 401) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): JsonResponse
-    {
-        $data = [];
-        try {
-            $data = $this->replyService->update($request, $id);
-            return Response::success($data['user'], $data['message'], $data['code']);
-        } catch (Throwable $th) {
-            $message  = $th->getMessage();
-            return Response::error($data, $message);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Delete specific reply.
     public function destroy($id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->replyService->destroy($id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            if($data['code'] == 404 || $data['code'] == 401) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success([], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    // Add Like to specific reply.
+    public function addLikeToReply($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->replyService->addLikeToReply($id);
+            if($data['code'] == 404 || $data['code'] == 401) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    // Remove Like from specific reply.
+    public function removeLikeFromReply($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->replyService->removeLikeFromReply($id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);

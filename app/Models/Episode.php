@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Episode extends Model
 {
     use SoftDeletes;
-    
+
     public $timestamps = false;
 
     public function course(): BelongsTo
@@ -28,14 +29,14 @@ class Episode extends Model
     {
         return $this->hasOne(Quiz::class);
     }
-    
-    public function admin()
+
+    public function admin(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function userlikes()
+    public function userLikes(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'episodelikes');
+        return $this->belongsToMany(User::class, 'episode_likes');
     }
 }

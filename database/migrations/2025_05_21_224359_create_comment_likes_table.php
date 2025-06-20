@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Episode;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('episodelikes', function (Blueprint $table) {
+        Schema::create('comment_likes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Episode::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Comment::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained();
-            $table->unique(['episode_id', 'user_id']);
+            $table->unique(['comment_id', 'user_id']);
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('episode_user');
+        Schema::dropIfExists('comment_likes');
     }
 };

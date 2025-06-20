@@ -15,6 +15,16 @@ class Response
         ], $code);
     }
 
+    public static function successForPaginate($data, $meta, $message, $code = 200): JsonResponse
+    {
+        return response()->json([
+            'status' => true,
+            'data' => $data,
+            'meta' => $meta,
+            'message' => $message,
+        ], $code);
+    }
+
     public static function error($data, $message, $code = 500): JsonResponse
     {
         return response()->json([

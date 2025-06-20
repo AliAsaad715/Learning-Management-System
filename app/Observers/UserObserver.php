@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Mail\ChangePassword;
-use App\Mail\SendOTP;
 use App\Mail\WelcomeUser;
 use App\Models\Statistic;
 use App\Models\User;

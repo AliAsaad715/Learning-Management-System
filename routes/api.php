@@ -59,9 +59,25 @@ Route::apiResource('courses', CourseController::class);
 
 Route::apiResource('episodes', EpisodeController::class);
 
-Route::apiResource('comments', CommentController::class);
+Route::controller(CommentController::class)->middleware('auth:api')->prefix('comments')->group(function () {
+    Route::get('{episode_id}', 'index');
+    Route::post('load-more/{episode_id}', 'loadMore');
+    Route::get('get-my-comments/{episode_id}', 'getMyComments');
+    Route::post('{episode_id}', 'store');
+    Route::put('{id}', 'update');
+    Route::delete('{id}', 'destroy');
+    Route::post('add-like/{id}', 'addLikeToComment');
+    Route::delete('remove-like/{id}', 'removeLikeFromComment');
+});
 
-Route::apiResource('replies', ReplyController::class);
+Route::controller(ReplyController::class)->middleware('auth:api')->prefix('replies')->group(function () {
+    Route::get('{comment_id}', 'index');
+    Route::post('{comment_id}', 'store');
+    Route::put('{id}', 'update');
+    Route::delete('{id}', 'destroy');
+    Route::post('add-like/{id}', 'addLikeToReply');
+    Route::delete('remove-like/{id}', 'removeLikeFromReply');
+});
 
 Route::get('countries', [CountryController::class, 'index']);
 

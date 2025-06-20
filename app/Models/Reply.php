@@ -4,10 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Reply extends Model
 {
     public $timestamps = false;
+
+    protected $fillable = [
+        'user_id',
+        'comment_id',
+        'content',
+        'likes'
+    ];
 
     public function user(): BelongsTo
     {
@@ -19,8 +27,8 @@ class Reply extends Model
         return $this->belongsTo(Comment::class);
     }
 
-    public function userlikes()
+    public function userLikes(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'replylikes');
+        return $this->belongsToMany(User::class, 'reply_likes');
     }
 }

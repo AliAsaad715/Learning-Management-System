@@ -139,6 +139,270 @@ class FakeDataSeeder extends Seeder
             'likes' => 83,
         ]);
 
+        // comment 3
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 4
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 5
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 6
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 7
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 8
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 9
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 10
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 11
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 12
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 13
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 14
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 15
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 16
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 17
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 18
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 19
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 20
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 21
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 22
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 23
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 24
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 25
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 26
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 27
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 28
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 29
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 30
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 31
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 32
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 33
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the first comment, hello world',
+            'likes' => 203,
+        ]);
+
+        // comment 34
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
+        // comment 35
+        Comment::create([
+            'episode_id' => 1,
+            'user_id' => 2,
+            'content' => 'this is the second comment, hello world',
+            'likes' => 83,
+        ]);
+
         // reply 1
         Reply::create([
             'comment_id' => 1,

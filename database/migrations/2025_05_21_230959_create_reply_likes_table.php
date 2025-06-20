@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('replaylikes', function (Blueprint $table) {
+        Schema::create('reply_likes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Reply::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('replaylikes');
+        Schema::dropIfExists('reply_likes');
     }
 };
