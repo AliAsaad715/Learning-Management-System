@@ -19,7 +19,6 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     public $timestamps = false;
-
     protected $fillable = [
         'first_name',
         'last_name',
@@ -117,20 +116,5 @@ class User extends Authenticatable
     public function topics(): BelongsToMany
     {
         return $this->belongsToMany(Topic::class, 'completed_courses');
-    }
-
-    public function likeEpisode()
-    {
-        return $this->belongsToMany(Episode::class, 'episodelikes');
-    }
-
-    public function likeComment()
-    {
-        return $this->belongsToMany(Comment::class, 'commentlikes');
-    }
-
-    public function likeReply()
-    {
-        return $this->belongsToMany(Reply::class, 'replylikes');
     }
 }
