@@ -123,10 +123,6 @@
     margin-top: auto;
 }
 
-.pending-action-form {
-    display: inline;
-}
-
 .pending-action-btn {
     padding: 0.6rem 1.25rem;
     border-radius: 4px;

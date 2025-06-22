@@ -1,10 +1,6 @@
-@extends('layouts.header')
-
 @use('Carbon\Carbon')
 
-@section('title', $episode->title)
-
-@section('content')
+<x-layouts.header :title="$episode->title" :with-footer="true">
     <div class="video-episode-container">
         <!-- Video Player Section -->
         <div class="video-main-section">
@@ -180,5 +176,4 @@
             </div>
         </div>
     </div>
-    @include('layouts.footer')
-@endsection
+</x-layouts.header>

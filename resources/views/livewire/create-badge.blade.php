@@ -1,22 +1,15 @@
-@extends('layouts.header')
-
-@section('title', 'Create New Badge')
-
-@section('content')
 <div class="badge-create-container">
     <h1 class="badge-create-title">Create New Badge</h1>
     
-    <form class="badge-form" method="POST" action="{{ route('badges.store') }}" enctype="multipart/form-data">
-        @csrf
+    <form wire:submit="create" class="badge-form">
 
         <!-- Group Field -->
         <div class="form-group">
             <label for="group" class="form-label">Group</label>
-            <input type="text" 
+            <input wire:model="group"
+                type="text" 
                 id="group" 
-                name="group" 
                 @class(['form-input', 'is-invalid' => $errors->has('group')])
-                value="{{ old('group') }}"
                 required>
             @error('group')
                 <span class="error-message">{{ $message }}</span>
@@ -24,14 +17,12 @@
         </div>
 
         <!-- Level Field (visible only if not preselected) -->
-        @if(isset($preselected_level))
-            <input type="hidden" name="level" value="{{ $preselected_level }}">
-        @else
+        @if(!isset($level))
             <div class="form-group">
                 <label for="level" class="form-label">Level</label>
-                <select id="level" name="level" class="form-input" required>
+                <select wire:model="level" id="level" class="form-input" required>
                     @for($i = 1; $i <= 5; $i++)
-                        <option value="{{ $i }}" {{ old('level') == $i ? 'selected' : '' }}>Level {{ $i }}</option>
+                        <option value="{{ $i }}">Level {{ $i }}</option>
                     @endfor
                 </select>
             </div>
@@ -40,11 +31,12 @@
         <!-- Description Field -->
         <div class="form-group">
             <label for="description" class="form-label">Description</label>
-            <textarea id="description" 
-                    name="description" 
-                    @class(['form-input', 'is-invalid' => $errors->has('description')])
-                    rows="3"
-                    required>{{ old('description') }}</textarea>
+            <textarea wire:model="description"
+                id="description" 
+                @class(['form-input', 'is-invalid' => $errors->has('description')])
+                rows="3"
+                required>
+            </textarea>
             @error('description')
                 <span class="error-message">{{ $message }}</span>
             @enderror
@@ -53,11 +45,10 @@
         <!-- Goal Field -->
         <div class="form-group">
             <label for="goal" class="form-label">Goal</label>
-            <input type="number" 
+            <input wire:model="goal"
+                type="number" 
                 id="goal" 
-                name="goal" 
                 @class(['form-input', 'is-invalid' => $errors->has('goal')])
-                value="{{ old('goal') }}"
                 min="1"
                 max="32767"
                 required>
@@ -69,9 +60,9 @@
         <!-- Image Upload Field -->
         <div class="form-group">
             <label for="image_url" class="form-label">Badge Image</label>
-            <input type="file" 
+            <input wire:model="image_url"
+                type="file" 
                 id="image_url" 
-                name="image_url" 
                 @class(['form-input-file', 'is-invalid' => $errors->has('image_url')])
                 accept="image/*"
                 required>
@@ -79,10 +70,7 @@
                 <span class="error-message">{{ $message }}</span>
             @enderror
         </div>
-
-        <!-- Hidden Admin ID Field -->
-        <input type="hidden" name="created_by" value="{{ auth()->user()->id}}">
-
+        
         @if($errors->any())
             <div class="form-errors">
                 <ul>
@@ -98,5 +86,3 @@
         </div>
     </form>
 </div>
-@include('layouts.footer')
-@endsection

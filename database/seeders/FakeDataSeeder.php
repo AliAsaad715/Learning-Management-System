@@ -156,13 +156,13 @@ class FakeDataSeeder extends Seeder
         ]);
 
         // quiz 1
-        $quiz = Quiz:: create([
+        $quiz1 = Quiz:: create([
             'episode_id' => 1,
             'num_of_questions' => 3,
         ]);
 
         // quiz 2
-        Quiz::create([
+        $quiz2 = Quiz::create([
             'episode_id' => 2,
             'num_of_questions' => 2,
         ]);
@@ -251,7 +251,7 @@ class FakeDataSeeder extends Seeder
             'answer_d' => 'Ali',
             'right_answer' => 'a'
         ]);
-        $user->quizzes()->attach($quiz, ['success' => false, 'mark' => 33, 'percentage_mark' => 33]);
-        $user->quizzes()->attach($quiz, ['success' => true, 'mark' => 66, 'percentage_mark' => 66]);
+        $user->quizzes()->attach($quiz1, ['success' => false, 'mark' => 1, 'percentage_mark' => 33]);
+        $user->quizzes()->attach($quiz2, ['success' => true, 'mark' => 2, 'percentage_mark' => 100]);
     }
 }

@@ -1,9 +1,11 @@
+@props(['title', 'withFooter' => false])
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darajat Edu - @yield('title')</title>
+    <title>Darajat Edu - {{$title}}</title>
     {{-- main --}}
     <link rel="stylesheet" href="{{asset('build/assets/css/main/header.css')}}">
     <link rel="stylesheet" href="{{asset('build/assets/css/main/home.css')}}">
@@ -78,10 +80,14 @@
     <div class="br"></div>
 
     <main class="main-content">
-        @yield('content')
+        {{ $slot }}
     </main>
 
-    @include('layouts.footer_navbar')
+    @if($withFooter)
+        <x-layouts.back-button/>
+    @endif
+    
+    <x-layouts.footer-navbar/>
 
     <script src="script.js">
         document.getElementById('profileToggler').addEventListener('click', function() {

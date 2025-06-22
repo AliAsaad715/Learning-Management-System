@@ -1,4 +1,5 @@
-<!-- resources/views/layouts/app.blade.php -->
+@props(['title'])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Admin Panel') }}</title>
+    <title>Darajat Edu - {{ $title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('build/assets/css/main/auth.css') }}" rel="stylesheet">
     
@@ -22,7 +23,7 @@
         <div class="brand">
             <span class="gradient-text"><img src="{{asset('build/assets/img/Darajat.png')}}" alt="logo"></span>
         </div>
-            @yield('content')
+            {{ $slot}}
         </main>
     </div>
 

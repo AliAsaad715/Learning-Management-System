@@ -1,11 +1,7 @@
-@extends('layouts.header')
-
 @use('Carbon\Carbon')
 
-@section('title', 'Teacher Detailed Profile')
-
-@section('content')
-     <div class="user-profile-container">
+<x-layouts.header title="Teacher Detailed Profile" :with-footer="true">
+    <div class="user-profile-container">
         <header class="user-profile-header">
             <img src="{{$user->profile_image_url ? asset("build/assets/img/profiles/$user->profile_image_url") : asset('build/assets/img/anonymous_icon.png')}}" alt="User Avatar" class="user-profile-avatar">
             <div class="user-profile-userinfo">
@@ -190,22 +186,6 @@
             </section>
         </main>
 
-        <!-- Action Buttons -->
-         <div class="user-profile-actions-container">
-            @if($user->deleted_at != null && $user->moreDetail->is_banned)
-                <div>
-                    <a href="{{route('users.unban', ['user' => $user->id])}}" class="ban-button cancel"><div>UNBAN</div><img src="{{asset('build/assets/img/active_icon.png')}}" alt="ban icon"></a    >
-                </div>
-            @elseif($user->deleted_at != null)
-                <p class="deleted-word">Deleted</p>
-            @else
-                <form action="{{route('users.ban', ['user' => $user->id])}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="ban-button"><div class="ban-word">BAN</div><img src="{{asset('build/assets/img/ban_icon.png')}}" alt="ban icon"></button>
-                </form>
-            @endif
-        </div>
+        @livewire('ban', ['user' => $user]) 
     </div>
-@include('layouts.footer')
-@endsection
+</x-layouts.header>

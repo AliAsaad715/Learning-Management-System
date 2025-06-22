@@ -51,7 +51,8 @@ Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizze
         });
         Route::post('start-quiz/{episode_id}', 'startQuiz');
         Route::post('process-answer', 'processAnswer');
-        Route::put('quiz-result/{quiz_id}', 'getQuizResult');
+        Route::put('result/{quiz_id}', 'calculateQuizResult');
+        Route::get('result/{quiz_id}', 'getQuizResult');
 });
 
 Route::apiResource('courses', CourseController::class);

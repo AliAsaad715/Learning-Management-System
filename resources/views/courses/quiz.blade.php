@@ -1,8 +1,4 @@
-@extends('layouts.header')
-
-@section('title', 'Episode Quiz')
-
-@section('content')
+<x-layouts.header title="Episode Quiz" :with-footer="true">
     <div class="quiz-container">
         <div class="quiz-header">
             <h1 class="quiz-title"><span class="quiz-title-main">QUIZ</span><br> {{ $episode->title }}</h1>
@@ -54,5 +50,4 @@
             @endforeach
         </div>
     </div>
-@include('layouts.footer')
-@endsection
+</x-layouts.header>

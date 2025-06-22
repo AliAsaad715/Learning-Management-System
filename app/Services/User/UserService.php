@@ -5,13 +5,11 @@ namespace App\Services\User;
 use App\Enums\RoleEnum;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
-use App\Traits\manipulateImagesTrait;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    use manipulateImagesTrait;
     public function updateProfile($request): array
     {
         $user = User::query()->find(Auth::id());

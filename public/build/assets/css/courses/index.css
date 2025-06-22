@@ -241,19 +241,12 @@
 }
 
 /* Tab Activation via CSS */
-.tab-content {
-    display: none;
-}
 
-#active-tab:checked ~ .tab-labels .tab[for="active-tab"],
-#rejected-tab:checked ~ .tab-labels .tab[for="rejected-tab"],
-#pending-tab:checked ~ .tab-labels .tab[for="pending-tab"] {
+.selected {
     color: var(--primary);
 }
 
-#active-tab:checked ~ .tab-labels .tab[for="active-tab"]::after,
-#rejected-tab:checked ~ .tab-labels .tab[for="rejected-tab"]::after,
-#pending-tab:checked ~ .tab-labels .tab[for="pending-tab"]::after {
+.selected::after {
     content: '';
     position: absolute;
     bottom: -2px;

@@ -8,23 +8,9 @@ use App\Models\Course;
 use App\Models\Episode;
 use App\Models\Quiz;
 use App\Models\Topic;
-use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class CourseController extends Controller
 {
-    public function cates_and_topics()
-    {
-            $categories = Category::with('topics')->get();
-
-            $pending_episodes = Episode::where('published', false)->with(['course' => function($q) {
-                $q->with(['teacher' => function($q) {
-                    $q->withTrashed();
-                }]);
-            }])->get();
-
-        return view('courses.cates_and_topics', compact(['categories', 'pending_episodes']));
-    }
-
     public function active_courses(Category $cate, Topic $topic)
     {
         $courses = Course::where(['topic_id' => $topic->id, 'published' => 'true'])->with(['teacher' => function($q) {
@@ -76,42 +62,10 @@ class CourseController extends Controller
         return view('courses.quiz', compact(['episode', 'quiz']));
     }
 
-    public function rejected_episodes(Category $cate, Topic $topic)
+    public function rejected_episodes()
     {
-        $rejected_episodes = Episode::onlyTrashed()->with(['course' => function($q) {
-            $q->with(['teacher' => function($q) {
-                $q->withTrashed();
-            }]);
-        }])->get();
-
+        
         return view('courses.rejected_courses', compact(['cate', 'topic', 'rejected_episodes']));
     }
 
-    public function approve(Episode $episode)
-    {
-        $episode->published = true;
-        $episode->admin_id = auth()->user()->id;
-        $episode->publishing_date = now()->format('Y-m-d H:i:s');
-        $episode->save();
-
-        return back();
-    }
-
-    public function reject(Episode $episode)
-    {
-        $episode->admin_id = auth()->user()->id;
-        $episode->delete();
-
-        return back();
-    }
-
-    public function republish(Episode $episode)
-    {
-        $episode->restore();
-        $episode->published = true;
-        $episode->publishing_date = now()->format('Y-m-d H:i:s');
-        $episode->save();
-
-        return back();
-    }
 }

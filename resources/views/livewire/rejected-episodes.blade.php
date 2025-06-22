@@ -1,10 +1,5 @@
-@extends('layouts.header')
-
 @use('Carbon\Carbon')
 
-@section('title', 'Course Management')
-
-@section('content')
 <div class="episode-reject-container">
     <h1 class="episode-reject-page-title">Rejected Episodes</h1>
     
@@ -51,10 +46,7 @@
             
             <div class="episode-reject-actions">
                 <a href="{{route('courses.video', ['episode_id' => $episode->id])}}" class="episode-reject-action-btn episode-reject-appeal-btn">More Detais</a>
-                <form action="{{route('courses.republish', ['episode' => $episode->id])}}" method="POST">
-                    @csrf
-                    <button class="episode-reject-action-btn episode-reject-restore-btn">Republish</button>
-                </form>
+                <button wire:click="republish({{$episode->id}})" type="button" class="episode-reject-action-btn episode-reject-restore-btn">Republish</button>
             </div>
         </div>
         @endforeach
@@ -67,5 +59,3 @@
         @endif
     </div>
 </div>
-@include('layouts.footer')
-@endsection

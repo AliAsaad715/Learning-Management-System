@@ -1,33 +1,27 @@
-<!-- register.blade.php -->
-@extends('layouts.auth_bg')
-
-@section('content')
 <div class="auth-container">
     <div class="auth-form">
         <h2 @class(['error-form-shrink' => $errors->any()])>Admin Registration</h2>
-        <form method="POST" action="{{ route('dashboard.register') }}">
-            @csrf
-            
+        <form wire:submit="register">            
             <div @class(['form-grid', 'error-field' => $errors->has('first_name') || $errors->has('last_name')])>
                 <div class="input-group">
-                    <input type="text" name="first_name" id="first_name" required placeholder="First Name" value = "{{old('first_name')}}">
+                    <input wire:model="first_name" type="text" id="first_name" required placeholder="First Name">
                 </div>
                 
                 <div class="input-group">
-                    <input type="text" name="last_name" id="last_name" required placeholder="Last Name" value = "{{old('last_name')}}">
+                    <input wire:model="last_name" type="text" id="last_name" required placeholder="Last Name">
                 </div>
             </div>
             <div class="error-message">
-            @error('first_name')
-                    <div>{{ $message }}</div>
-            @enderror
-            @error('last_name')
+                @error('first_name')
+                        <div>{{ $message }}</div>
+                @enderror
+                @error('last_name')
                     <div>{{ $message }}</div>
                 @enderror
             </div>
 
             <div @class(['input-group', 'error-field' => $errors->has('email')])>
-                <input type="email" name="email" id="email" required placeholder="Email Address" value = "{{old('email')}}">
+                <input wire:model="email" type="email" id="email" required placeholder="Email Address">
             </div>
             @error('email')
                 <span class="error-message">
@@ -36,7 +30,7 @@
             @enderror
 
             <div @class(['input-group', 'error-field' => $errors->has('password')])>
-                <input type="password" name="password" id="password" required placeholder="Password">
+                <input wire:model="password" type="password" id="password" required placeholder="Password">
             </div>
             @error('password')
                 <span class="error-message">
@@ -45,7 +39,7 @@
             @enderror
             
             <div @class(['input-group', 'error-field' => $errors->has('password_confirmation')])>
-                <input type="password" name="password_confirmation" id="password_confirmation" required placeholder="Confirm Password">
+                <input wire:model="password_confirmation" type="password" id="password_confirmation" required placeholder="Confirm Password">
             </div>
             @error('password_confirmation')
                 <span class="error-message">
@@ -54,7 +48,7 @@
             @enderror
 
             <div @class(['input-group', 'error-field' => $errors->has('admin_secret')])>
-                <input type="password" name="admin_secret" id="admin_secret" required placeholder="Admin Secret">
+                <input wire:model="admin_secret" type="password" id="admin_secret" required placeholder="Admin Secret">
             </div>
             @error('admin_secret')
                 <span class="error-message">
@@ -69,4 +63,3 @@
         </form>
     </div>
 </div>
-@endsection
