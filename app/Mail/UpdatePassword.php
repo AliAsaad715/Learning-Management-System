@@ -9,17 +9,19 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ChangePassword extends Mailable
+class UpdatePassword extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $user, $changeType;
+
     /**
      * Create a new message instance.
      */
-    public function __construct($user)
+    public function __construct($user, $changeType)
     {
         $this->user = $user;
+        $this->changeType = $changeType;
     }
 
     /**
@@ -28,7 +30,7 @@ class ChangePassword extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your password has been changed.',
+            subject: 'Your password has been '. $this->changeType .' successfully.',
         );
     }
 
@@ -38,7 +40,7 @@ class ChangePassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.change-password',
+            markdown: 'emails.update-password',
         );
     }
 

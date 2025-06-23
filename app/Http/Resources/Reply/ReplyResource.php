@@ -2,14 +2,13 @@
 
 namespace App\Http\Resources\Reply;
 
-use App\Traits\manipulateImagesTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class ReplyResource extends JsonResource
 {
-    use manipulateImagesTrait;
     /**
      * Transform the resource into an array.
      *
@@ -22,11 +21,12 @@ class ReplyResource extends JsonResource
             'comment_id' => $this->comment_id,
             'content' => $this->content,
             'reply_date' => Carbon::parse($this->reply_date)->diffForHumans(),
+            'is_liked' => (bool)auth('api')->user()->likeReply()->where('reply_id', $this->id)->exists(),
             'likes' => $this->likes ? $this->likes : 0,
-            'user' => [
+            'replier' => [
                 'id' => $this->user->id,
                 'full_name' => $this->user->first_name. ' ' .$this->user->last_name,
-                'profile_image_url' => $this->user->profile_image_url ? $this->get_image($this->user->profile_image_url, 'users') : null
+                'profile_image_url' => $this->user->profile_image_url ? asset(Storage::url("img/users/{$this->user->profile_image_url}")) : null,
             ]
         ];
     }
