@@ -1,8 +1,6 @@
-@extends('layouts.header')
+@use('Carbon\Carbon')
 
-@section('title', $episode->title)
-
-@section('content')
+<x-layouts.header :title="$episode->title" :with-footer="true">
     <div class="video-episode-container">
         <!-- Video Player Section -->
         <div class="video-main-section">
@@ -13,17 +11,17 @@
             <div class="video-actions-container">
                 <div class="video-stats-container">
                     @if($episode->trashed() || !$episode->published) 
-                       <span class="requested-word">Requested:</span> <span class="date">{{\Carbon\Carbon::parse($episode->publishing_request_date)->format('M d, Y')}}</span>
+                       <span class="requested-word">Requested:</span> <span class="date">{{Carbon::parse($episode->publishing_request_date)->format('M d, Y')}}</span>
                     @else
                         <div class="video-like-btn" aria-label="Like this episode">
                             <i class="far fa-thumbs-up"></i>
                             <span class="video-like-count">{{$episode->likes}}</span>
                         </div>
                         <span class="video-views-count"><i class="fas fa-eye"></i> {{$episode->views}} views</span>
-                        <span class="video-publish-date"><i class="far fa-calendar-alt"></i><span class="published-word">Published:</span> <span class="date">{{\Carbon\Carbon::parse($episode->publishing_date)->format('M d, Y')}}</span></span>        
+                        <span class="video-publish-date"><i class="far fa-calendar-alt"></i><span class="published-word">Published:</span> <span class="date">{{Carbon::parse($episode->publishing_date)->format('M d, Y')}}</span></span>        
                     @endif
                     @if($episode->quiz)
-                        <a href="{{route('courses.quiz', ['episode_id' => $episode->id])}}" class="video-quiz-btn">
+                        <a href="{{route('courses.quiz', ['episode' => $episode->id])}}" class="video-quiz-btn">
                             <i class="fas fa-question-circle"></i> Start Quiz
                         </a>   
                     @endif
@@ -178,5 +176,4 @@
             </div>
         </div>
     </div>
-    @include('layouts.footer')
-@endsection
+</x-layouts.header>

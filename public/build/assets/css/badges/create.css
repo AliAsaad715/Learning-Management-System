@@ -1,0 +1,144 @@
+
+
+/* Badge Creation Form Styles */
+.badge-create-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: var(--grid-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(19, 8, 48, 0.1);
+}
+
+.badge-create-title {
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+}
+
+.badge-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; 
+    min-width: 100px;
+}
+
+.form-label {
+    color: var(--neutral);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.form-input {
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(41, 195, 205, 0.3);
+    border-radius: 8px;
+    background: var(--bg-color);
+    color: var(--neutral);
+    font-family: var(--font-primary);
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(41, 195, 205, 0.2);
+}
+
+.form-input-file {
+    padding: 0.5rem 0;
+    color: var(--neutral);
+}
+
+.form-help {
+    color: var(--secondary);
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-submit {
+    background: var(--primary);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.form-submit:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.form-cancel {
+    background: none;
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.form-cancel:hover {
+    background: rgba(210, 125, 244, 0.1);
+}
+
+/* Error Message Styles */
+.error-message {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.is-invalid {
+    border-color: var(--error) !important;
+}
+
+.form-errors {
+    background: rgba(227, 52, 47, 0.1);
+    border-left: 3px solid var(--error);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+}
+
+.form-errors ul {
+    margin: 0;
+    padding-left: 1rem;
+    list-style-type: disc;
+}
+
+.form-errors li {
+    color: var(--error);
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .badge-create-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+}
+

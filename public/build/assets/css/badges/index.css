@@ -1,0 +1,253 @@
+/* Badge Explorer Styles */
+.badge-explorer {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 1rem;
+}
+
+.explorer-title {
+    color: var(--primary);
+    text-align: center;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.level-container {
+    border-radius: 12px;
+    padding: 2rem;
+    background: var(--grid-bg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.level-title {
+    color: var(--neutral);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.badge-card {
+    display: block;
+    background: var(--bg-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(41, 195, 205, 0.2);
+    text-decoration: none;
+    color: inherit;
+}
+
+.badge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(41, 195, 205, 0.2);
+    border-color: var(--primary);
+}
+
+/* Rest of your existing CSS remains the same */
+
+.badge-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1rem;
+}
+
+.badge-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.badge-name {
+    color: var(--primary);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge-description {
+    color: var(--neutral);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    min-height: 40px;
+}
+
+.badge-cost {
+    color: var(--secondary);
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 20px;
+    background: rgba(210, 125, 244, 0.1);
+}
+
+/* Level-specific colors */
+.bronze .level-title {
+    color: var(--bronze); /* Bronze color */
+}
+
+.silver .level-title {
+    color: var(--silver); /* Silver color */
+}
+
+.gold .level-title {
+    color: var(--gold); /* Gold color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .explorer-title {
+        font-size: 2rem;
+    }
+    
+    .badge-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    
+    .badge-icon {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .explorer-title {
+        font-size: 1.8rem;
+    }
+    
+    .badge-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .level-container {
+        padding: 1.5rem;
+    }
+}
+
+
+/* Header Styles */
+.explorer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Create Badge Button */
+.create-badge-btn {
+    background: var(--primary);
+    color: var(--neutral);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.create-badge-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Add Badge Card */
+.add-badge-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(41, 195, 205, 0.1);
+    border: 2px dashed var(--primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-badge-card:hover {
+    background: rgba(41, 195, 205, 0.2);
+    transform: translateY(-5px);
+}
+
+.add-badge-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--neutral);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.add-badge-text {
+    color: var(--primary);
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/* Level-specific add card colors */
+.bronze .add-badge-card {
+    border-color: var(--bronze);
+    background: rgba(205, 127, 50, 0.1);
+}
+.bronze .add-badge-icon {
+    background: var(--bronze);
+}
+.bronze .add-badge-text {
+    color: var(--bronze);
+}
+
+.silver .add-badge-card {
+    border-color: var(--silver);
+    background: rgba(192, 192, 192, 0.1);
+}
+.silver .add-badge-icon {
+    background: var(--silver);
+}
+.silver .add-badge-text {
+    color: var(--silver);
+}
+
+.gold .add-badge-card {
+    border-color: var(--gold);
+    background: rgba(255, 215, 0, 0.1);
+}
+.gold .add-badge-icon {
+    background: var(--gold);
+}
+.gold .add-badge-text {
+    color: var(--gold);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .explorer-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .create-badge-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

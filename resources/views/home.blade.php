@@ -1,83 +1,26 @@
-@extends('layouts.header')
+<x-layouts.header title="Home">
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Platform Insights</h1>
+        
+        <div class="stats-grid">
+            <!-- Courses Card -->
+            <x-stat-card card-name="Courses" icon-name="course_icon.png" :count="$num_of_courses" alt="course icon"/>
 
-@section('title', 'Home')
+            <!-- Users Card -->
+            <x-stat-card card-name="Students" icon-name="student_icon.png" :count="$num_of_students" alt="student icon"/>
 
-@section('content')
-<div class="dashboard-container">
-    <h1 class="dashboard-title">Platform Insights</h1>
-    
-    <div class="stats-grid">
-        <!-- Courses Card -->
-        <div class="stat-card courses">
-            <div class="card-icon">
-                <div class="icon-backdrop"></div>
-                <div class="icon-wrapper">
-                    <img src="{{asset('build\assets\img\course_icon.png')}}" alt="course icon">
-                </div>
-            </div>
-            <h3 class="card-title">Courses</h3>
-            <div class="card-value">{{$num_of_courses}}</div>
-        </div>
+            <!-- Teachers Card -->
+            <x-stat-card card-name="Teachers" icon-name="teacher_icon.png" :count="$num_of_teachers" alt="teacher icon"/>
 
-        <!-- Users Card -->
-        <div class="stat-card users">
-            <div class="card-icon">
-                <div class="icon-backdrop"></div>
-                <div class="icon-wrapper">
-                    <img src="{{asset('build\assets\img\student_icon.png')}}" alt="student icon">
-                </div>
-            </div>
-            <h3 class="card-title">Students</h3>
-            <div class="card-value">{{$num_of_students}}</div>
-        </div>
+            <!-- Views Card -->
+            <x-stat-card card-name="Total Views" icon-name="view_icon.png" :count="$num_of_views" alt="view icon"/>
 
-        <!-- Teachers Card -->
-        <div class="stat-card teachers">
-            <div class="card-icon">
-                <div class="icon-backdrop"></div>
-                <div class="icon-wrapper">
-                    <img src="{{asset('build\assets\img\teacher_icon.png')}}" alt="teacher icon">
-                </div>
-            </div>
-            <h3 class="card-title">Teachers</h3>
-            <div class="card-value">{{$num_of_teachers}}</div>
-        </div>
+            <!-- Countries Card -->
+            <x-stat-card card-name="Countries" icon-name="country_icon.png" :count="$num_of_countries" alt="country icon"/>
 
-        <!-- Views Card -->
-        <div class="stat-card views">
-            <div class="card-icon">
-                <div class="icon-backdrop"></div>
-                <div class="icon-wrapper">
-                    <img src="{{asset('build\assets\img\view_icon.png')}}" alt="view icon">
-                </div>
-            </div>
-            <h3 class="card-title">Total Views</h3>
-            <div class="card-value">{{$num_of_views}}</div>
-        </div>
+            <!-- Topics Card -->
+            <x-stat-card card-name="Topics" icon-name="topic_icon.png" :count="$num_of_topics" alt="topic icon"/>
 
-        <!-- Countries Card -->
-        <div class="stat-card countries">
-            <div class="card-icon">
-                <div class="icon-backdrop"></div>
-                <div class="icon-wrapper">
-                    <img src="{{asset('build\assets\img\country_icon.png')}}" alt="country icon">
-                </div>
-            </div>
-            <h3 class="card-title">Countries</h3>
-            <div class="card-value">{{$num_of_countries}}</div>
-        </div>
-
-        <!-- Topics Card -->
-        <div class="stat-card topics">
-            <div class="card-icon">
-                <div class="icon-backdrop"></div>
-                <div class="icon-wrapper">
-                    <img src="{{asset('build\assets\img\topic_icon.png')}}" alt="topic icon">
-                </div>
-            </div>
-            <h3 class="card-title">Topics</h3>
-            <div class="card-value">{{$num_of_topics}}</div>
         </div>
     </div>
-</div>
-@endsection
+</x-layouts.header>

@@ -1,0 +1,240 @@
+/* Pending Episodes Container */
+.pending-episodes-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Page Title */
+.pending-episodes-title {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pending-count-badge {
+    background-color: var(--primary);
+    color: var(--bg-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Episodes List */
+.pending-episodes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Episode Card */
+.pending-episode-card {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+}
+
+.pending-episode-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.2);
+}
+
+/* Media Section */
+.pending-episode-media {
+    width: 250px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.pending-episode-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.pending-episode-duration {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--neutral);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+/* Content Section */
+.pending-episode-content {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.pending-episode-header {
+    margin-bottom: 1rem;
+}
+
+.pending-episode-title {
+    color: var(--neutral);
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+}
+
+.pending-episode-course {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+/* Meta Information */
+.pending-episode-meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.pending-meta-item {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pending-meta-label {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.pending-meta-value {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Action Buttons */
+.pending-episode-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+}
+
+.pending-action-btn {
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: none;
+}
+
+.pending-details-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--neutral);
+}
+
+.pending-details-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.pending-approve-btn {
+    background: rgba(34, 211, 238, 0.1);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.pending-approve-btn:hover {
+    background: rgba(34, 211, 238, 0.2);
+}
+
+.pending-reject-btn {
+    background: rgba(248, 113, 113, 0.1);
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.pending-reject-btn:hover {
+    background: rgba(248, 113, 113, 0.2);
+}
+
+/* Empty State */
+.pending-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.pending-empty-state i {
+    font-size: 3rem;
+    color: var(--primary);
+}
+
+/* Course Link Styles */
+.pending-course-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.pending-course-link:hover {
+    color: #0dd6fc;
+    text-decoration: underline;
+}
+
+.pending-course-link.course-unpublished {
+    color: var(--error);
+}
+
+.course-status-badge {
+    font-size: 0.8em;
+    background: rgba(248, 113, 113, 0.1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    margin-left: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .pending-episode-card {
+        flex-direction: column;
+    }
+    
+    .pending-episode-media {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .pending-episode-meta {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .pending-episode-meta {
+        grid-template-columns: 1fr;
+    }
+    
+    .pending-episode-actions {
+        flex-wrap: wrap;
+    }
+    
+    .pending-episodes-container {
+        padding: 0 1rem;
+    }
+}

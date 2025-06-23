@@ -1,8 +1,6 @@
-@extends('layouts.header')
+@use('Carbon\Carbon')
 
-@section('title', 'User Detailed Profile')
-
-@section('content')
+<x-layouts.header title="User Detailed Profile" :with-footer="true">
     <div class="user-profile-container">
         <header class="user-profile-header">
             <img src="{{$user->profile_image_url ? asset("build/assets/img/profiles/$user->profile_image_url") : asset('build/assets/img/anonymous_icon.png')}}" alt="User Avatar" class="user-profile-avatar">
@@ -51,7 +49,7 @@
                     </div>
                     <div class="user-profile-info-item">
                         <span class="user-profile-info-label">Join Date:</span>
-                        <span class="user-profile-info-value">{{\Carbon\Carbon::parse($user->join_date)->format('M d, Y')}}</span>
+                        <span class="user-profile-info-value">{{Carbon::parse($user->join_date)->format('M d, Y')}}</span>
                     </div>
                 </div>
                 <div class="user-profile-languages-section">
@@ -153,7 +151,7 @@
                                     <div class="user-profile-comment-meta">
                                         <span><span class="meta">Posted in:</span> {{$comment->episode->course->title}}</span>
                                         <span><span class="meta">Episode:</span> {{$comment->episode->title}}</span>
-                                        <span class="meta" style="min-width: 110px">{{\Carbon\Carbon::parse($comment->comment_date)->format('M d, Y')}}</span>
+                                        <span class="meta" style="min-width: 110px">{{Carbon::parse($comment->comment_date)->format('M d, Y')}}</span>
                                     </div>
                                 </div>
                             @endforeach  
@@ -168,7 +166,7 @@
                                         <span><span class="meta">Posted in:</span> {{$reply->comment->episode->course->title}}</span>
                                         <span><span class="meta">Episode:</span> {{$reply->comment->episode->title}}</span>
                                         <span><span class="meta">Reply on:</span> {{$reply->comment->content}}</span>
-                                        <span class="meta" style="min-width: 110px">{{\Carbon\Carbon::parse($reply->reply_date)->format('M d, Y')}}</span>
+                                        <span class="meta" style="min-width: 110px">{{Carbon::parse($reply->reply_date)->format('M d, Y')}}</span>
                                     </div>
                                 </div>
                             @endforeach
@@ -271,22 +269,6 @@
             </section> 
         </main>
 
-        <!-- Action Buttons -->
-         <div class="user-profile-actions-container">
-            @if($user->deleted_at != null && $user->moreDetail->is_banned)
-                <div>
-                    <a href="{{route('users.unban', ['user_id' => $user->id])}}" class="ban-button cancel"><div>UNBAN</div><img src="{{asset('build/assets/img/active_icon.png')}}" alt="ban icon"></a    >
-                </div>
-            @elseif($user->deleted_at != null)
-                <p class="deleted-word">Deleted</p>
-            @else
-                <form action="{{route('users.ban', ['user' => $user->id])}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="ban-button"><div class="ban-word">BAN</div><img src="{{asset('build/assets/img/ban_icon.png')}}" alt="ban icon"></button>
-                </form>
-            @endif
-        </div>
+        @livewire('ban', ['user' => $user])
     </div>
-@include('layouts.footer')
-@endsection
+</x-layouts.header>

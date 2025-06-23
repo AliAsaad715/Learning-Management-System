@@ -4,9 +4,18 @@ use App\Http\Controllers\Dashboard\AdminProfileController;
 use App\Http\Controllers\Dashboard\BadgeController;
 use App\Http\Controllers\Dashboard\CourseController;
 use App\Http\Controllers\Dashboard\HomeController;
-use App\Http\Controllers\Dashboard\LoginController;
-use App\Http\Controllers\Dashboard\RegisterController;
+use App\Http\Controllers\Dashboard\WebAuthController;
 use App\Http\Controllers\dashboard\UserController;
+use App\Livewire\CourseManagement;
+use App\Livewire\CoursesTabNav;
+use App\Livewire\CreateBadge;
+use App\Livewire\EditBadge;
+use App\Livewire\EditProfile;
+use App\Livewire\IndexUsersTabs;
+use App\Livewire\LoginForm;
+use App\Livewire\RegisterForm;
+use App\Livewire\RejectedEpisodes;
+use App\Livewire\UserManagement;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -16,66 +25,60 @@ Route::get('/', function () {
 
 
 Route::prefix('dashboard')->group(function () {
-    Route::middleware('guest:web')->group(function () {
-        Route::get('login', [LoginController::class, 'showLoginForm'])->name('dashboard.login');
-        Route::post('login', [LoginController::class, 'login']);
+    Route::middleware('guest:web')->controller(WebAuthController::class)->group(function () {
+        Route::get('login', LoginForm::class)->name('dashboard.login');
+        Route::post('login', LoginForm::class);
         
-        Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('dashboard.register');
-        Route::post('register', [RegisterController::class, 'register']);
+        Route::get('register', RegisterForm::class)->name('dashboard.register');
+        Route::post('register', RegisterForm::class);
     });
 
     Route::middleware('auth:web')->group(function () {
-        Route::post('logout', [LoginController::class, 'logout'])->name('dashboard.logout');
+        Route::post('logout', [WebAuthController::class, 'logout'])->name('dashboard.logout');
         Route::get('home', [HomeController::class, 'index'])->name('home');
         
         // courses
-        Route::prefix('courses')->group(function(){
-            Route::get('cates_and_topics', [CourseController::class, 'cates_and_topics'])->name('courses.cates_and_topics');
-            Route::get('active_courses/{cate}/{topic}', [CourseController::class, 'active_courses'])->name('courses.active_courses');
-            Route::get('show_course/{course}', [CourseController::class, 'show_course'])->name('courses.show_course');
-            Route::get('video/{episode_id}', [CourseController::class, 'video'])->name('courses.video');
-            Route::get('like/{episode}', [CourseController::class, 'like'])->name('courses.like');
-            Route::get('quiz/{episode_id}', [CourseController::class, 'quiz'])->name('courses.quiz');
-            Route::get('rejected_episodes/{topic}', [CourseController::class, 'rejected_episodes'])->name('courses.rejected_episodes');
-            Route::post('approve/{episode}', [CourseController::class, 'approve'])->name('courses.approve');
-            Route::post('reject/{episode}', [CourseController::class, 'reject'])->name('courses.reject');
-            Route::post('republish/{episode_id}', [CourseController::class, 'republish'])->name('courses.republish');
+        Route::prefix('courses')->name('courses.')->controller(CourseController::class)->group(function(){
+            Route::get('cates_and_topics',              CourseManagement::class)-> name('cates_and_topics');
+            Route::get('active_courses/{cate}/{topic}', 'active_courses')->        name('active_courses');
+            Route::get('show_course/{course}',          'show_course')->           name('show_course');
+            Route::get('video/{episode_id}',            'video')->                 name('video');
+            Route::get('like/{episode}',                'like')->                  name('like');
+            Route::get('quiz/{episode}',                'quiz')->                  name('quiz')->withTrashed();
+            Route::get('rejected_episodes/{topic}',     RejectedEpisodes::class)-> name('rejected_episodes');
+            Route::post('approve/{episode}',            'approve')->               name('approve');
+            Route::post('reject/{episode}',             'reject')->                name('reject');
         });
         
         // profile
-        Route::prefix('profile')->group(function () {
-            // Admin profile routes
-            Route::get('', [AdminProfileController::class, 'show'])->name('profile.show');
-            Route::get('edit', [AdminProfileController::class, 'edit'])->name('profile.edit');
-            Route::put('', [AdminProfileController::class, 'update'])->name('profile.update');
-            Route::get('delete_profile_image', [AdminProfileController::class, 'destroy_profile_image'])->name('profile.destroy_profile_image');
-            Route::delete('delete_account', [AdminProfileController::class, 'destroy_account'])->name('profile.destroy_account');
+        Route::get('profile/edit', EditProfile::class)->name('profile.edit');
+        Route::prefix('profile')->name('profile.')->controller(AdminProfileController::class)->group(function(){
+            Route::get('show', 'show')->name('show');
+            Route::delete('delete', 'destroy_account')->name('destroy_account');
         });
 
         // badges
         Route::prefix('badges')->group(function(){
-            Route::get('', [BadgeController::class, 'index'])->name('badges.index');
-            Route::get('create', [BadgeController::class, 'create'])->name('badges.create');
-            Route::post('', [BadgeController::class, 'store'])->name('badges.store');
-            Route::get('{badge}', [BadgeController::class, 'show'])->name('badges.show');
-            Route::get('{badge}/edit', [BadgeController::class, 'edit'])->name('badges.edit');
-            Route::put('{badge}', [BadgeController::class, 'update'])->name('badges.update');
-            Route::delete('{badge}', [BadgeController::class, 'destroy'])->name('badges.destroy');
+            Route::get('create', CreateBadge::class)->name('badges.create');
+            Route::get('edit/{badge}', EditBadge::class)->name('badges.edit');
+            Route::resource('badges', BadgeController::class)->except(['create', 'store', 'edit', 'update']);
         });
+
         
         // users
-        Route::prefix('users')->group(function(){
-            Route::get('{type}', [UserController::class, 'index'])->name('users.index');
-            Route::get('show_user/{user_id}', [UserController::class, 'show_user'])->name('users.show_user');
-            Route::get('followed_courses/{user_id}/{course_id}', [UserController::class, 'followed_course'])->name('users.followed_course');
-            Route::get('show_teacher/{teacher_id}', [UserController::class, 'show_teacher'])->name('users.show_teacher');
-            Route::delete('ban/{user}', [UserController::class, 'ban_user'])->name('users.ban');
-            Route::get('unban/{user_id}', [UserController::class, 'unban_user'])->name('users.unban');
+        Route::prefix('users')->name('users.')->controller(UserController::class)->group(function(){
+            Route::get('{type}',                                 UserManagement::class)->          name('index');
+            Route::get('show_user/{user_id}',                    'show_user')->      name('show_user');
+            Route::get('followed_courses/{user_id}/{course_id}', 'followed_course')->name('followed_course');
+            Route::get('show_teacher/{teacher_id}',              'show_teacher')->   name('show_teacher');
+            Route::delete('ban/{user}',                          'ban_user')->       name('ban');
+            Route::get('unban/{user}',                           'unban_user')->     name('unban')->withTrashed();
         });
     });
 });
 
-Route::get('restore', function(){
-    User::withTrashed()->find(1)->restore();
-    return view('auth.login');
-});
+// for test
+// Route::get('restore', function(){
+//     User::withTrashed()->find(1)->restore();
+//     return to_route('dashboard.login');
+// });

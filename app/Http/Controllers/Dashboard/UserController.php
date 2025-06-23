@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Enums\RoleEnum;
+use App\Enums\TypeEnum;
+use App\Models\Course;
 use App\Http\Controllers\App\Controller;
 use App\Models\Quiz;
 use App\Models\User;
@@ -10,71 +13,10 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    public function index(Request $request, string $type)
+    public function index(Request $request, TypeEnum $type)
     {
-        $filter = $request->input('filter', 'all');
 
-        // Ensure $type is either 'user' or 'teacher'
-        if (!in_array($type, ['user', 'teacher'])) {
-            abort(404, 'Invalid type');
-        }
-
-        $query = User::withTrashed()->with([
-            'moreDetail.jobTitle',
-            'moreDetail.country',
-            'moreDetail.languages',
-            'moreDetail.skills'
-        ])->whereHas('moreDetail');
-
-        // Apply role filter ONLY if $type = 'teacher'
-        if ($type === 'teacher') {
-            $query->where('role', 'teacher');
-        }
-
-        // Apply status filter (active/banned/deleted)
-        switch ($filter) {
-            case 'active':
-                $query->where('deleted_at', null)
-                    ->whereHas('moreDetail', fn($q) => $q->where('is_banned', false));
-                break;
-            case 'banned':
-                $query->where('deleted_at', '!=', null)
-                    ->whereHas('moreDetail', fn($q) => $q->where('is_banned', true));
-                break;
-            case 'deleted':
-                $query->where('deleted_at', '!=', null)
-                    ->whereHas('moreDetail', fn($q) => $q->where('is_banned', false));
-                break;
-            default: // 'all' (no additional filters)
-                $query->withTrashed();
-        }
-
-        // Get counts (respecting $type)
-        $countQuery = User::withTrashed()->whereHas('moreDetail');
-
-        if ($type === 'teacher') {
-            $countQuery->where('role', 'teacher');
-        }
-
-        $counts = [
-            'all'     => $countQuery->count(),
-            'active'  => $countQuery->clone()
-                ->where('deleted_at', null)
-                ->whereHas('moreDetail', fn($q) => $q->where('is_banned', false))
-                ->count(),
-            'banned'  => $countQuery->clone()
-                ->where('deleted_at', '!=', null)
-                ->whereHas('moreDetail', fn($q) => $q->where('is_banned', true))
-                ->count(),
-            'deleted' => $countQuery->clone()
-                ->where('deleted_at', '!=', null)
-                ->whereHas('moreDetail', fn($q) => $q->where('is_banned', false))
-                ->count(),
-        ];
-
-        $users = $query->orderBy('created_at', 'desc')->get();
-
-        return view('users.index', compact('users', 'counts', 'filter', 'type'));
+        return view('users.index', ['type' => $type]);
     }
 
     public function show_user($user_id)
@@ -161,21 +103,7 @@ class UserController extends Controller
         return view('users.show_teacher', compact(['user', 'counts', 'mother_tongue']));
     }
 
-    public function ban_user(User $user)
-    {
-        $user->delete();
-        $user->moreDetail()->update(['is_banned' => true]);
+    
 
-        return back();
-    }
-
-    public function unban_user($user_id)
-    {
-        $user = User::withTrashed()->findOrFail($user_id);
-        $user->restore();
-        $user->moreDetail()->update(['is_banned' => false]);
-
-        return back();
-    }
 
 }

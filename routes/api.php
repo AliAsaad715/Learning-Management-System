@@ -1,19 +1,24 @@
 <?php
 
+
+use App\Http\Controllers\App\JobTitleController;
 use App\Http\Controllers\App\AuthController;
+use App\Http\Controllers\App\CategoryController;
 use App\Http\Controllers\App\CommentController;
 use App\Http\Controllers\App\CountryController;
 use App\Http\Controllers\App\CourseController;
 use App\Http\Controllers\App\EnumController;
 use App\Http\Controllers\App\EpisodeController;
-use App\Http\Controllers\App\JobTitleController;
 use App\Http\Controllers\App\LanguageController;
 use App\Http\Controllers\App\OTPController;
+use App\Http\Controllers\App\QuestionController;
 use App\Http\Controllers\App\QuizController;
 use App\Http\Controllers\App\ReplyController;
 use App\Http\Controllers\App\ResetPasswordController;
 use App\Http\Controllers\App\SkillController;
+use App\Http\Controllers\App\TopicController;
 use App\Http\Controllers\App\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->prefix('users')->group(function () {
@@ -44,6 +49,7 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
     Route::post('verify', 'verifyOtp');
 });
 
+
 Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizzes')->group(function () {
         Route::middleware('isTeacher')->group(function () {
             Route::post('', 'store');
@@ -55,9 +61,33 @@ Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizze
         Route::get('result/{quiz_id}', 'getQuizResult');
 });
 
-Route::apiResource('courses', CourseController::class);
 
-Route::apiResource('episodes', EpisodeController::class);
+
+Route::controller(CategoryController::class)->prefix('category')->group(function(){
+    Route::get('index-category', 'indexCategory');
+});
+
+Route::controller(TopicController::class)->prefix('topic')->group(function(){
+    Route::get('topic-in-category/{id}','indexTopics');
+    Route::get('searsh-topic/{title}','searchTopic');
+});
+
+Route::controller(CourseController::class)->prefix('course')->group(function(){
+    Route::get('course-in-topic/{id}','indexCourse');
+    Route::get('searsh-course/{title}','searchCourse');
+    Route::get('free-course','freeCourse');
+    Route::get('paid-course','paidCourse');
+    Route::get('all-course','showAllCourses');
+});
+
+
+
+Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episode')->group(function(){
+    Route::get('episodes-in-course/{id}','indexEpisode');
+    Route::get('episode/{id}','showEpisode');
+
+});
+
 
 Route::controller(CommentController::class)->middleware('auth:api')->prefix('comments')->group(function () {
     Route::get('{episode_id}', 'index');

@@ -47,7 +47,7 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected static function boot(): void
+    protected static function boot()
     {
         parent::boot();
 
@@ -56,8 +56,14 @@ class Course extends Model
             if ($user->role != RoleEnum::TEACHER)
                 throw new \Exception('User is not teacher');
 
-            if (isEmpty($course->episodes))
+            if(isEmpty($course->episodes))
                 throw new \Exception('Upload one episode at least');
         });
     }
+     public function studentSubscribe($userId){
+        if($this-> price ==0)
+            return true;
+        return $this->user()->where('student_id',$userId)->exists();
+    }
+
 }

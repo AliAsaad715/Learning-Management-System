@@ -1,0 +1,628 @@
+/* User Profile Styles - Generic Class Names */
+.user-profile-container {
+    --primary: #22d3ee; 
+    --primary-hover: #00e1ff99;
+    --secondary: #a855f7;  
+    --neutral: #ffffff;
+    --bg-color: #0f172a;  
+    --background-gradient: linear-gradient(45deg, #0f172a, #1e293b);
+    --font-gradient: linear-gradient(45deg, var(--primary) 20%, var(--secondary) 80%);
+    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-color);
+    color: var(--neutral);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.user-profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+    margin-right: 2rem;
+}
+
+.user-profile-userinfo h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    background: var(--font-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.user-profile-userinfo p {
+    margin: 0.5rem 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.user-profile-tagline {
+    color: var(--primary);
+    font-style: italic;
+}
+
+.user-profile-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.user-profile-stat {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 80px;
+}
+
+.user-profile-stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.user-profile-stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.user-profile-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.user-profile-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-section-title {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.user-profile-subsection-title {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+.section-scroll {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; 
+}
+
+/* Enrolled Courses Section - Updated */
+.user-profile-followed-courses-section {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.user-profile-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.user-profile-course-card {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(34, 211, 238, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.user-profile-course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(34, 211, 238, 0.15);
+}
+
+.user-profile-course-content {
+    flex: 1;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user-profile-course-title {
+    margin: 0 0 1rem 0;
+    color: var(--neutral);
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.user-profile-course-thumbnail {
+    width: 150px;
+    object-fit: fill;
+    border-left: 1px solid rgba(34, 211, 238, 0.1);
+}
+
+.user-profile-course-progress {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.user-profile-course-progress-bar {
+    height: 100%;
+    background: var(--font-gradient);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+/* Progress Bar with Percentage */
+.user-profile-progress-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.user-profile-course-progress {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.user-profile-progress-percentage {
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Comments Section */
+.user-profile-comment {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-profile-comment:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.user-profile-comment-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.user-profile-comment-meta {
+    display: flex;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.6rem;
+}
+
+.user-profile-comment-meta .meta{  
+    color: var(--secondary);
+}
+
+/* Information Grid */
+.user-profile-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.user-profile-info-item {
+    margin-bottom: 1rem;
+}
+
+.user-profile-info-label {
+    display: block;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.user-profile-info-value {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Skills Section */
+.user-profile-skills-section {
+    margin-top: 1.5rem;
+}
+
+.user-profile-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.user-profile-skill {
+    background: rgba(34, 211, 238, 0.1);
+    color: var(--primary);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+/* Languages Section */
+.user-profile-languages {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.user-profile-language {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.user-profile-language-name {
+    font-weight: bold;
+    color: var(--neutral);
+}
+
+.user-profile-language-level {
+    color: var(--primary-hover);
+    font-size: 0.85rem;
+}
+
+/* Badges Section */
+.user-profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.user-profile-badge {
+    width: 100px;
+    text-align: center;
+}
+
+.user-profile-badge-icon {
+    width: 100px;
+    height: 100px;
+    background: var(--font-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+    font-size: 1.5rem;
+}
+
+.user-profile-badge-image {
+    width: 120px;
+    height: 120px;
+}
+
+/* Action Buttons */
+.user-profile-actions-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1rem;
+}
+
+.user-profile-action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.user-profile-action-edit {
+    background: var(--primary);
+    color: var(--bg-color);
+}
+
+.user-profile-action-edit:hover {
+    background: var(--primary-hover);
+}
+
+.user-profile-action-details {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.user-profile-action-details:hover {
+    background: rgba(34, 211, 238, 0.1);
+}
+
+.user-profile-action-special {
+    background: var(--secondary);
+    color: var(--neutral);
+}
+
+.user-profile-action-special:hover {
+    background: #9333ea;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .user-profile-sections {
+        grid-template-columns: 1fr;
+    }
+    
+    .user-profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .user-profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-profile-avatar {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .user-profile-stats {
+        justify-content: center;
+    }
+    
+    .user-profile-actions-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .user-profile-action-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .user-profile-courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .user-profile-course-thumbnail {
+        width: 150px;
+    }
+
+}
+
+/* Statistics Section */
+.user-profile-statistics-section {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.user-profile-statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.user-profile-statistic-item {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: transform 0.2s ease;
+}
+
+.user-profile-statistic-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+.user-profile-statistic-title {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+}
+
+.user-profile-statistic-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Generic Empty State Styles */
+.user-profile-empty {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border: 1px dashed rgba(249, 39, 39, 0.437);
+    margin: 1rem 0;
+}
+
+.user-profile-empty-icon {
+    color: rgba(249, 39, 39, 0.437);
+    margin-bottom: 1rem;
+}
+
+.user-profile-empty-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.user-profile-empty-title {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.user-profile-empty-text {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments for statistics */
+@media (max-width: 768px) {
+    .user-profile-statistics-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .user-profile-statistics-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+
+
+
+
+
+
+
+        
+  /* Courses Grid - New Styles Only */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.user-profile-published_courses-section {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+.course-card {
+    background: var(--bg-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(34, 211, 238, 0.1);
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 12px 24px rgba(34, 211, 238, 0.25),
+        0 8px 16px rgba(168, 85, 247, 0.2);
+}
+
+.course-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.course-details {
+    padding: 1.5rem;
+}
+
+.course-title {
+    color: var(--neutral);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.course-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.meta-item {
+    color: var(--primary);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.price {
+    color: var(--dollar);
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.course-date {
+    color: var(--secondary);
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.course-date .date {
+    color: var(--neutral);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-image img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 500px) {
+    .admin-profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-header {
+        flex-direction: column-reverse;
+        gap: 100px;
+        margin-bottom: -30px;
+    }
+
+    .profile-card {
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);
+        -moz-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+        -o-transform: scale(0.7);
+        width: 160%;
+        margin: 0;
+    }
+    .admin-profile-avatar {
+        width: 150px;
+        height: 150px;
+    }
+}

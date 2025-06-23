@@ -1,10 +1,7 @@
-@extends('layouts.header')
+@use('Carbon\Carbon')
 
-@section('title', 'Followed Course')
-
-@section('content')
-
-<div class="course-details-container">
+<x-layouts.header title="Followed Course" :with-footer="true">
+    <div class="course-details-container">
         <!-- Course Header Section -->
         <section class="course-header">
             <div class="course-hero">
@@ -36,7 +33,7 @@
                         </div>
                         <div class="course-meta-item">
                             <span class="meta-label">Published:</span>
-                            <span class="meta-value">{{ \Carbon\Carbon::parse($course->publishing_date)->format('M d, Y') }}</span>
+                            <span class="meta-value">{{ Carbon::parse($course->publishing_date)->format('M d, Y') }}</span>
                         </div>
                         <div class="course-meta-item">
                             <span class="meta-label">Price:</span>
@@ -51,7 +48,7 @@
                         <div class="course-meta-item">
                             <span class="meta-label">User Feedback:</span>
                             <span>
-                                 @for($i = 1; $i <= 5; $i++)
+                                @for($i = 1; $i <= 5; $i++)
                                     @if($i <= $rating)
                                         <i class="fas fa-star full-star"></i>
                                     @else
@@ -135,5 +132,4 @@
             @endif
         </section>
     </div>
-@include('layouts.footer')
-@endsection
+</x-layouts.header>

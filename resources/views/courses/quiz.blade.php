@@ -1,8 +1,4 @@
-@extends('layouts.header')
-
-@section('title', 'Episode Quiz')
-
-@section('content')
+<x-layouts.header title="Episode Quiz" :with-footer="true">
     <div class="quiz-container">
         <div class="quiz-header">
             <h1 class="quiz-title"><span class="quiz-title-main">QUIZ</span><br> {{ $episode->title }}</h1>
@@ -18,7 +14,7 @@
                     <div class="question-text">{{ $question->content }}</div>
                     
                     <div class="answer-options">
-                        <div class="answer-option @if($question->right_answer == 'a') correct-answer @endif">
+                        <div @class(['answer-option', 'correct-answer' => $question->right_answer == 'a'])>
                             <span class="answer-letter">A</span>
                             <div class="answer-text">{{ $question->answer_a }}</div>
                             @if($question->right_answer == 'a')
@@ -26,7 +22,7 @@
                             @endif
                         </div>
                         
-                        <div class="answer-option @if($question->right_answer == 'b') correct-answer @endif">
+                        <div @class(['answer-option', 'correct-answer' => $question->right_answer == 'b'])>
                             <span class="answer-letter">B</span>
                             <div class="answer-text">{{ $question->answer_b }}</div>
                             @if($question->right_answer == 'b')
@@ -34,7 +30,7 @@
                             @endif
                         </div>
                         
-                        <div class="answer-option @if($question->right_answer == 'c') correct-answer @endif">
+                        <div @class(['answer-option', 'correct-answer' => $question->right_answer == 'c'])>
                             <span class="answer-letter">C</span>
                             <div class="answer-text">{{ $question->answer_c }}</div>
                             @if($question->right_answer == 'c')
@@ -42,7 +38,7 @@
                             @endif
                         </div>
                         
-                        <div class="answer-option @if($question->right_answer == 'd') correct-answer @endif">
+                        <div @class(['answer-option', 'correct-answer' => $question->right_answer == 'd'])>
                             <span class="answer-letter">D</span>
                             <div class="answer-text">{{ $question->answer_d }}</div>
                             @if($question->right_answer == 'd')
@@ -54,5 +50,4 @@
             @endforeach
         </div>
     </div>
-@include('layouts.footer')
-@endsection
+</x-layouts.header>
