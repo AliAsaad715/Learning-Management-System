@@ -7,6 +7,7 @@ use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
@@ -52,13 +53,14 @@ class UserService
 
     public function updateProfileImage($request): array
     {
-        $user = User::query()->find(Auth::id());
-        if(!empty($request['profile_image_url'])) {
+        $user = User::query()->find(auth('api')->id());
+        Storage::disk('public')->delete("img/users/{$user->profile_image_url}");
+        if (!empty($request['profile_image_url'])) {
+            $path = $request['profile_image_url']->store('img/users', 'public');
             $user->update([
-                'profile_image_url' => $this->update_image($request['profile_image_url'], 'users', $user['profile_image_url']),
+                'profile_image_url' => basename($path),
             ]);
         } else {
-            $this->delete_image($user['profile_image_url'], 'users');
             $user->update([
                 'profile_image_url' => null,
             ]);

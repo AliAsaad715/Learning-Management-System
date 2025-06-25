@@ -119,18 +119,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Topic::class, 'completed_courses');
     }
 
-    public function likeEpisode()
+    public function likeEpisode(): BelongsToMany
     {
-        return $this->belongsToMany(Episode::class, 'episodelikes');
+        return $this->belongsToMany(Episode::class, 'episode_likes');
     }
 
-    public function likeComment()
+    public function likeComment(): BelongsToMany
     {
-        return $this->belongsToMany(Comment::class, 'commentlikes');
+        return $this->belongsToMany(Comment::class, 'comment_likes');
     }
 
-    public function likeReply()
+    public function likeReply(): BelongsToMany
     {
-        return $this->belongsToMany(Reply::class, 'replylikes');
+        return $this->belongsToMany(Reply::class, 'reply_likes');
     }
 }

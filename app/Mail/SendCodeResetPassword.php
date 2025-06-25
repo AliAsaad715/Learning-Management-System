@@ -28,7 +28,7 @@ class SendCodeResetPassword extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Password Reset Code',
+            subject: 'Your Password Reset Verification Code',
         );
     }
 

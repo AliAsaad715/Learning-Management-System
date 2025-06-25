@@ -47,3 +47,6 @@ class AppServiceProvider extends ServiceProvider
         }
     }
 }
+//composer require laravel/passport  php artisan passport:install
+
+

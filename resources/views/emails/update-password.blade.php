@@ -3,8 +3,8 @@
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Welcome to {{ config('app.name') }}</title>
-    <meta name="description" content="Welcome Email Template.">
+    <title>@if($changeType === 'reset') Password Reset @else Password Changed @endif - {{ config('app.name') }}</title>
+    <meta name="description" content="Password Update Notification">
     <style type="text/css">
         a:hover { text-decoration: underline !important; }
         .logo-container {
@@ -20,6 +20,42 @@
             margin: 0 auto;
             border: 0;
         }
+        .action-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #2E86C1;
+            margin: 25px auto;
+            text-align: center;
+        }
+        .verification-code {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #2E86C1;
+            font-family: 'Rubik', sans-serif;
+            margin: 15px 0;
+        }
+        .action-button {
+            background: #2E86C1;
+            text-decoration: none !important;
+            font-weight: 500;
+            color: #fff;
+            font-size: 14px;
+            padding: 12px 30px;
+            display: inline-block;
+            border-radius: 50px;
+            margin: 20px 0;
+        }
+        .important-note {
+            background-color: #ffecec;
+            padding: 15px;
+            border-left: 4px solid #cc0000;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #cc0000;
+        }
         .outer-table {
             border-collapse: collapse;
             mso-table-lspace: 0pt;
@@ -31,6 +67,9 @@
             }
             .responsive-padding {
                 padding: 0 15px !important;
+            }
+            .verification-code {
+                font-size: 24px;
             }
         }
     </style>
@@ -74,16 +113,34 @@
                             <tr>
                                 <td class="responsive-padding" style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0; font-size:32px; font-family:'Rubik',sans-serif;">
-                                        Welcome to {{ config('app.name') }}, {{ $user->first_name }} {{ $user->last_name }}!
+                                        @if($changeType === 'reset')
+                                            Password Reset Successfully
+                                        @else
+                                            Password Changed Successfully
+                                        @endif
                                     </h1>
                                     <span style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
-                                    <p style="color:#455056; font-size:15px; line-height:24px; margin:0 0 20px 0;">
-                                        Thank you for joining the {{ config('app.name') }} platform! We're excited to have you as part of our community.
-                                    </p>
-<!--                                    <a href="{{ config('app.url') }}"-->
-<!--                                       style="background:#20e277; text-decoration:none !important; font-weight:500; color:#fff; text-transform:uppercase; font-size:14px; padding:12px 30px; display:inline-block; border-radius:50px; margin-bottom:15px;">-->
-<!--                                        Get Started-->
-<!--                                    </a>-->
+
+                                    <div class="action-box">
+                                        @if($changeType === 'reset')
+                                            <p style="color:#455056; font-size:15px; line-height:24px; margin:0;">
+                                                Your password for {{ config('app.name') }} was successfully reset on {{ now()->format('F j, Y \a\t H:i') }}.
+                                            </p>
+                                            <p>This action was initiated through our password reset system.</p>
+                                        @else
+                                            <p style="color:#455056; font-size:15px; line-height:24px; margin:0;">
+                                                You have successfully changed your password for {{ config('app.name') }} on {{ now()->format('F j, Y \a\t H:i') }}.
+                                            </p>
+                                            <p>This change was made from your account settings.</p>
+                                        @endif
+                                    </div>
+
+                                    <div class="important-note">
+                                        <strong>Security Alert:</strong> If you didn't @if($changeType === 'reset') reset @else change @endif your password, please
+                                        <a href="mailto:support@{{ parse_url(config('app.url'), PHP_URL_HOST) }}" style="color:#cc0000; text-decoration:none;">
+                                            contact our support team
+                                        </a> immediately.
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

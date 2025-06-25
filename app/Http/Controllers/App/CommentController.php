@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\App;
 
+use App\Http\Requests\Comment\CommentRequest;
+use App\Http\Requests\Comment\ShowMoreRequest;
 use App\Responses\Response;
 use App\Services\Comment\CommentService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Throwable;
 
-class CommentController
+class CommentController extends Controller
 {
     private CommentService $commentService;
 
@@ -17,75 +18,128 @@ class CommentController
         $this->commentService = $commentService;
     }
 
-    /**
-     * Display a listing of the resource.
-     */
+    // Get all comments for specific episode, with a maximum of 15 comments per page.
     public function index($episode_id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->commentService->index($episode_id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::successForPaginate($data['data'], $data['meta'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request, $episode_id): JsonResponse
+    // Load 15 comments for specific episode and specific page, they are not appearing on the last page.
+    public function loadMore($episode_id, ShowMoreRequest $request): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->commentService->loadMore($episode_id, $request->validated());
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::successForPaginate($data['data'], $data['meta'],$data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    // Get the authenticated user's comments for a specific episode.
+    public function getMyComments($episode_id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->commentService->getMyComments($episode_id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    // Add comment for specific episode.
+    public function store(CommentRequest $request, $episode_id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->commentService->store($request, $episode_id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($episode_id): JsonResponse
+    // Update specific comment.
+    public function update(CommentRequest $request, $id): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->commentService->show($episode_id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            $data = $this->commentService->update($request->validated(), $id);
+            if($data['code'] == 404 || $data['code'] == 401) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): JsonResponse
-    {
-        $data = [];
-        try {
-            $data = $this->commentService->update($request, $id);
-            return Response::success($data['user'], $data['message'], $data['code']);
-        } catch (Throwable $th) {
-            $message  = $th->getMessage();
-            return Response::error($data, $message);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Delete specific comment.
     public function destroy($id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->commentService->destroy($id);
-            return Response::success($data['user'], $data['message'], $data['code']);
+            if($data['code'] == 404 || $data['code'] == 401) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success([], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    // Add Like to specific comment.
+    public function addLikeToComment($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->commentService->addLikeToComment($id);
+            if($data['code'] == 404 || $data['code'] == 401) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    // Remove Like from specific comment.
+    public function removeLikeFromComment($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->commentService->removeLikeFromComment($id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
             return Response::error($data, $message);

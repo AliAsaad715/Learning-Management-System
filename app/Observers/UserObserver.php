@@ -2,8 +2,7 @@
 
 namespace App\Observers;
 
-use App\Mail\ChangePassword;
-use App\Mail\SendOTP;
+use App\Mail\UpdatePassword;
 use App\Mail\WelcomeUser;
 use App\Models\Statistic;
 use App\Models\User;
@@ -27,7 +26,8 @@ class UserObserver
     public function updated(User $user): void
     {
         if ($user->isDirty('password')) {
-            Mail::to($user)->send(new ChangePassword($user));
+            $changeType = request()->has('old_password') ? 'changed' : 'reset';
+            Mail::to($user)->send(new UpdatePassword($user, $changeType));
         }
     }
 
