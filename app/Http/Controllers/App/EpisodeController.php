@@ -38,8 +38,18 @@ class EpisodeController extends Controller
          $userId = Auth::id();
             if(!$course->studentSubscribe($userId))
                 return Response::error([], 'no access you must subscribe', 403);
-;
          return Response::success($episode, 'get episode successfully');
     }
+
+    public function finish_an_episode(Episode $episode)
+    {
+        auth()->user()->more_details->is_active_today = true;
+        auth()->user()->more_details->save();
+        
+        return response()->json([
+            'message' => 'user today is active'
+        ], 200);
+    }
+
 
 }

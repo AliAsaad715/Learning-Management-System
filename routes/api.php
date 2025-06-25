@@ -89,7 +89,7 @@ Route::controller(CourseController::class)->prefix('course')->group(function(){
 Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episode')->group(function(){
     Route::get('episodes-in-course/{id}','indexEpisode');
     Route::get('episode/{id}','showEpisode');
-
+    Route::get('finish_an_episode', 'finish_an_episode')->name('episodes.finish_an_episode');
 });
 
 
