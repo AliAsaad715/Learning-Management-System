@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('speciality')->nullable();
             $table->text('work_experience', 1000)->nullable();
             $table->boolean('is_banned')->default(false);
+            $table->boolean('is_active_today')->default(false);
+            $table->unsignedTinyInteger('num_of_inactive_days')->default(0);
         });
     }
 

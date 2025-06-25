@@ -1,7 +1,9 @@
 <?php
 
+use App\Console\Commands\CheckIsActiveCommand;
 use App\Http\Middleware\CheckTeacher;
 use App\Responses\Response;
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -9,6 +11,9 @@ use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 
 return Application::configure(basePath: dirname(__DIR__))
+    ->withCommands([
+        CheckIsActiveCommand::class
+    ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         api: __DIR__.'/../routes/api.php',
@@ -33,4 +38,6 @@ return Application::configure(basePath: dirname(__DIR__))
             }
             return Response::error([], $message, $code);
         });
+    })->withSchedule(function (Schedule $schedule) {
+        $schedule->command('active:check')->dailyAt('03:00')->timezone('Asia/Damascus');
     })->create();

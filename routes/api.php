@@ -16,6 +16,7 @@ use App\Http\Controllers\App\SkillController;
 use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
 
+// auth
 Route::controller(AuthController::class)->prefix('users')->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
@@ -24,12 +25,14 @@ Route::controller(AuthController::class)->prefix('users')->group(function () {
     });
 });
 
+// profile
 Route::controller(UserController::class)->middleware('auth:api')->prefix('users')->group(function () {
     Route::post('update-profile', 'updateProfile');
     Route::post('update-profile-image', 'updateProfileImage');
     Route::post('change-password','changePassword');
     Route::post('promote-student-to-teacher','promoteStudentToTeacher');
     Route::delete('delete', 'destroy');
+    Route::post('store-fcm-token', 'storeFCMToken');
 });
 Route::get('users/{id}',[UserController::class,'showProfile']);
 
@@ -44,6 +47,7 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
     Route::post('verify', 'verifyOtp');
 });
 
+// quizzes
 Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizzes')->group(function () {
         Route::middleware('isTeacher')->group(function () {
             Route::post('', 'store');
@@ -58,6 +62,8 @@ Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizze
 Route::apiResource('courses', CourseController::class);
 
 Route::apiResource('episodes', EpisodeController::class);
+
+Route::get('episodes/finish_an_episode', [EpisodeController::class, 'finish_an_episode'])->name('episodes.finish_an_episode');
 
 Route::apiResource('comments', CommentController::class);
 
