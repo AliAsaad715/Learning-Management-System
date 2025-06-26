@@ -11,6 +11,11 @@ class Topic extends Model
 {
     public $timestamps = false;
 
+    public static function popular($query)
+    {
+        return $query->orderBy('title')->limit(5);
+    }
+
     public function courses(): HasMany
     {
         return $this->hasMany(Course::class);

@@ -11,14 +11,12 @@ use App\Http\Controllers\App\EnumController;
 use App\Http\Controllers\App\EpisodeController;
 use App\Http\Controllers\App\LanguageController;
 use App\Http\Controllers\App\OTPController;
-use App\Http\Controllers\App\QuestionController;
 use App\Http\Controllers\App\QuizController;
 use App\Http\Controllers\App\ReplyController;
 use App\Http\Controllers\App\ResetPasswordController;
 use App\Http\Controllers\App\SkillController;
 use App\Http\Controllers\App\TopicController;
 use App\Http\Controllers\App\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->prefix('users')->group(function () {
@@ -32,11 +30,11 @@ Route::controller(AuthController::class)->prefix('users')->group(function () {
 Route::controller(UserController::class)->middleware('auth:api')->prefix('users')->group(function () {
     Route::post('update-profile', 'updateProfile');
     Route::post('update-profile-image', 'updateProfileImage');
-    Route::post('change-password','changePassword');
-    Route::post('promote-student-to-teacher','promoteStudentToTeacher');
+    Route::post('change-password', 'changePassword');
+    Route::post('promote-student-to-teacher', 'promoteStudentToTeacher');
     Route::delete('delete', 'destroy');
 });
-Route::get('users/{id}',[UserController::class,'showProfile']);
+Route::get('users/{id}', [UserController::class, 'showProfile']);
 
 Route::controller(ResetPasswordController::class)->prefix('users/password')->group(function () {
     Route::post('email', 'forgotPassword');
@@ -49,45 +47,44 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
     Route::post('verify', 'verifyOtp');
 });
 
-
 Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizzes')->group(function () {
-        Route::middleware('isTeacher')->group(function () {
-            Route::post('', 'store');
-            Route::get('{episode_id}', 'show');
-        });
-        Route::post('start-quiz/{episode_id}', 'startQuiz');
-        Route::post('process-answer', 'processAnswer');
-        Route::put('result/{quiz_id}', 'calculateQuizResult');
-        Route::get('result/{quiz_id}', 'getQuizResult');
+    Route::middleware('isTeacher')->group(function () {
+        Route::post('', 'store');
+        Route::get('{episode_id}', 'show');
+    });
+    Route::post('start-quiz/{episode_id}', 'startQuiz');
+    Route::post('process-answer', 'processAnswer');
+    Route::put('result/{quiz_id}', 'calculateQuizResult');
+    Route::get('result/{quiz_id}', 'getQuizResult');
 });
 
-
-
-Route::controller(CategoryController::class)->prefix('category')->group(function(){
-    Route::get('index-category', 'indexCategory');
+Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+    Route::get('', 'index');
+    Route::get('search/{title}', 'search');
 });
 
-Route::controller(TopicController::class)->prefix('topic')->group(function(){
-    Route::get('topic-in-category/{id}','indexTopics');
-    Route::get('searsh-topic/{title}','searchTopic');
+Route::controller(TopicController::class)->prefix('topics')->group(function () {
+    Route::get('{category_id}', 'index');
+    Route::get('search/{title}', 'search');
 });
 
-Route::controller(CourseController::class)->prefix('course')->group(function(){
-    Route::get('course-in-topic/{id}','indexCourse');
-    Route::get('searsh-course/{title}','searchCourse');
-    Route::get('free-course','freeCourse');
-    Route::get('paid-course','paidCourse');
-    Route::get('all-course','showAllCourses');
+Route::controller(CourseController::class)->prefix('courses')->group(function () {
+    Route::get('', 'index');
+    Route::post('load-more', 'loadMore');
+    Route::get('category/{category_id}', 'getCoursesForCategory');
+    Route::get('topic/{topic_id}', 'getCoursesForTopic');
+    Route::get('language/{language_id}', 'getCoursesForLanguage');
+    Route::get('search/{title}', 'search');
+    Route::get('free', 'freeCourses');
+    Route::get('paid', 'paidCourses');
+    Route::get('{id}', 'show');
 });
 
-
-
-Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episode')->group(function(){
-    Route::get('episodes-in-course/{id}','indexEpisode');
-    Route::get('episode/{id}','showEpisode');
+Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episode')->group(function () {
+    Route::get('episodes-in-course/{id}', 'indexEpisode');
+    Route::get('episode/{id}', 'showEpisode');
 
 });
-
 
 Route::controller(CommentController::class)->middleware('auth:api')->prefix('comments')->group(function () {
     Route::get('{episode_id}', 'index');

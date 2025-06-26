@@ -69,17 +69,29 @@ class FakeDataSeeder extends Seeder
         $MoreDetail2->languages()->attach(3, ['level' => 'mother_tongue']);
         $MoreDetail2->languages()->attach(2, ['level' => 'beginner']);
 
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizes') VALUES
-        ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '23', '0', '4', '20', '2004-08-23', '2005-08-23', 'true', 'true', '0');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '23', '0', '4', '1', '20', '1', '2004-08-23', '2005-08-23', 'true', 'true', '0');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'num_of_episodes', 'publishing_request_date', 'deleted_at', 'published', 'has_certificate', 'total_quizes') VALUES
-        ('2', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', 'intermediate', '19', '10', '3', '10', '2004-08-23', '2005-08-23', 'false', 'false', '2');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'deleted_at', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('2', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', 'intermediate', '19', '10', '3', '1', '10', '0', '2004-08-23', '2005-08-23', 'false', 'false', '2');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizes') VALUES
-        ('3', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '34', '2004-08-23', '2004-08-23', 'false', 'false', '5');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('3', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '1', '34', '1', '2004-08-23', 'false', 'false', '5');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'num_of_episodes', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizes') VALUES
-        ('4', 'Laravel for experts', 'Laravel course that explains experts concepts of back-end', 'course4.png', '2', '2', 'expert', '33', '23', '53', '2004-08-23', '2005-08-23', 'true', 'false', '8');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'language_id', 'num_of_episodes' ,'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('4', 'Laravel for experts', 'Laravel course that explains experts concepts of back-end', 'course4.png', '2', '2', 'expert', '33', '23', '1', '53', '4', '2004-08-23', '2005-08-23', 'true', 'false', '8');
+        ");
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('5', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '33', '23', '6', '53', '2', '2004-08-23', '2005-08-23', 'true', 'false', '8');
+        ");
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('6', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', 'intermediate', '19', '10', '3', '6', '10', '0', '2004-08-23', '2005-08-23', 'true', 'false', '2');
+        ");
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('7', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '6', '34', '1', '2004-08-23', '2004-08-23', 'true', 'false', '5');
+        ");
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
+        ('8', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '3', '34', '2', '2004-08-23', '2004-08-23', 'true', 'false', '5');
         ");
 
         $user = User::withTrashed()->find(2);

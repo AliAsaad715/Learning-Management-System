@@ -25,6 +25,16 @@ class Response
         ], $code);
     }
 
+    public static function successForSuggestions($data, $message, $suggestions, $code = 200): JsonResponse
+    {
+        return response()->json([
+            'status' => true,
+            'data' => $data,
+            'message' => $message,
+            'suggestions' => $suggestions
+        ], $code);
+    }
+
     public static function error($data, $message, $code = 500): JsonResponse
     {
         return response()->json([

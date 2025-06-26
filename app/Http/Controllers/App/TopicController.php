@@ -2,34 +2,47 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Models\Category;
 use App\Models\Topic;
 use App\Responses\Response;
-use Illuminate\Http\Request;
-
+use App\Services\Topic\TopicService;
+use Illuminate\Http\JsonResponse;
+use Throwable;
 
 class TopicController extends Controller
 {
-    public function indexTopics($categoryId){
+    private TopicService $topicService;
 
-        if (!Category::find($categoryId))
-            return Response::error([], 'category not found', 404);
-
-        $topics = Topic::where('category_id',$categoryId)->get();
-
-        if($topics->isEmpty())
-            return Response::error([], 'no topics in this caretgory', 404);
-
-        return Response::success($topics, 'get topics successfully');
+    public function __construct(TopicService $topicService) {
+        $this->topicService = $topicService;
+    }
+    public function index($category_id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->topicService->index($category_id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
 
     }
 
-    public function searchTopic($topicTitle){
-        $topics= Topic::where('title','LIKE',"%$topicTitle%")->get();
-        if($topics->isEmpty())
-            return Response::error([], 'no topic have this title', 404);
-
-        return Response::success($topics, 'get searsh topics successfully');
-
+    public function search($title): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->topicService->search($title);
+            if(array_key_exists('suggestions', $data)) {
+                return Response::successForSuggestions($data['data'], $data['message'], $data['suggestions'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message  = $th->getMessage();
+            return Response::error($data, $message);
+        }
     }
 }

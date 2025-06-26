@@ -34,24 +34,24 @@ class RegisterRequest extends FormRequest
                 'email',
                 'max:255',
                 'unique:users,email',
-                function ($attribute, $value, $fail) {
-                    $apiKey = env('ZEROBOUNCE_API_KEY');
-                    $response = Http::get('https://api.zerobounce.net/v2/validate', [
-                        'api_key' => $apiKey,
-                        'email' => $value,
-                    ]);
-
-                    $result = $response->json();
-
-                    if (!isset($result['status'])) {
-                        $fail('Email verification service is currently unavailable.');
-                        return;
-                    }
-
-                    if ($result['status'] !== 'valid') {
-                        $fail('The email address is invalid or does not exist.');
-                    }
-                },
+//                function ($attribute, $value, $fail) {
+//                    $apiKey = env('ZEROBOUNCE_API_KEY');
+//                    $response = Http::get('https://api.zerobounce.net/v2/validate', [
+//                        'api_key' => $apiKey,
+//                        'email' => $value,
+//                    ]);
+//
+//                    $result = $response->json();
+//
+//                    if (!isset($result['status'])) {
+//                        $fail('Email verification service is currently unavailable.');
+//                        return;
+//                    }
+//
+//                    if ($result['status'] !== 'valid') {
+//                        $fail('The email address is invalid or does not exist.');
+//                    }
+//                },
             ],
             'password' => ['required', 'confirmed', Password::min(8)
                 ->mixedCase()

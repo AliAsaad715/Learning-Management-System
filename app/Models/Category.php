@@ -9,6 +9,11 @@ class Category extends Model
 {
     public $timestamps = false;
 
+    public static function popular($query)
+    {
+        return $query->orderBy('title')->limit(5);
+    }
+
     public function topics(): HasMany
     {
         return $this->hasMany(Topic::class);

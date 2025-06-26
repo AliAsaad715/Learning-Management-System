@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Comment;
+namespace App\Http\Requests\LoadMore;
 
 use App\Traits\HandlesFailedValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowMoreRequest extends FormRequest
+class LoadMoreRequest extends FormRequest
 {
     use HandlesFailedValidationTrait;
     /**
