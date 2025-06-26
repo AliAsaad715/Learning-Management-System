@@ -14,7 +14,9 @@ class CheckIsActiveCommand extends Command
     protected $description = 'check if user is active daily';
 
     public function __construct(public FcmService $fcmService)    // Injection the fcm sevice
-    {}
+    {
+        parent::__construct();
+    }
 
     public function handle()
     {

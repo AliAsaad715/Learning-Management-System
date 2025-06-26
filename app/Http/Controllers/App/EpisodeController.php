@@ -41,15 +41,32 @@ class EpisodeController extends Controller
          return Response::success($episode, 'get episode successfully');
     }
 
-    public function finish_an_episode(Episode $episode)
+    public function finish_episode(Episode $episode)
     {
-        auth()->user()->more_details->is_active_today = true;
-        auth()->user()->more_details->save();
+        $user = auth()->user();
+        
+        if($user->episodes()->where($episode->id)->first())
+            return response()->json([
+                'message' => 'This episode has been watched before'
+            ]);
+
+        // episode has been watched
+        $user->episodes()->attach($episode);
+        $episode->views->increment();
+        $episode->save();
+
+        // update progress in course
+        $course = $user->followed_courses()->where($episode->course->id);
+        $progress = $course->pivot->progress->increment();
+        $course->save();
+        $course->pivot->update(['perc_progress' => ($progress * 100) / $episode->course->episodes->count()]);
+        
+        // update activity of user
+        $user->more_details->is_active_today = true;
+        $user->more_details->save();
         
         return response()->json([
             'message' => 'user today is active'
         ], 200);
     }
-
-
 }

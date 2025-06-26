@@ -133,4 +133,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Reply::class, 'reply_likes');
     }
+
+    public function episodes() 
+    {
+        return $this->belongsToMany(Episode::class)->withPivot('pass_quiz');
+    }
 }

@@ -53,7 +53,6 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
 });
 
 // quizzes
-
 Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizzes')->group(function () {
         Route::middleware('isTeacher')->group(function () {
             Route::post('', 'store');
@@ -76,6 +75,7 @@ Route::controller(TopicController::class)->prefix('topic')->group(function(){
     Route::get('searsh-topic/{title}','searchTopic');
 });
 
+// courses
 Route::controller(CourseController::class)->prefix('course')->group(function(){
     Route::get('course-in-topic/{id}','indexCourse');
     Route::get('searsh-course/{title}','searchCourse');
@@ -85,11 +85,11 @@ Route::controller(CourseController::class)->prefix('course')->group(function(){
 });
 
 
-
+// episodes
 Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episode')->group(function(){
     Route::get('episodes-in-course/{id}','indexEpisode');
     Route::get('episode/{id}','showEpisode');
-    Route::get('finish_an_episode', 'finish_an_episode')->name('episodes.finish_an_episode');
+    Route::get('finish_an_episode', 'finish_episode')->name('episodes.finish_an_episode');
 });
 
 
