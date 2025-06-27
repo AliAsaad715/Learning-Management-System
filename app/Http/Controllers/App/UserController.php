@@ -5,9 +5,11 @@ namespace App\Http\Controllers\App;
 use App\Http\Requests\User\ChangePasswordRequest;
 use App\Http\Requests\User\ProfileImageRequest;
 use App\Http\Requests\User\ProfileRequest;
+use App\Models\User;
 use App\Responses\Response;
 use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
+use Kreait\Firebase\Request;
 use Throwable;
 
 class UserController extends Controller
@@ -95,6 +97,13 @@ class UserController extends Controller
             $message = $th->getMessage();
             return Response::error($data, $message);
         }
+    }
+
+    public function storeFCMToken(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $user->update(['fcm_token' => $request->device_token]);
+        return response()->json(['success' => true]);
     }
 
 }

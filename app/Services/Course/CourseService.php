@@ -56,7 +56,14 @@ class CourseService
 
     public function store($request): array
     {
-
+//        $request['teacher_id'] = auth('api')->id();
+////        $request['num'] = auth('api')->id();
+//        $course = Course::query()->create([
+//            'teacher_id' => auth('api')->id(),
+//            'topic_id' => $request['topic_id'],
+//            'language_id' => $request['language_id'],
+//            'ti'
+//        ])
     }
 
     public function getCoursesForCategory($category_id): array

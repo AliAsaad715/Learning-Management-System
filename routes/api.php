@@ -19,6 +19,7 @@ use App\Http\Controllers\App\TopicController;
 use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
 
+// auth
 Route::controller(AuthController::class)->prefix('users')->group(function () {
     Route::post('register', 'register');
     Route::post('login', 'login');
@@ -27,12 +28,14 @@ Route::controller(AuthController::class)->prefix('users')->group(function () {
     });
 });
 
+// profile
 Route::controller(UserController::class)->middleware('auth:api')->prefix('users')->group(function () {
     Route::post('update-profile', 'updateProfile');
     Route::post('update-profile-image', 'updateProfileImage');
     Route::post('change-password', 'changePassword');
     Route::post('promote-student-to-teacher', 'promoteStudentToTeacher');
     Route::delete('delete', 'destroy');
+    Route::post('store-fcm-token', 'storeFCMToken');
 });
 Route::get('users/{id}', [UserController::class, 'showProfile']);
 
@@ -47,6 +50,7 @@ Route::controller(OTPController::class)->prefix('users/otp')->group(function () 
     Route::post('verify', 'verifyOtp');
 });
 
+// quizzes
 Route::controller(QuizController::class)->middleware('auth:api')->prefix('quizzes')->group(function () {
     Route::middleware('isTeacher')->group(function () {
         Route::post('', 'store');
@@ -68,6 +72,7 @@ Route::controller(TopicController::class)->prefix('topics')->group(function () {
     Route::get('search/{title}', 'search');
 });
 
+// courses
 Route::controller(CourseController::class)->prefix('courses')->group(function () {
     Route::get('', 'index');
     Route::post('load-more', 'loadMore');
@@ -80,12 +85,14 @@ Route::controller(CourseController::class)->prefix('courses')->group(function ()
     Route::get('{id}', 'show');
 });
 
+// episodes
 Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episode')->group(function () {
     Route::get('episodes-in-course/{id}', 'indexEpisode');
     Route::get('episode/{id}', 'showEpisode');
 
 });
 
+// comments
 Route::controller(CommentController::class)->middleware('auth:api')->prefix('comments')->group(function () {
     Route::get('{episode_id}', 'index');
     Route::post('load-more/{episode_id}', 'loadMore');
@@ -97,6 +104,7 @@ Route::controller(CommentController::class)->middleware('auth:api')->prefix('com
     Route::delete('remove-like/{id}', 'removeLikeFromComment');
 });
 
+// replies
 Route::controller(ReplyController::class)->middleware('auth:api')->prefix('replies')->group(function () {
     Route::get('{comment_id}', 'index');
     Route::post('{comment_id}', 'store');

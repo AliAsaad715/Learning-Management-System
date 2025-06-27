@@ -18,6 +18,23 @@ class Course extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'topic_id',
+        'teacher_id',
+        'language_id',
+        'title',
+        'description',
+        'image_url',
+        'difficulty_level',
+        'num_of_hours',
+        'price',
+        'rate',
+        'num_of_episodes',
+        'num_of_students_enrolled',
+        'publishing_date',
+        'published',
+        'has_certificate',
+    ];
     protected $casts = [
         'difficulty_level' => LevelEnum::class
     ];

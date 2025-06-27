@@ -4,6 +4,8 @@ namespace App\Http\Controllers\App;
 
 use App\Models\Course;
 use App\Models\Episode;
+use App\Models\MoreDetail;
+use App\Models\User;
 use App\Responses\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +38,35 @@ class EpisodeController extends Controller
          $userId = Auth::id();
             if(!$course->studentSubscribe($userId))
                 return Response::error([], 'no access you must subscribe', 403);
-;
          return Response::success($episode, 'get episode successfully');
     }
 
+    public function finish_episode(Episode $episode)
+    {
+        $user = auth()->user();
+        
+        if($user->episodes()->where($episode->id)->first())
+            return response()->json([
+                'message' => 'This episode has been watched before'
+            ]);
+
+        // episode has been watched
+        $user->episodes()->attach($episode);
+        $episode->views->increment();
+        $episode->save();
+
+        // update progress in course
+        $course = $user->followed_courses()->where($episode->course->id);
+        $progress = $course->pivot->progress->increment();
+        $course->save();
+        $course->pivot->update(['perc_progress' => ($progress * 100) / $episode->course->episodes->count()]);
+        
+        // update activity of user
+        $user->more_details->is_active_today = true;
+        $user->more_details->save();
+        
+        return response()->json([
+            'message' => 'user today is active'
+        ], 200);
+    }
 }
