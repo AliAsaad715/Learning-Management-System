@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\App;
 
-use App\Http\Requests\LoadMore\LoadMoreRequest;
+use App\Http\Requests\Course\CourseRequest;
+use App\Http\Requests\Course\EvaluationCourseRequest;
+use App\Http\Requests\Course\LoadMoreCoursesRequest;
 use App\Responses\Response;
 use App\Services\Course\CourseService;
 use Illuminate\Http\JsonResponse;
@@ -29,8 +31,8 @@ class CourseController extends Controller
         }
     }
 
-    // Load 15 comments for specific episode and specific page, they are not appearing on the last page.
-    public function loadMore(LoadMoreRequest $request): JsonResponse
+    // Load 5 courses for specific page, they are not appearing on the last page.
+    public function loadMore(LoadMoreCoursesRequest $request): JsonResponse
     {
         $data = [];
         try {
@@ -39,6 +41,18 @@ class CourseController extends Controller
                 return Response::error([], $data['message'], $data['code']);
             }
             return Response::successForPaginate($data['data'], $data['meta'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function store(CourseRequest $request): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->store($request->validated());
+            return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
             return Response::error($data, $message);
@@ -105,11 +119,11 @@ class CourseController extends Controller
         }
     }
 
-    public function freeCourses(): JsonResponse
+    public function getFreeCourses(): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->courseService->freeCourses();
+            $data = $this->courseService->getFreeCourses();
             return Response::successForPaginate($data['data'], $data['meta'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
@@ -117,11 +131,11 @@ class CourseController extends Controller
         }
     }
 
-    public function paidCourses(): JsonResponse
+    public function getPaidCourses(): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->courseService->paidCourses();
+            $data = $this->courseService->getPaidCourses();
             return Response::successForPaginate($data['data'], $data['meta'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
@@ -129,11 +143,59 @@ class CourseController extends Controller
         }
     }
 
-    public function show($id): JsonResponse
+    public function getDraftCoursesToTeacher(): JsonResponse
     {
         $data = [];
         try {
-            $data = $this->courseService->show($id);
+            $data = $this->courseService->getDraftCoursesToTeacher();
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function getPendingCoursesToTeacher(): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->getPendingCoursesToTeacher();
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function getApprovedCoursesToTeacher(): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->getApprovedCoursesToTeacher();
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function getRejectedCoursesToTeacher(): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->getRejectedCoursesToTeacher();
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function showToTeacher($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->showToTeacher($id);
             if($data['code'] == 404) {
                 return Response::error([], $data['message'], $data['code']);
             }
@@ -144,6 +206,49 @@ class CourseController extends Controller
         }
     }
 
+    public function showToStudent($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->showToStudent($id);
+            if($data['code'] == 404) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
 
+    public function publishCourse($id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->publishCourse($id);
+            if($data['code'] == 404 || $data['code'] == 422) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success([], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
+
+    public function evaluation(EvaluationCourseRequest $request , $id): JsonResponse
+    {
+        $data = [];
+        try {
+            $data = $this->courseService->evaluation($request->validated(), $id);
+            if($data['code'] == 422) {
+                return Response::error([], $data['message'], $data['code']);
+            }
+            return Response::success($data['data'], $data['message'], $data['code']);
+        } catch (Throwable $th) {
+            $message = $th->getMessage();
+            return Response::error($data, $message);
+        }
+    }
 }
 

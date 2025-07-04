@@ -73,6 +73,19 @@ class ReplyService
         return ['message' => 'Reply deleted successfully', 'code' => 200];
     }
 
+    public function destroyForTeacher($id): array
+    {
+        $reply = Reply::query()->find($id);
+        if(is_null($reply)) {
+            return ['message' => 'Reply not found!', 'code' => 404];
+        }
+        if(!$reply->episode->course->where('teacher_id', auth('api')->id())->exists()) {
+            return ['message' => 'Unauthorized!', 'code' => 401];
+        }
+        $reply->delete();
+        return ['message' => 'Reply deleted successfully', 'code' => 200];
+    }
+
     // Add Like to specific reply.
     public function addLikeToReply($id): array
     {

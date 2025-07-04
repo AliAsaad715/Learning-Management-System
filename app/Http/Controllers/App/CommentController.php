@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\App;
 
 use App\Http\Requests\Comment\CommentRequest;
-use App\Http\Requests\Comment\ShowMoreRequest;
-use App\Http\Requests\LoadMore\LoadMoreRequest;
+use App\Http\Requests\Comment\LoadMoreCommentsRequest;
 use App\Responses\Response;
 use App\Services\Comment\CommentService;
 use Illuminate\Http\JsonResponse;
@@ -36,7 +35,7 @@ class CommentController extends Controller
     }
 
     // Load more comments, they are not appearing on the last page.
-    public function loadMore($episode_id, LoadMoreRequest $request): JsonResponse
+    public function loadMore($episode_id, LoadMoreCommentsRequest $request): JsonResponse
     {
         $data = [];
         try {

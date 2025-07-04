@@ -2,8 +2,11 @@
 
 namespace App\Services\Course;
 
-use App\Http\Resources\Course\CourseResource;
-use App\Http\Resources\Course\CourseWithDetailsResource;
+use App\Enums\CourseStatusEnum;
+use App\Http\Resources\Course\Student\CourseForStudentResource;
+use App\Http\Resources\Course\Student\CourseWithDetailsForStudentResource;
+use App\Http\Resources\Course\Teacher\CourseForTeacherResource;
+use App\Http\Resources\Course\Teacher\CourseWithDetailsForTeacherResource;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Language;
@@ -15,14 +18,14 @@ class CourseService
     public function index(): array
     {
         $courses = Course::query()
-            ->where('published', 'true')
+            ->where('status', CourseStatusEnum::APPROVED)
             ->withCount('students')
             ->orderBy('rate', 'desc')
             ->orderBy('students_count', 'desc')
             ->paginate(5);
 
         return [
-            'data' => CourseResource::collection($courses),
+            'data' => CourseForStudentResource::collection($courses),
             'meta' => [
                 'current_page' => $courses->currentPage(),
                 'has_more_pages' => $courses->hasMorePages(),
@@ -36,14 +39,35 @@ class CourseService
     // Load more courses, they are not appearing on the last page.
     public function loadMore($request): array
     {
-        $courses = Course::query()
-            ->where('published', 'true')
-            ->withCount('students')
-            ->orderBy('rate', 'desc')
-            ->orderBy('students_count', 'desc')
-            ->paginate(5, '*', 'page', $request['page']);
+        if ($request['type'] == 'all') {
+            $courses = Course::query()
+                ->where('status', CourseStatusEnum::APPROVED)
+                ->withCount('students')
+                ->orderBy('rate', 'desc')
+                ->orderBy('students_count', 'desc')
+                ->paginate(5, '*', 'page', $request['page']);
+        } else if ($request['type'] == 'free') {
+            $courses = Course::query()
+                ->where([
+                    'status' => CourseStatusEnum::APPROVED,
+                    'price' => '0'
+                ])
+                ->withCount('students')
+                ->orderBy('rate', 'desc')
+                ->orderBy('students_count', 'desc')
+                ->paginate(5, '*', 'page', $request['page']);
+        } else if ($request['type'] == 'paid') {
+            $courses = Course::query()
+                ->where('status', CourseStatusEnum::APPROVED)
+                ->where('price', '>', 0)
+                ->withCount('students')
+                ->orderBy('rate', 'desc')
+                ->orderBy('students_count', 'desc')
+                ->paginate(5, '*', 'page', $request['page']);
+        }
+
         return [
-            'data' => CourseResource::collection($courses),
+            'data' => CourseForStudentResource::collection($courses),
             'meta' => [
                 'current_page' => $courses->currentPage(),
                 'has_more_pages' => $courses->hasMorePages(),
@@ -56,14 +80,12 @@ class CourseService
 
     public function store($request): array
     {
-//        $request['teacher_id'] = auth('api')->id();
-////        $request['num'] = auth('api')->id();
-//        $course = Course::query()->create([
-//            'teacher_id' => auth('api')->id(),
-//            'topic_id' => $request['topic_id'],
-//            'language_id' => $request['language_id'],
-//            'ti'
-//        ])
+        $request['teacher_id'] = auth('api')->id();
+        $path = $request['image_url']->store('img/courses', 'public');
+        $request['image_url'] = basename($path);
+        $course = Course::query()->create($request);
+        $course->refresh();
+        return ['data' => new CourseWithDetailsForTeacherResource($course), 'message' => 'Course created successfully', 'code' => 201];
     }
 
     public function getCoursesForCategory($category_id): array
@@ -75,13 +97,13 @@ class CourseService
         $courses = Course::query()->whereHas('topic', function ($query) use ($category_id) {
             $query->where('category_id', $category_id);
         })
-            ->where('published', 'true')
+            ->where('status', CourseStatusEnum::APPROVED)
             ->withCount('students')
             ->orderBy('rate', 'desc')
             ->orderBy('students_count', 'desc')
             ->get()
             ->map(function ($course) {
-                return new CourseResource($course);
+                return new CourseForStudentResource($course);
             });
         return ['data' => $courses, 'message' => 'Courses retrieved successfully', 'code' => 200];
     }
@@ -93,14 +115,14 @@ class CourseService
         }
         $courses = Course::query()
             ->where([
-                'published' => 'true',
+                'status' => CourseStatusEnum::APPROVED,
                 'topic_id' => $topic_id
             ])
             ->withCount('students')
             ->orderBy('rate', 'desc')
             ->orderBy('students_count', 'desc')
             ->get();
-        return ['data' => CourseResource::collection($courses), 'message' => 'Courses retrieved successfully', 'code' => 200];
+        return ['data' => CourseForStudentResource::collection($courses), 'message' => 'Courses retrieved successfully', 'code' => 200];
     }
 
     public function getCoursesForLanguage($language_id): array
@@ -110,20 +132,20 @@ class CourseService
         }
         $courses = Course::query()
             ->where([
-                'published' => 'true',
+                'status' => CourseStatusEnum::APPROVED,
                 'language_id' => $language_id
             ])
             ->withCount('students')
             ->orderBy('rate', 'desc')
             ->orderBy('students_count', 'desc')
             ->get();
-        return ['data' => CourseResource::collection($courses), 'message' => 'Courses retrieved successfully', 'code' => 200];
+        return ['data' => CourseForStudentResource::collection($courses), 'message' => 'Courses retrieved successfully', 'code' => 200];
     }
 
     public function search($title): array
     {
         $courses = Course::query()
-            ->where('published', 'true')
+            ->where('status', CourseStatusEnum::APPROVED)
             ->where('title', 'LIKE', "%$title%")
             ->withCount('students')
             ->orderBy('rate', 'desc')
@@ -137,14 +159,14 @@ class CourseService
                 'code' => 200
             ];
         }
-        return ['data' => CourseResource::collection($courses), 'message' => 'Courses retrieved successfully', 'code' => 200];
+        return ['data' => CourseForStudentResource::collection($courses), 'message' => 'Courses retrieved successfully', 'code' => 200];
     }
 
-    public function freeCourses(): array
+    public function getFreeCourses(): array
     {
         $courses = Course::query()
             ->where([
-                'published' => 'true',
+                'status' => CourseStatusEnum::APPROVED,
                 'price' => 0
             ])
             ->withCount('students')
@@ -153,7 +175,7 @@ class CourseService
             ->paginate(5);
 
         return [
-            'data' => CourseResource::collection($courses),
+            'data' => CourseForStudentResource::collection($courses),
             'meta' => [
                 'current_page' => $courses->currentPage(),
                 'has_more_pages' => $courses->hasMorePages(),
@@ -164,10 +186,10 @@ class CourseService
         ];
     }
 
-    public function paidCourses(): array
+    public function getPaidCourses(): array
     {
         $courses = Course::query()
-            ->where('published', 'true')
+            ->where('status', CourseStatusEnum::APPROVED)
             ->where('price', '>', 0)
             ->withCount('students')
             ->orderBy('rate', 'desc')
@@ -175,7 +197,7 @@ class CourseService
             ->paginate(5);
 
         return [
-            'data' => CourseResource::collection($courses),
+            'data' => CourseForStudentResource::collection($courses),
             'meta' => [
                 'current_page' => $courses->currentPage(),
                 'has_more_pages' => $courses->hasMorePages(),
@@ -187,17 +209,136 @@ class CourseService
 
     }
 
-    public function show($id): array
+    public function showToTeacher($id): array
     {
         $course = Course::query()
-            ->where('published', 'true')
-            ->find($id);
-        if(is_null($course)) {
+            ->where([
+                'teacher_id' => auth('api')->id(),
+                'id' => $id
+            ])->first();
+
+        if (is_null($course)) {
             return ['message' => 'Course not found!', 'code' => 404];
         }
 
-        return ['data' => new CourseWithDetailsResource($course), 'message' => 'Course retrieved successfully', 'code' => 200];
-
+        return ['data' => new CourseWithDetailsForTeacherResource($course), 'message' => 'Course retrieved successfully', 'code' => 200];
     }
+
+    public function showToStudent($id): array
+    {
+        $course = Course::query()
+            ->where('status', CourseStatusEnum::APPROVED)
+            ->find($id);
+        if (is_null($course)) {
+            return ['message' => 'Course not found!', 'code' => 404];
+        }
+
+        return ['data' => new CourseWithDetailsForStudentResource($course), 'message' => 'Course retrieved successfully', 'code' => 200];
+    }
+
+    public function getDraftCoursesToTeacher(): array
+    {
+        $courses = Course::query()
+            ->where([
+                'teacher_id' => auth('api')->id(),
+                'status' => CourseStatusEnum::DRAFT,
+            ])
+            ->latest('created_at')
+            ->get();
+
+        return ['data' => CourseForTeacherResource::collection($courses), 'message' => 'Course retrieved successfully', 'code' => 200];
+    }
+
+    public function getPendingCoursesToTeacher(): array
+    {
+        $courses = Course::query()
+            ->where([
+                'teacher_id' => auth('api')->id(),
+                'status' => CourseStatusEnum::PENDING,
+            ])
+            ->latest('publishing_request_date')
+            ->get();
+
+        return ['data' => CourseForTeacherResource::collection($courses), 'message' => 'Course retrieved successfully', 'code' => 200];
+    }
+
+    public function getApprovedCoursesToTeacher(): array
+    {
+        $courses = Course::query()
+            ->where([
+                'teacher_id' => auth('api')->id(),
+                'status' => CourseStatusEnum::APPROVED,
+            ])
+            ->withCount('students')
+            ->orderBy('rate', 'desc')
+            ->orderBy('students_count', 'desc')
+            ->get();
+
+        return ['data' => CourseForTeacherResource::collection($courses), 'message' => 'Course retrieved successfully', 'code' => 200];
+    }
+
+    public function getRejectedCoursesToTeacher(): array
+    {
+        $courses = Course::query()
+            ->where([
+                'teacher_id' => auth('api')->id(),
+                'status' => CourseStatusEnum::REJECTED,
+            ])
+            ->latest('publishing_request_date')
+            ->get();
+
+        return ['data' => CourseForTeacherResource::collection($courses), 'message' => 'Course retrieved successfully', 'code' => 200];
+    }
+
+    public function publishCourse($id): array
+    {
+        $course = Course::query()->where([
+            'teacher_id' => auth('api')->id(),
+            'id' => $id
+        ])->first();
+        if (is_null($course)) {
+            return ['message' => 'Course not found!', 'code' => 404];
+        }
+
+        if ($course->num_of_episodes == 0) {
+            return ['message' => 'Please add at least one episode before submitting the course for review', 'code' => 422];
+        }
+
+        if ($course->status == 'pending') {
+            return ['message' => 'Course already submitted for review!', 'code' => 422];
+        } else if ($course->status == 'approved') {
+            return ['message' => 'Course already published!', 'code' => 422];
+        } else if ($course->status === 'rejected') {
+            return ['message' => 'This course was rejected and cannot be resubmitted without modifications.', 'code' => 409];
+        }
+
+        $course->update([
+            'status' => CourseStatusEnum::PENDING,
+            'publishing_request_date' => now()
+        ]);
+
+        return ['message' => 'Course submitted successfully', 'code' => 200];
+    }
+
+    public function evaluation($request, $id): array
+    {
+        $course = Course::query()->where('status', CourseStatusEnum::APPROVED)->find($id);
+
+        $student_id = auth('api')->id();
+        if ($course->students()->where('student_id', $student_id)->whereNot('rate', 0)->exists()) {
+            return ['message' => 'You have already evaluated this course!', 'code' => 422];
+        }
+
+//        $course->students()->updateExistingPivot($student_id, ['rate' => $request['rate']]);
+        $course->students()->sync(
+            [
+                auth('api')->id() => ['rate' => $request['rate']]
+            ], false);
+        $course->rate = round($course->students()->pluck('rate')->avg(), 2);
+        $course->save();
+
+        return ['data' => new CourseWithDetailsForStudentResource($course), 'message' => 'Course evaluated successfully', 'code' => 200];
+    }
+
 
 }

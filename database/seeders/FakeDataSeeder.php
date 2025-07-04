@@ -69,29 +69,40 @@ class FakeDataSeeder extends Seeder
         $MoreDetail2->languages()->attach(3, ['level' => 'mother_tongue']);
         $MoreDetail2->languages()->attach(2, ['level' => 'beginner']);
 
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '23', '0', '4', '1', '20', '1', '2004-08-23', '2005-08-23', 'true', 'true', '0');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('1', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', '1', 'beginner', '23', '0', '4', '1', '20', '1', '2004-08-23', '2005-08-23', 'approved', 'true', '0');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'deleted_at', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('2', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', 'intermediate', '19', '10', '3', '1', '10', '0', '2004-08-23', '2005-08-23', 'false', 'false', '2');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'deleted_at', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('2', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', '1', 'intermediate', '19', '10', '3', '1', '10', '0', '2004-08-23', '2005-08-23', 'rejected', 'false', '2');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('3', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '1', '34', '1', '2004-08-23', 'false', 'false', '5');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('3', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', '1', 'advanced', '40', '32', '2', '1', '34', '1', '2004-08-23', 'rejected', 'false', '5');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'language_id', 'num_of_episodes' ,'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('4', 'Laravel for experts', 'Laravel course that explains experts concepts of back-end', 'course4.png', '2', '2', 'expert', '33', '23', '1', '53', '4', '2004-08-23', '2005-08-23', 'true', 'false', '8');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'language_id', 'num_of_episodes' ,'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('4', 'Laravel for experts', 'Laravel course that explains experts concepts of back-end', 'course4.png', '2', '2', '1', 'expert', '33', '23', '1', '53', '4', '2004-08-23', '2005-08-23', 'approved', 'false', '8');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('5', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '33', '23', '6', '53', '2', '2004-08-23', '2005-08-23', 'true', 'false', '8');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('5', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', '1', 'beginner', '33', '23', '6', '53', '2', '2004-08-23', '2005-08-23', 'approved', 'false', '8');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('6', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', 'intermediate', '19', '10', '3', '6', '10', '0', '2004-08-23', '2005-08-23', 'true', 'false', '2');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('6', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', '1', 'intermediate', '19', '10', '3', '6', '10', '0', '2004-08-23', '2005-08-23', 'approved', 'false', '2');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('7', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '6', '34', '1', '2004-08-23', '2004-08-23', 'true', 'false', '5');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('7', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', '1', 'advanced', '40', '32', '2', '6', '34', '1', '2004-08-23', '2004-08-23', 'approved', 'false', '5');
         ");
-        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'num_of_hours', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'published', 'has_certificate', 'total_quizzes') VALUES
-        ('8', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', 'advanced', '40', '32', '2', '3', '34', '2', '2004-08-23', '2004-08-23', 'true', 'false', '5');
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('8', 'Laravel for advanced', 'Laravel course that explains advanced concepts of back-end', 'course3.png', '2', '2', '1', 'advanced', '40', '32', '2', '3', '34', '2', '2004-08-23', '2004-08-23', 'approved', 'false', '5');
+        ");
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'admin_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'publishing_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('9', 'Laravel Projects', 'Laravel course implements projects', 'course3.png', '2', '2', '1', 'advanced', '40', '32', '2', '1', '3', '34', '2004-08-23', '2004-08-23', 'approved', 'true', '5');
+        ");
+
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('10', 'Laravel for Beginner', 'Laravel course that explains the basics of back-end concepts', 'course1.png', '2', '2', 'beginner', '23', '77', '4', '1', '0', 'draft', 'true', '0');
+        ");
+
+        DB::insert("INSERT INTO 'courses' ('id', 'title', 'description', 'image_url', 'topic_id', 'teacher_id', 'difficulty_level', 'total_of_time', 'price', 'rate', 'language_id', 'num_of_episodes', 'num_of_students_enrolled', 'publishing_request_date', 'status', 'has_certificate', 'total_quizzes') VALUES
+        ('11', 'Laravel for Intermediate', 'Laravel course that explains the intermediate concepts of back-end', 'course2.png', '2', '2', 'intermediate', '19', '10', '3', '1', '10', '0', '2025-06-30', 'pending', 'true', '2');
         ");
 
         $user = User::withTrashed()->find(2);
@@ -104,23 +115,20 @@ class FakeDataSeeder extends Seeder
         Episode::create([
             'course_id' => 1,
             'title' => 'Basics of Laravel and MVC',
-            'video_url' => 'https://www.youtube.com/embed/VIDEO_ID',
+            'episode_number' => 1,
+            'video_url' => 'videos/video.mp4',
             'duration' => 30,
             'image_url' => 'episode1.png',
-            'admin_id' => 1,
-            'published' => true,
-            'publishing_date' => '2025-05-23 11:39:24'
         ]);
 
         // episode 2
         Episode::create([
             'course_id' => 1,
             'title' => 'Routes and Controllers',
-            'video_url' => 'https://www.youtube.com/embed/VIDEO_ID',
+            'episode_number' => 2,
+            'video_url' => 'videos/video.mp4',
             'duration' => 45,
             'image_url' => 'episode2.png',
-            'admin_id' => 1,
-            'published' => false,
             'deleted_at' => '2025-05-23 11:39:24'
         ]);
 
@@ -128,11 +136,10 @@ class FakeDataSeeder extends Seeder
         Episode::create([
             'course_id' => 1,
             'title' => 'Blade Engine',
-            'video_url' => 'https://www.youtube.com/embed/VIDEO_ID',
+            'episode_number' => 3,
+            'video_url' => 'videos/video.mp4',
             'duration' => 43,
             'image_url' => 'episode3.png',
-            'admin_id' => 1,
-            'published' => false
         ]);
 
         // comment 1

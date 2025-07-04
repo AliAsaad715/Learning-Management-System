@@ -99,7 +99,7 @@ class CommentService
     }
 
     // Delete specific comment.
-    public function destroy($id): array
+    public function destroyForStudent($id): array
     {
         $comment = Comment::query()
             ->where([
@@ -117,6 +117,19 @@ class CommentService
         return ['message' => 'Comment deleted successfully', 'code' => 200];
     }
 
+    public function destroyForTeacher($id): array
+    {
+        $comment = Comment::query()->find($id);
+        if(is_null($comment)) {
+                return ['message' => 'Comment not found!', 'code' => 404];
+        }
+        if(!$comment->episode->course->where('teacher_id', auth('api')->id())->exists()) {
+            return ['message' => 'Unauthorized!', 'code' => 401];
+        }
+        $comment->delete();
+        return ['message' => 'Comment deleted successfully', 'code' => 200];
+    }
+
     // Add Like to specific comment.
     public function addLikeToComment($id): array
     {
@@ -124,7 +137,7 @@ class CommentService
         if(is_null($comment)) {
             return ['message' => 'Comment not found!', 'code' => 404];
         }
-        if($comment->userlikes()->where('user_id', auth('api')->id())->exists()) {
+        if($comment->userLikes()->where('user_id', auth('api')->id())->exists()) {
             return ['message' => 'You\'ve already liked this comment!', 'code' => 401];
         }
         $comment->userLikes()->attach(auth('api')->id());
@@ -141,7 +154,7 @@ class CommentService
         if(is_null($comment)) {
             return ['message' => 'Comment not found!', 'code' => 404];
         }
-        if(!$comment->userlikes()->where('user_id', auth('api')->id())->exists()) {
+        if(!$comment->userLikes()->where('user_id', auth('api')->id())->exists()) {
             return ['message' => 'You don\'t have a like for this comment!', 'code' => 404];
         }
         $comment->userLikes()->detach(auth('api')->id());

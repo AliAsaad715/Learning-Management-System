@@ -15,6 +15,23 @@ class Episode extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'course_id',
+        'title',
+        'episode_number',
+        'video_url',
+        'duration',
+        'image_url',
+        'views',
+        'likes'
+    ];
+
+    public function getFormattedDurationAttribute(): string
+    {
+        $seconds = $this->duration;
+        return gmdate("i:s", $seconds);
+    }
+
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
@@ -28,11 +45,6 @@ class Episode extends Model
     public function quiz(): HasOne
     {
         return $this->hasOne(Quiz::class);
-    }
-
-    public function admin(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function userLikes(): BelongsToMany

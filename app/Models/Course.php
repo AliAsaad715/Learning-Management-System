@@ -26,15 +26,17 @@ class Course extends Model
         'description',
         'image_url',
         'difficulty_level',
-        'num_of_hours',
+        'total_of_time',
         'price',
         'rate',
         'num_of_episodes',
         'num_of_students_enrolled',
+        'publishing_request_date',
         'publishing_date',
-        'published',
+        'status',
         'has_certificate',
     ];
+
     protected $casts = [
         'difficulty_level' => LevelEnum::class
     ];
@@ -46,7 +48,7 @@ class Course extends Model
 
     public function calculatePercentageForValueRate($value): string
     {
-        return round($this->students()->where('rate', $value)->count() / $this->students()->count() * 100, 2) . '%';
+        return round($this->students()->where('rate', $value)->count() / ($this->students()->count() != 0 ? $this->students()->count() : 1) * 100, 2) . '%';
     }
 
     public function teacher(): BelongsTo
@@ -83,14 +85,14 @@ class Course extends Model
     {
         parent::boot();
 
-        static::saving(function ($course) {
-            $user = $course->teacher;
-            if ($user->role != RoleEnum::TEACHER)
-                throw new \Exception('User is not teacher');
-
-            if(isEmpty($course->episodes))
-                throw new \Exception('Upload one episode at least');
-        });
+//        static::saving(function ($course) {
+//            $user = $course->teacher;
+//            if ($user->role != RoleEnum::TEACHER)
+//                throw new \Exception('User is not teacher');
+//
+//            if(isEmpty($course->episodes))
+//                throw new \Exception('Upload one episode at least');
+//        });
     }
      public function studentSubscribe($userId){
         if($this->price ==0)
