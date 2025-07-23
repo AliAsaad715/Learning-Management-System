@@ -27,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'throttle:resend-otp' => ThrottleRequests::class . ':resend-otp',
             'isTeacher' => CheckTeacherRole::class,
-            'isSubscribed' => CheckStudentSubscribed::class
+            'isSubscribed' => CheckStudentSubscribed::class,
             ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

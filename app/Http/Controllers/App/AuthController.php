@@ -24,12 +24,12 @@ class AuthController extends Controller
          try {
              $data = $this->authService->register($request->validated());
              if($data['code'] == 422) {
-                 return Response::error([], $data['message'], $data['code']);
+                 return Response::error($data['message'], $data['code']);
              }
              return Response::success($data['user'], $data['message'], $data['code']);
          } catch (Throwable $th) {
              $message  = $th->getMessage();
-             return Response::error($data, $message);
+             return Response::error($message);
          }
      }
 
@@ -39,12 +39,12 @@ class AuthController extends Controller
          try {
              $data = $this->authService->login($request);
              if($data['code'] == 401 || $data['code'] == 404) {
-                 return Response::error([], $data['message'], $data['code']);
+                 return Response::error($data['message'], $data['code']);
              }
              return Response::success($data['user'], $data['message'], $data['code']);
          } catch (Throwable $th) {
              $message  = $th->getMessage();
-             return Response::error($data, $message);
+             return Response::error($message);
          }
      }
 
@@ -54,12 +54,12 @@ class AuthController extends Controller
          try {
              $data = $this->authService->logout();
              if($data['code'] == 404) {
-                 return Response::error([], $data['message'], $data['code']);
+                 return Response::error($data['message'], $data['code']);
              }
              return Response::success($data['user'], $data['message'], $data['code']);
          } catch (Throwable $th) {
              $message  = $th->getMessage();
-             return Response::error($data, $message);
+             return Response::error($message);
          }
      }
 }

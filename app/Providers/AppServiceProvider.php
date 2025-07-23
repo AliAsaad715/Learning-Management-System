@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Enums\TypeEnum;
+use App\Models\Course;
 use App\Models\User;
 use App\Observers\UserObserver;
+use App\Policies\CoursePolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\RateLimiter;
@@ -21,6 +23,13 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+    protected array $policies = [
+        Course::class => CoursePolicy::class,
+
+        'owner' => CoursePolicy::class,
+        'createCoupon' => CoursePolicy::class,
+    ];
 
     /**
      * Bootstrap any application services.
@@ -42,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
             $schedule->command('active:check')
                 // ->dailyAt('03:00') // Runs at 3 AM daily
                 ->everyMinute()
-                ->timezone('Asia/Damascus'); 
+                ->timezone('Asia/Damascus');
             });
         }
     }

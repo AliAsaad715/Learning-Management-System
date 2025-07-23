@@ -25,7 +25,7 @@ class CourseRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'topic_id' => 'required|exists:topics,id',
             'language_id' => 'required|exists:languages,id',
             'title' => 'required|string|max:100',
@@ -35,5 +35,11 @@ class CourseRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'has_certificate' => ['nullable', 'string', 'in:true,false'],
         ];
+
+        if($this->isMethod('PATCH') && count($this->all()) && $this->has('price')) {
+            return ['price' => $rules['price']];
+        }
+
+        return $rules;
     }
 }

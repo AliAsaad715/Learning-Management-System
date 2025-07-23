@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Course\Student;
+namespace App\Http\Resources\Course\Teacher;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class CourseForStudentResource extends JsonResource
+class CourseWithArrangementForTeacherResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,7 +23,11 @@ class CourseForStudentResource extends JsonResource
             'price' => $this->price . '$',
             'rate' => $this->rate,
             'language' => $this->language->name,
-            'num_of_students_enrolled' => $this->num_of_students_enrolled
+            'num_of_students_enrolled' => $this->num_of_students_enrolled,
+            'publishing_date' => $this->publishing_date,
+            'publishing_request_date' => $this->publishing_request_date,
+            'created_at' => $this->created_at,
+            'is_owner' => $this->teacher_id == auth('api')->id(),
         ];
     }
 }

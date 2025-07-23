@@ -17,7 +17,7 @@ class CourseForTeacherResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image_url' =>  asset(Storage::url("img/courses/{$this->image_url}")),
+            'image_url' =>  asset(Storage::url($this->image_url)),
             'title' => $this->title,
             'teacher' => $this->teacher->first_name . ' ' . $this->teacher->last_name,
             'price' => $this->price . '$',

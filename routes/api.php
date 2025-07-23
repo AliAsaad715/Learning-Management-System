@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\App\CouponController;
 use App\Http\Controllers\App\JobTitleController;
 use App\Http\Controllers\App\AuthController;
 use App\Http\Controllers\App\CategoryController;
@@ -94,20 +95,42 @@ Route::controller(CourseController::class)->prefix('courses')->group(function ()
             Route::get('approved', 'getApprovedCoursesToTeacher');
             Route::get('rejected', 'getRejectedCoursesToTeacher');
             Route::post('', 'store');
+            Route::put('update-draft/{id}', 'updateDraftCourse');
+            Route::patch('update-approved/{id}', 'updateApprovedCourse');
+            Route::delete('{id}', 'destroy');
             Route::get('teacher/{id}', 'showToTeacher');
             Route::post('publish/{course_id}', 'publishCourse');
         });
-        Route::post('evaluation/{id}', 'evaluation')->middleware('isSubscribed');
+        Route::get('with-arrangement/{topic_id}', 'getCoursesForTopicForTeacherWithArrangement');
+        Route::post('evaluation/{course_id}', 'evaluation')->middleware('isSubscribed');
     });
 });
 
-// episodes
-Route::controller(EpisodeController::class)->middleware(['auth:api', 'isTeacher'])->prefix('episodes')->group(function () {
-    Route::middleware('isSubscribed')->group(function () {
-        Route::get('{course_id}', 'indexToStudent');
-        Route::get('{id}', 'show');
-    });
+// coupons
+Route::controller(CouponController::class)->middleware('auth:api')->prefix('coupons')->group(function () {
+    Route::get('{course_id}', 'index');
     Route::post('{course_id}', 'store');
+    Route::put('{id}', 'update');
+    Route::get('show/{id}', 'show');
+    Route::delete('{id}', 'destroy');
+});
+
+
+// episodes
+Route::controller(EpisodeController::class)->middleware('auth:api')->prefix('episodes')->group(function () {
+    Route::middleware('isSubscribed')->group(function () {
+        Route::get('student/{course_id}', 'getToStudent');
+        Route::post('add-like/{id}', 'addLikeToEpisode');
+        Route::delete('remove-like/{id}', 'removeLikeFromEpisode');
+        Route::post('finish/{id}', 'finish_episode');
+    });
+
+    Route::get('teacher/{course_id}', 'getToTeacher');
+    Route::post('{course_id}', 'store');
+    Route::put('update/{id}', 'update');
+    Route::get('show/student/{id}', 'showToStudent');
+    Route::get('show/teacher/{id}', 'showToTeacher');
+    Route::delete('{id}', 'destroy');
 });
 
 // comments
@@ -117,7 +140,8 @@ Route::controller(CommentController::class)->middleware('auth:api')->prefix('com
     Route::get('get-my-comments/{episode_id}', 'getMyComments');
     Route::post('{episode_id}', 'store');
     Route::put('{id}', 'update');
-    Route::delete('{id}', 'destroy');
+    Route::delete('teacher/{id}', 'destroyForTeacher');
+    Route::delete('student/{id}', 'destroyForStudent');
     Route::post('add-like/{id}', 'addLikeToComment');
     Route::delete('remove-like/{id}', 'removeLikeFromComment');
 });
@@ -127,7 +151,8 @@ Route::controller(ReplyController::class)->middleware('auth:api')->prefix('repli
     Route::get('{comment_id}', 'index');
     Route::post('{comment_id}', 'store');
     Route::put('{id}', 'update');
-    Route::delete('{id}', 'destroy');
+    Route::delete('teacher/{id}', 'destroyForTeacher');
+    Route::delete('student/{id}', 'destroyForStudent');
     Route::post('add-like/{id}', 'addLikeToReply');
     Route::delete('remove-like/{id}', 'removeLikeFromReply');
 });

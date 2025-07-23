@@ -19,7 +19,7 @@ class QuizController extends Controller
         $this->quizService = $quizService;
     }
 
-    //For Teacher
+    // For Teacher
     public function store(QuizRequest $request): JsonResponse
     {
         $data = [];
@@ -28,87 +28,87 @@ class QuizController extends Controller
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
-    //For Teacher
+    // For Teacher
     public function show($episode_id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->quizService->show($episode_id);
             if($data['code'] == 404) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
-    //For Student
+    // For Student
     public function startQuiz($episode_id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->quizService->startQuiz($episode_id);
             if($data['code'] == 404 || $data['code'] == 409) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
-    //For Student
+    // For Student
     public function processAnswer(AnswerRequest $request): JsonResponse
     {
         $data = [];
         try {
             $data = $this->quizService->processAnswer($request->validated());
             if($data['code'] == 404) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
-    //For Student
+    // For Student
     public function calculateQuizResult($quiz_id, ResultRequest $request): JsonResponse
     {
         $data = [];
         try {
             $data = $this->quizService->calculateQuizResult($quiz_id, $request->validated());
             if($data['code'] == 404 || $data['code'] == 403 || $data['code'] == 409) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
-    //For Student
+    // For Student
     public function getQuizResult($quiz_id): JsonResponse
     {
         $data = [];
         try {
             $data = $this->quizService->getQuizResult($quiz_id);
             if($data['code'] == 404) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 }

@@ -26,7 +26,7 @@ class CategoryController extends Controller
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
@@ -41,7 +41,7 @@ class CategoryController extends Controller
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 }

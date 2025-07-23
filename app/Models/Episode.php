@@ -54,6 +54,6 @@ class Episode extends Model
 
     public function students(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, foreignPivotKey: 'user_id')->withPivot('pass_quiz');
+        return $this->belongsToMany(User::class, 'episode_user')->withPivot('pass_quiz');
     }
 }

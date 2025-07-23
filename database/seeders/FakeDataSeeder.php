@@ -109,15 +109,13 @@ class FakeDataSeeder extends Seeder
         foreach(Course::all() as $course)
             $user->followed_courses()->attach($course, ['progress' => 2, 'perc_progress' => 66.6, 'num_of_completed_quizzes' => 1, 'rate' => 3]);
 
-        // $duration = FFMpeg::fromDisk('public')->open('build/assets/videos/test.mp4')->getDurationInSeconds();
-
         // episode 1
         Episode::create([
             'course_id' => 1,
             'title' => 'Basics of Laravel and MVC',
             'episode_number' => 1,
             'video_url' => 'videos/video.mp4',
-            'duration' => 30,
+            'duration' => 151,
             'image_url' => 'episode1.png',
         ]);
 
@@ -127,9 +125,8 @@ class FakeDataSeeder extends Seeder
             'title' => 'Routes and Controllers',
             'episode_number' => 2,
             'video_url' => 'videos/video.mp4',
-            'duration' => 45,
+            'duration' => 151,
             'image_url' => 'episode2.png',
-            'deleted_at' => '2025-05-23 11:39:24'
         ]);
 
         // episode 3

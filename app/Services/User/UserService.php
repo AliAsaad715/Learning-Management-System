@@ -56,9 +56,8 @@ class UserService
         $user = User::query()->find(auth('api')->id());
         Storage::disk('public')->delete("img/users/{$user->profile_image_url}");
         if (!empty($request['profile_image_url'])) {
-            $path = $request['profile_image_url']->store('img/users', 'public');
             $user->update([
-                'profile_image_url' => basename($path),
+                'profile_image_url' => $request['profile_image_url']->store('img/users', 'public'),
             ]);
         } else {
             $user->update([

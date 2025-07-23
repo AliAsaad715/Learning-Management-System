@@ -86,7 +86,7 @@ class User extends Authenticatable
 
     public function followed_courses(): BelongsToMany
     {
-        return $this->belongsToMany(Course::class, 'course_user', 'student_id')->withPivot(['perc_progress', 'progress', 'num_of_completed_quizzes', 'purchase_date','rate']);
+        return $this->belongsToMany(Course::class, 'course_user', 'student_id')->withPivot(['course_id', 'perc_progress', 'progress', 'num_of_completed_quizzes', 'purchase_date','rate']);
     }
 
     public function statistics(): BelongsToMany
@@ -136,6 +136,6 @@ class User extends Authenticatable
 
     public function episodes(): BelongsToMany
     {
-        return $this->belongsToMany(Episode::class)->withPivot('pass_quiz');
+        return $this->belongsToMany(Episode::class)->withPivot('episode_id', 'pass_quiz');
     }
 }

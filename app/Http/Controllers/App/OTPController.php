@@ -24,12 +24,12 @@ class OTPController extends Controller
         try {
             $data = $this->otpService->resendOTP($request->validated());
             if($data['code'] == 429) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['user'], $data['message']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
@@ -39,12 +39,12 @@ class OTPController extends Controller
         try {
             $data = $this->otpService->verifyOTP($request->validated());
             if($data['code'] == 422 || $data['code'] == 429) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['token'], $data['message']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 }

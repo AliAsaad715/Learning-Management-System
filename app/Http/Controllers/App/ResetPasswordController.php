@@ -27,7 +27,7 @@ class ResetPasswordController extends Controller
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
@@ -37,12 +37,12 @@ class ResetPasswordController extends Controller
         try {
             $data = $this->resetPasswordService->checkCode($request->validated());
             if($data['code'] == 422) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 
@@ -54,7 +54,7 @@ class ResetPasswordController extends Controller
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
 
     }

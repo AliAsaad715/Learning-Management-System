@@ -39,7 +39,7 @@ class UserResource extends JsonResource
         return [
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'profile_image_url' => $this->profile_image_url ? asset(Storage::url("img/users/{$this->profile_image_url}")) : null,
+            'profile_image_url' => $this->profile_image_url ? asset(Storage::url($this->profile_image_url)) : null,
             'email' => $this->email,
             'otp_code' => $this->otp_code,
             'role' => $this->role,

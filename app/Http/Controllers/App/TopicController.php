@@ -21,12 +21,12 @@ class TopicController extends Controller
         try {
             $data = $this->topicService->index($category_id);
             if($data['code'] == 404) {
-                return Response::error([], $data['message'], $data['code']);
+                return Response::error($data['message'], $data['code']);
             }
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
 
     }
@@ -42,7 +42,7 @@ class TopicController extends Controller
             return Response::success($data['data'], $data['message'], $data['code']);
         } catch (Throwable $th) {
             $message  = $th->getMessage();
-            return Response::error($data, $message);
+            return Response::error($message);
         }
     }
 }

@@ -35,11 +35,11 @@ class Response
         ], $code);
     }
 
-    public static function error($data, $message, $code = 500): JsonResponse
+    public static function error($message, $code = 500): JsonResponse
     {
         return response()->json([
             'status' => false,
-            'data' => $data,
+            'data' => [],
             'message' => $message,
         ], $code);
     }
