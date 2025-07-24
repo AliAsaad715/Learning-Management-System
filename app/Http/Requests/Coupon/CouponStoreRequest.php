@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Coupon;
 
+use App\Models\Coupon;
 use App\Traits\HandlesFailedValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,12 @@ class CouponRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'required|string|unique:coupons,code',
+            'code' => ['required', 'string', 'max:50',
+                function ($attribute, $value, $fail) {
+                    if(!Coupon::isCodeUnique($value)) {
+                        $fail('The ' .$attribute.' has already been taken.');
+                    }
+                }],
             'discount_type' => 'required|in:fixed,percentage',
             'discount_value' => 'required|numeric|between:0.00,99999999.99',
             'expires_at' => 'nullable|date|after:now',
