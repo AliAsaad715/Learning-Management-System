@@ -39,14 +39,14 @@
 
 ## 🛠️ Tech Stack
 
-| Component       | Technology                     |
-|----------------|--------------------------------|
-| **Backend**    | Laravel 11                     |
-| **API**        | RESTful                        |
-| **Web UI**     | Blade + TailwindCSS            |
-| **Mobile App** | Flutter 3.x                    |
-| **Database**   | SQLite (Dev) / MySQL (Prod)    |
-| **Auth**       | Laravel <Passport> + Socialite |
+| Component      | Technology                   |
+|----------------|------------------------------|
+| **Backend**    | Laravel 11                   |
+| **API**        | RESTful                      |
+| **Dashboard**  | Blade                        |
+| **Mobile App** | Flutter 3.x                  |
+| **Database**   | SQLite (Dev) / MySQL (Prod)  |
+| **Auth**       | Laravel Passport + Socialite |
 
 ---
 
