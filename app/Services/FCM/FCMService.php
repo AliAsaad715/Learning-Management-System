@@ -14,10 +14,10 @@ class FCMService
 
     public function __construct()
     {
-        $firebase = (new Factory)
-            ->withServiceAccount(base_path('firebase-credentials.json'));
-
-        $this->messaging = $firebase->createMessaging();
+//        $firebase = (new Factory)
+//            ->withServiceAccount(base_path('firebase-credentials.json'));
+//
+//        $this->messaging = $firebase->createMessaging();
     }
 
 

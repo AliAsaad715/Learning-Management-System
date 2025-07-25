@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/Passport-OAuth2-4A154B?logo=laravel">
 </p>
 
-# 🎓 Learning Management System (LMS)
+# 🎓 Learning Management System (Darajat Platform)
 
 **Full-stack e-learning platform** with Laravel 11 backend + Flutter mobile app  
 🔗 **GitHub**: [github.com/AliAsaad715/Learning-Management-System](https://github.com/AliAsaad715/Learning-Management-System)
